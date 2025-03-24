@@ -16,6 +16,7 @@
     rel="stylesheet"
   />
   <style>
+    /* Header link underline effect */
     .nav-link {
       position: relative;
     }
@@ -32,12 +33,13 @@
     .nav-link:hover::after {
       width: 100%;
     }
+
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- HEADER: same style as the others, no border, no "Shop"/"Collections" -->
+  <!-- HEADER: soft translucent white, matching the others -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -53,7 +55,7 @@
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
           </div>
         </div>
-        <!-- No search, just the bag icon linking here, but we are on cart page -->
+        <!-- Cart icon leads here, but we are on the cart page -->
         <div class="flex items-center space-x-6">
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
@@ -65,13 +67,44 @@
 
   <!-- CART CONTENT -->
   <div class="pt-24 pb-12 px-6">
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-5xl mx-auto">
       <h1 class="text-3xl font-bold mb-8">Your Cart</h1>
       <div id="cart-container" class="space-y-6"></div>
-      <!-- Buttons for clearing or continuing -->
-      <div class="mt-8 flex space-x-4">
-        <button id="clear-cart" class="bg-red-600 hover:bg-red-500 px-6 py-3 rounded-button transition-colors">Clear Cart</button>
-        <a href="latestdrop.html" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors">Continue Shopping</a>
+
+      <!-- Subtotal/Shipping/Tax/Total -->
+      <div id="cart-summary" class="bg-[#1a1a1a] p-4 mt-6 rounded-lg border border-white/10 hidden">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
+          <div class="space-y-2">
+            <p id="subtotal-line" class="text-gray-300">Subtotal: $0</p>
+            <p id="shipping-line" class="text-gray-300">Shipping: $0</p>
+            <p id="tax-line" class="text-gray-300">Tax: $0</p>
+          </div>
+          <div>
+            <p id="grandtotal-line" class="text-xl font-bold">Total: $0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Buttons -->
+      <div class="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+        <button
+          id="clear-cart"
+          class="bg-red-600 hover:bg-red-500 px-6 py-3 rounded-button transition-colors"
+        >
+          Clear Cart
+        </button>
+        <a
+          href="latestdrop.html"
+          class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors text-center"
+        >
+          Continue Shopping
+        </a>
+        <button
+          id="checkout-btn"
+          class="bg-green-600 hover:bg-green-500 px-6 py-3 rounded-button transition-colors ml-auto md:ml-0"
+        >
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   </div>
@@ -80,16 +113,38 @@
     document.addEventListener('DOMContentLoaded', function() {
       const container = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      const cartSummary = document.getElementById('cart-summary');
+      const subtotalLine = document.getElementById('subtotal-line');
+      const shippingLine = document.getElementById('shipping-line');
+      const taxLine = document.getElementById('tax-line');
+      const grandtotalLine = document.getElementById('grandtotal-line');
 
       // Load cart from localStorage
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
 
+      function calculateTotals() {
+        let subtotal = 0;
+        cart.forEach(item => {
+          subtotal += item.price * item.quantity;
+        });
+        // Example shipping & tax logic
+        const shipping = subtotal > 0 ? 15 : 0; // Flat $15 shipping if cart not empty
+        const taxRate = 0.08; // 8% tax
+        const tax = Math.round(subtotal * taxRate);
+        const grandTotal = subtotal + shipping + tax;
+        return { subtotal, shipping, tax, grandTotal };
+      }
+
       function renderCart() {
         if (cart.length === 0) {
           container.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+          cartSummary.classList.add('hidden');
           return;
         }
+        cartSummary.classList.remove('hidden');
+
         // Build a table or card layout
         let html = `
           <div class="bg-[#1a1a1a] p-4 rounded-lg border border-white/10">
@@ -99,7 +154,7 @@
                   <th class="py-3 text-gray-300">Item</th>
                   <th class="py-3 text-gray-300">Price</th>
                   <th class="py-3 text-gray-300">Quantity</th>
-                  <th class="py-3 text-gray-300"></th>
+                  <th class="py-3 text-gray-300">Remove</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,7 +176,7 @@
                 </div>
               </td>
               <td class="py-3">
-                <button data-index="${index}" data-action="remove" class="px-4 py-1 bg-red-600 hover:bg-red-500 rounded-button text-white">Remove</button>
+                <button data-index="${index}" data-action="remove" class="px-4 py-1 bg-red-600 hover:bg-red-500 rounded-button text-white">X</button>
               </td>
             </tr>
           `;
@@ -149,16 +204,39 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             renderCart();
+            renderSummary();
           });
         });
       }
 
-      renderCart();
+      function renderSummary() {
+        const { subtotal, shipping, tax, grandTotal } = calculateTotals();
+        subtotalLine.textContent = `Subtotal: $${subtotal}`;
+        shippingLine.textContent = `Shipping: $${shipping}`;
+        taxLine.textContent = `Tax: $${tax}`;
+        grandtotalLine.textContent = `Total: $${grandTotal}`;
+      }
 
+      renderCart();
+      renderSummary();
+
+      // Clear Cart
       clearBtn.addEventListener('click', function() {
         cart = [];
         localStorage.removeItem('cart');
         renderCart();
+        renderSummary();
+      });
+
+      // Checkout
+      checkoutBtn.addEventListener('click', function() {
+        const { grandTotal } = calculateTotals();
+        if (grandTotal === 0) {
+          alert('Your cart is empty!');
+          return;
+        }
+        // Replace with your own checkout flow:
+        alert(`Proceeding to checkout. Total: $${grandTotal}`);
       });
     });
   </script>
