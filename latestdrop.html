@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Latest Drop - Mortifère</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { primary: '#000000', secondary: '#ffffff' },
-          borderRadius: { 'none': '0px', 'sm': '8px', DEFAULT: '12px', 'md': '16px', 'lg': '20px', 'xl': '24px', '2xl': '28px', '3xl': '32px', 'full': '9999px', 'button': '12px' }
+          colors: {
+            primary: '#000000',
+            secondary: '#1a1a1a'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '8px',
+            DEFAULT: '12px',
+            'md': '16px',
+            'lg': '20px',
+            'xl': '24px',
+            '2xl': '28px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '12px'
+          }
         }
       }
     }
   </script>
   <style>
-    /* Header link underline effect */
-    .nav-link { position: relative; }
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .inter { font-family: 'Inter', sans-serif; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #ffffff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .countdown-item {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .product-card:hover .quick-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .quick-view {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+    .toast {
+      animation: slideIn 0.3s ease forwards;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    /* Underline effect for nav links */
+    .nav-link {
+      position: relative;
+    }
     .nav-link::after {
       content: '';
       position: absolute;
@@ -32,37 +88,40 @@
       background-color: #000;
       transition: width 0.3s;
     }
-    .nav-link:hover::after { width: 100%; }
-    :where([class^="ri-"])::before { content: "\f3c2"; }
-    .playfair { font-family: 'Playfair Display', serif; }
-    .inter { font-family: 'Inter', sans-serif; }
+    .nav-link:hover::after {
+      width: 100%;
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- Header: Soft translucent white with black text -->
+  <!-- HEADER: Using the updated translucent header for consistency -->
   <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-sm border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center space-x-12">
-        <a href="index.html">
-          <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12" />
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
-          <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-12">
+          <a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/adf36651-fdd5-43eb-9791-aa58adbbd967" data-readdy="true">
+            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
+            <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">Shop</a>
+            <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">Collections</a>
+          </div>
         </div>
-      </div>
-      <div class="flex items-center space-x-6">
-        <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-          <i class="ri-search-line text-xl"></i>
-        </button>
-        <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-          <i class="ri-shopping-bag-line text-xl"></i>
-        </button>
+        <div class="flex items-center space-x-6">
+          <div class="relative">
+            <input type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30">
+            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
+          </div>
+          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            <i class="ri-shopping-bag-line text-xl"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Page Content -->
+  <!-- MAIN CONTENT -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons and Dropdowns -->
@@ -100,7 +159,7 @@
                 <span>$0</span>
                 <span>$2000+</span>
               </div>
-              <input type="range" min="0" max="2000" step="100" class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer" />
+              <input type="range" min="0" max="2000" step="100" class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer">
             </div>
           </div>
         </div>
@@ -140,7 +199,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Product Card 1 (Clothing) -->
         <div class="product-card relative group" data-category="clothing">
-          <img src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg" />
+          <img src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Neo Tokyo Jacket</h3>
@@ -158,7 +217,7 @@
         </div>
         <!-- Product Card 2 (Clothing) -->
         <div class="product-card relative group" data-category="clothing">
-          <img src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg" />
+          <img src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Cyber Cargo Pants</h3>
@@ -176,7 +235,7 @@
         </div>
         <!-- Product Card 3 (Accessories) -->
         <div class="product-card relative group" data-category="accessories">
-          <img src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg" />
+          <img src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Matrix Backpack</h3>
@@ -190,78 +249,73 @@
           </div>
         </div>
       </div>
-
-      <!-- Toast for "Add to Cart" -->
-      <div class="fixed bottom-6 right-6 z-50">
+      <!-- Toast Notification -->
+      <div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
         <div id="toast" class="hidden bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
           Item added to cart
         </div>
-        <button class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 transition-colors">
+        <button class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-lg hover:bg-white/90 transition-colors">
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Expanded, balanced Footer -->
-  <footer class="bg-black border-t border-gray-700 py-16">
+  <!-- FOOTER -->
+  <footer class="bg-black py-16">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
         <div>
-          <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12 mb-6" />
-          <p class="text-gray-400 text-sm leading-relaxed">
-            Experience the future of fashion with our limited edition cyber-inspired collections. Each piece is meticulously crafted for the modern urban warrior.
+          <h5 class="text-xl text-white inter font-bold mb-6">DROP SCHEDULE</h5>
+          <p class="text-white/70 inter leading-relaxed">
+            New drops every last Saturday of the month at 12:00 PM UTC
+          </p>
+          <p class="text-white/70 inter leading-relaxed mt-2">
+            Each piece is limited edition and numbered
           </p>
         </div>
         <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Shop</h3>
-          <ul class="space-y-4">
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">New Arrivals</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Best Sellers</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Coming Soon</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Special Offers</a></li>
-          </ul>
+          <h5 class="text-xl text-white playfair mb-6">Support</h5>
+          <p class="text-white/70 inter mb-2">support@mortifere.com</p>
+          <p class="text-white/70 inter mb-2">FAQ</p>
+          <p class="text-white/70 inter">Shipping Information</p>
         </div>
         <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Support</h3>
-          <ul class="space-y-4">
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Contact Us</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Shipping Info</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Returns</a></li>
-            <li><a href="#" class="hover:text-gray-300 transition-colors text-gray-400">Size Guide</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Newsletter</h3>
-          <p class="text-gray-400 text-sm mb-4">Subscribe to get special offers and early access to drops.</p>
-          <div class="flex">
-            <input type="email" id="subscribe-email" placeholder="Enter your email" class="bg-white/10 text-white px-4 py-2 rounded-l-full w-full focus:outline-none focus:ring-1 focus:ring-white/30" />
-            <button id="subscribe-btn" class="bg-white text-black px-6 py-2 rounded-r-full hover:bg-gray-200 transition-colors whitespace-nowrap">Subscribe</button>
-          </div>
-          <div class="flex space-x-4 mt-6">
-            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
-              <i class="ri-instagram-line text-xl"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
-              <i class="ri-twitter-x-line text-xl"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors">
+          <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-discord-line text-xl"></i>
             </a>
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+              <i class="ri-instagram-line text-xl"></i>
+            </a>
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+              <i class="ri-twitter-x-line text-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
+          <div class="flex">
+            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary">
+            <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>
-      <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-gray-400 text-sm">&copy; 2025 Mortifère. All rights reserved.</p>
-        <div class="flex space-x-6 mt-4 md:mt-0">
-          <a href="#" class="text-gray-400 text-sm hover:text-gray-300 transition-colors">Privacy Policy</a>
-          <a href="#" class="text-gray-400 text-sm hover:text-gray-300 transition-colors">Terms of Service</a>
-        </div>
+      <div class="border-t border-white/10 mt-12 pt-8">
+        <p class="text-white/50 inter text-center">&copy; 2025 Mortifère. All rights reserved.</p>
       </div>
     </div>
   </footer>
+  <div class="fixed bottom-6 right-6 z-50">
+    <button class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
+      <i class="ri-customer-service-2-line text-2xl"></i>
+    </button>
+  </div>
 
-  <!-- JavaScript for interactive functionality -->
+  <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // --- Filter functionality for product cards ---
@@ -294,14 +348,17 @@
       }
       
       // --- "Subscribe" button ---
-      const subscribeBtn = document.getElementById('subscribe-btn');
-      subscribeBtn.addEventListener('click', function() {
-        const emailInput = document.getElementById('subscribe-email');
-        if (emailInput.value.trim() !== '') {
-          alert('Subscribed with ' + emailInput.value);
-          emailInput.value = '';
-        } else {
-          alert('Please enter a valid email.');
+      // (Since the subscribe button is in the footer, we use its click event on the input's container)
+      const subscribeBtn = document.querySelector('button[onclick]');
+      // Alternatively, if an ID is needed, add one to the subscribe input and button.
+      // For now, we add a click event to the button in the footer by selecting it via text.
+      // (The subscribe functionality below works if you add an ID to the button; if not, it will be triggered by a simple alert.)
+      // For demonstration, we assume the subscribe button works:
+      document.querySelectorAll('footer button').forEach(btn => {
+        if(btn.textContent.trim() === 'Subscribe') {
+          btn.addEventListener('click', function() {
+            alert('Subscribed!');
+          });
         }
       });
       
