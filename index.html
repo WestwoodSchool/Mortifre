@@ -1,266 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mortifère - Luxury Fashion House</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-<script>tailwind.config={theme:{extend:{colors:{primary:'#000000',secondary:'#ffffff'},borderRadius:{'none':'0px','sm':'8px',DEFAULT:'12px','md':'16px','lg':'20px','xl':'24px','2xl':'28px','3xl':'32px','full':'9999px','button':'12px'}}}}</script>
-<style>
-.reveal {
-opacity: 0;
-transform: translateY(50px);
-transition: all 1s ease;
-}
-.reveal.active {
-opacity: 1;
-transform: translateY(0);
-}
-.parallax {
-transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-}
-.image-tilt {
-transition: transform 0.5s ease;
-}
-.image-tilt:hover {
-transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
-}
-</style>
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-.playfair { font-family: 'Playfair Display', serif; }
-.inter { font-family: 'Inter', sans-serif; }
-.nav-link { position: relative; }
-.nav-link::after {
-content: '';
-position: absolute;
-width: 0;
-height: 1px;
-bottom: -2px;
-left: 0;
-background-color: #000000;
-transition: width 0.3s;
-}
-.nav-link:hover::after { width: 100%; }
-.hero-overlay {
-background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 100%);
-mix-blend-mode: multiply;
-}
-.product-card:hover .product-info {
-opacity: 1;
-transform: translateY(0);
-}
-.product-info {
-opacity: 0;
-transform: translateY(20px);
-transition: all 0.3s ease;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortifère - Luxury Fashion House</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#000000', secondary: '#ffffff' },
+          borderRadius: { 'none': '0px', 'sm': '8px', DEFAULT: '12px', 'md': '16px', 'lg': '20px', 'xl': '24px', '2xl': '28px', '3xl': '32px', 'full': '9999px', 'button': '12px' }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: #ffffff;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+  </style>
 </head>
 <body class="bg-[#121212]">
-<nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm transition-all duration-300">
-<div class="max-w-7xl mx-auto px-6 py-4">
-<div class="flex items-center justify-between">
-<div class="flex items-center space-x-12">
-<img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
-<div class="hidden md:flex space-x-8">
-<a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/ec3ae3d0-4c12-45db-afdf-07a63554b33c" data-readdy="true" class="nav-link text-black inter hover:text-secondary transition-colors">Latest Drop</a>
-<a href="#" class="nav-link text-black inter hover:text-secondary transition-colors">About</a>
-</div>
-</div>
-<div class="flex items-center space-x-6">
-<button class="w-10 h-10 flex items-center justify-center text-black hover:text-secondary transition-colors">
-<i class="ri-search-line text-xl"></i>
-</button>
-<button class="w-10 h-10 flex items-center justify-center text-black hover:text-secondary transition-colors">
-<i class="ri-shopping-bag-line text-xl"></i>
-</button>
-</div>
-</div>
-</div>
-</nav>
-<section class="relative h-screen">
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/c76eed9aed200d0c780fa5734b12bcba.jpg')"></div>
-<div class="hero-overlay absolute inset-0"></div>
-<div class="absolute inset-0 flex items-center justify-center">
-<div class="text-center reveal">
-<h2 class="text-6xl md:text-7xl text-white inter font-bold mb-6 parallax" data-speed="0.3">STREETWEAR REDEFINED</h2>
-<p class="text-xl text-white/90 inter max-w-2xl mx-auto mb-10">Breaking boundaries between luxury and street culture. Bold designs for the new generation.</p>
-<button class="bg-white text-black inter px-8 py-3 !rounded-button hover:bg-white/90 transition-colors">
-SHOP NOW
-</button>
-</div>
-</div>
-</section>
-<section class="py-24 bg-black">
-<div class="max-w-7xl mx-auto px-6">
-<h3 class="text-4xl text-white inter font-bold text-center mb-16">NEW DROPS</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-<div class="relative group cursor-pointer overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/3fc0dc4be2012531975f8751e1c29bec.jpg" alt="Collection 1" class="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105">
-<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-<div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform">
-<h4 class="text-2xl text-white inter font-bold mb-2">CYBER JACKET</h4>
-<p class="text-white/90 inter">SS25</p>
-</div>
-</div>
-</div>
-<div class="relative group cursor-pointer overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/53c89bd808d18ecde2e9631afb2f2f97.jpg" alt="Collection 2" class="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105">
-<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-<div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform">
-<h4 class="text-2xl text-white inter font-bold mb-2">TECH CARGO</h4>
-<p class="text-white/90 inter">SS25</p>
-</div>
-</div>
-</div>
-<div class="relative group cursor-pointer overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/609b19a5daa4d0959d6f58f0555c4ee2.jpg" alt="Collection 3" class="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105">
-<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-<div class="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform">
-<h4 class="text-2xl text-white inter font-bold mb-2">CYBER BAG</h4>
-<p class="text-white/90 inter">SS25</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-black">
-<div class="max-w-7xl mx-auto px-6">
-<h3 class="text-4xl text-white inter font-bold text-center mb-16">NEXT DROP: MARCH 30, 2025 12:00 PM UTC</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="product-card relative group cursor-pointer reveal image-tilt">
-<img src="https://public.readdy.ai/ai/img_res/d10af1c4c23b7286a43fa9fc39ca7043.jpg" alt="Product 1" class="w-full h-[500px] object-cover">
-<div class="product-info absolute bottom-0 left-0 right-0 bg-black/80 p-4">
-<h4 class="text-white playfair text-lg mb-1">CYBER JACKET</h4>
-<p class="text-secondary inter">$1,890</p>
-<p class="text-xs text-white/70 inter mt-2">Limited to 100 pieces</p>
-</div>
-</div>
-<div class="product-card relative group cursor-pointer reveal image-tilt">
-<img src="https://public.readdy.ai/ai/img_res/4f41e199fbe129a4ea7b99b7420eb0c5.jpg" alt="Product 2" class="w-full h-[500px] object-cover">
-<div class="product-info absolute bottom-0 left-0 right-0 bg-black/80 p-4">
-<h4 class="text-white playfair text-lg mb-1">TECH CARGO</h4>
-<p class="text-secondary inter">$890</p>
-<p class="text-xs text-white/70 inter mt-2">Limited to 200 pieces</p>
-</div>
-</div>
-<div class="product-card relative group cursor-pointer reveal image-tilt">
-<img src="https://public.readdy.ai/ai/img_res/f4840f27ccf85f95bd812b092e34fcd8.jpg" alt="Product 3" class="w-full h-[500px] object-cover">
-<div class="product-info absolute bottom-0 left-0 right-0 bg-black/80 p-4">
-<h4 class="text-white playfair text-lg mb-1">CYBER BAG</h4>
-<p class="text-secondary inter">$690</p>
-<p class="text-xs text-white/70 inter mt-2">Limited to 150 pieces</p>
-</div>
-</div>
-</div>
-<div class="text-center mt-12">
-<button class="bg-white text-black inter px-12 py-4 !rounded-button hover:bg-white/90 transition-colors">
-SET REMINDER
-</button>
-</div>
-</div>
-</section>
-<footer class="bg-black py-16">
-<div class="max-w-7xl mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-<div>
-<h5 class="text-xl text-white inter font-bold mb-6">DROP SCHEDULE</h5>
-<p class="text-white/70 inter leading-relaxed">New drops every last Saturday of the month at 12:00 PM UTC</p>
-<p class="text-white/70 inter leading-relaxed mt-2">Each piece is limited edition and numbered</p>
-</div>
-<div>
-<h5 class="text-xl text-white playfair mb-6">Support</h5>
-<p class="text-white/70 inter mb-2">support@mortifere.com</p>
-<p class="text-white/70 inter mb-2">FAQ</p>
-<p class="text-white/70 inter">Shipping Information</p>
-</div>
-<div>
-<h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
-<div class="flex space-x-4">
-<a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
-<i class="ri-discord-line text-xl"></i>
-</a>
-<a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
-<i class="ri-instagram-line text-xl"></i>
-</a>
-<a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
-<i class="ri-twitter-x-line text-xl"></i>
-</a>
-</div>
-</div>
-<div>
-<h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
-<div class="flex">
-<input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary">
-<button class="bg-secondary text-white inter px-6 ml-2 !rounded-button hover:bg-secondary/90 transition-colors">
-Subscribe
-</button>
-</div>
-</div>
-</div>
-<div class="border-t border-white/10 mt-12 pt-8">
-<p class="text-white/50 inter text-center">&copy; 2025 Mortifère. All rights reserved.</p>
-</div>
-</div>
-</footer>
-<div class="fixed bottom-6 right-6 z-50">
-<button class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
-<i class="ri-customer-service-2-line text-2xl"></i>
-</button>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-const nav = document.querySelector('nav');
-const sections = document.querySelectorAll('section');
-const parallaxElements = document.querySelectorAll('.parallax');
-// Reveal on scroll
-function reveal() {
-sections.forEach(section => {
-const revealElements = section.querySelectorAll('.reveal');
-revealElements.forEach(element => {
-const elementTop = element.getBoundingClientRect().top;
-const elementVisible = 150;
-if (elementTop < window.innerHeight - elementVisible) {
-element.classList.add('active');
-}
-});
-});
-}
-// Parallax effect
-function parallax() {
-parallaxElements.forEach(element => {
-const speed = element.dataset.speed || 0.5;
-const yPos = -(window.pageYOffset * speed);
-element.style.transform = `translateY(${yPos}px)`;
-});
-}
-window.addEventListener('scroll', () => {
-if (window.scrollY > 50) {
-nav.classList.add('shadow-lg', 'backdrop-blur-lg');
-} else {
-nav.classList.remove('shadow-lg', 'backdrop-blur-lg');
-}
-reveal();
-parallax();
-});
-// Initialize reveal
-reveal();
-});
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function (e) {
-e.preventDefault();
-document.querySelector(this.getAttribute('href')).scrollIntoView({
-behavior: 'smooth'
-});
-});
-});
-</script>
+  <!-- Unified Header -->
+  <nav class="fixed w-full z-50 bg-white/5 backdrop-blur-sm border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-12">
+          <a href="index.html">
+            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="latestdrop.html" class="nav-link text-white inter hover:text-gray-300 transition-colors">Latest Drop</a>
+            <a href="#" class="nav-link text-white inter hover:text-gray-300 transition-colors">About</a>
+          </div>
+        </div>
+        <div class="flex items-center space-x-6">
+          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            <i class="ri-search-line text-xl"></i>
+          </button>
+          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            <i class="ri-shopping-bag-line text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Simplified Hero Section -->
+  <section class="relative h-screen flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-6xl md:text-7xl text-white inter font-bold mb-6">Welcome to Mortifère</h1>
+      <p class="text-xl text-white/90 inter max-w-2xl mx-auto mb-10">Discover our exclusive latest drop and redefine your style.</p>
+      <a href="latestdrop.html">
+        <button class="bg-white text-black inter px-8 py-3 rounded-button hover:bg-white/90 transition-colors">
+          Latest Drop
+        </button>
+      </a>
+    </div>
+  </section>
 </body>
 </html>
