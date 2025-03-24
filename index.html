@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mortifère - Luxury Fashion House</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
@@ -20,6 +20,7 @@
     }
   </script>
   <style>
+    /* Header link underline effect */
     .nav-link { position: relative; }
     .nav-link::after {
       content: '';
@@ -28,45 +29,48 @@
       height: 1px;
       bottom: -2px;
       left: 0;
-      background-color: #ffffff;
+      background-color: #000;
       transition: width 0.3s;
     }
     .nav-link:hover::after { width: 100%; }
   </style>
 </head>
 <body class="bg-[#121212]">
-  <!-- Unified Header -->
-  <nav class="fixed w-full z-50 bg-white/5 backdrop-blur-sm border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-12">
-          <a href="index.html">
-            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
-          </a>
-          <div class="hidden md:flex space-x-8">
-            <a href="latestdrop.html" class="nav-link text-white inter hover:text-gray-300 transition-colors">Latest Drop</a>
-            <a href="#" class="nav-link text-white inter hover:text-gray-300 transition-colors">About</a>
-          </div>
+  <!-- Header: White, slightly translucent with black text -->
+  <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12" />
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+          <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
         </div>
-        <div class="flex items-center space-x-6">
-          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
-            <i class="ri-search-line text-xl"></i>
-          </button>
-          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
-            <i class="ri-shopping-bag-line text-xl"></i>
-          </button>
-        </div>
+      </div>
+      <div class="flex items-center space-x-6">
+        <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+          <i class="ri-search-line text-xl"></i>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+          <i class="ri-shopping-bag-line text-xl"></i>
+        </button>
       </div>
     </div>
   </nav>
-  
-  <!-- Simplified Hero Section -->
+
+  <!-- Hero Section with AI Background and a refined Title Card -->
   <section class="relative h-screen flex items-center justify-center">
-    <div class="text-center">
-      <h1 class="text-6xl md:text-7xl text-white inter font-bold mb-6">Welcome to Mortifère</h1>
-      <p class="text-xl text-white/90 inter max-w-2xl mx-auto mb-10">Discover our exclusive latest drop and redefine your style.</p>
+    <!-- AI generated background (from Unsplash) -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?ai,abstract');"></div>
+    <!-- Semi-transparent dark overlay -->
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+    <!-- Title Card -->
+    <div class="relative z-10 text-center p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg max-w-2xl">
+      <h1 class="text-5xl md:text-7xl font-bold text-black mb-4">Welcome to Mortifère</h1>
+      <p class="text-lg md:text-xl text-black mb-6">Discover our exclusive latest drop and redefine your style.</p>
       <a href="latestdrop.html">
-        <button class="bg-white text-black inter px-8 py-3 rounded-button hover:bg-white/90 transition-colors">
+        <button class="px-8 py-3 bg-black text-white rounded hover:bg-gray-800 transition">
           Latest Drop
         </button>
       </a>
