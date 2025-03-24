@@ -4,6 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Latest Drop - Mortifère</title>
+  <!-- Favicon: Winged M Logo -->
+  <link rel="icon" type="image/png" href="winged-logo.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -44,16 +47,6 @@
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #ffffff;
-      border-radius: 50%;
-      cursor: pointer;
-    }
 
     .countdown-item {
       background: rgba(255,255,255,0.1);
@@ -105,24 +98,25 @@
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- HEADER: same style as index, no "Shop" or "Collections" -->
+  <!-- HEADER: same style as index, no border -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
           <a href="index.html">
             <img
-              src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png"
+              src="winged-logo.png"
               alt="Logo"
               class="h-12"
             />
           </a>
           <div class="hidden md:flex space-x-8">
-            <!-- Only "Home" remains here -->
+            <!-- Only "Home" remains -->
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
           </div>
         </div>
         <div class="flex items-center space-x-6">
+          <!-- Search input -->
           <div class="relative">
             <input
               type="text"
@@ -131,7 +125,7 @@
             />
             <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
           </div>
-          <!-- Cart icon links to cart.html -->
+          <!-- Cart icon leads to cart.html -->
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
           </a>
@@ -143,7 +137,7 @@
   <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
-      <!-- Filter Buttons (size & price removed) -->
+      <!-- Filter Buttons (no size/price) -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
         <button
           class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
@@ -204,16 +198,22 @@
 
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Product Card 1: store data attributes for cart -->
+        <!-- Product Card 1 (Clothing): Mortifère Hoodie (front/back) -->
         <div class="product-card relative group" data-category="clothing">
+          <!-- On hover, fade from front to back image -->
           <img
-            src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg"
-            alt="Product"
-            class="w-full h-[500px] object-cover rounded-lg"
+            src="hoodie-front.png"
+            alt="Mortifère Hoodie Front"
+            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
+          />
+          <img
+            src="hoodie-back.png"
+            alt="Mortifère Hoodie Back"
+            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
-              <h3 class="text-xl font-bold mb-2">Neo Tokyo Jacket</h3>
+              <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
               <p class="text-gray-300 mb-4">Limited Edition - 100 pieces</p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
@@ -226,19 +226,19 @@
             <!-- Data for the cart -->
             <button
               class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors"
-              data-name="Neo Tokyo Jacket"
+              data-name="Mortifère Hoodie"
               data-price="1890"
-              data-img="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg"
+              data-img="hoodie-front.png"
             >
               Add to Cart
             </button>
           </div>
         </div>
-        <!-- Product Card 2 -->
+        <!-- Product Card 2 (Clothing) -->
         <div class="product-card relative group" data-category="clothing">
           <img
             src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg"
-            alt="Product"
+            alt="Cyber Cargo Pants"
             class="w-full h-[500px] object-cover rounded-lg"
           />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
@@ -263,11 +263,11 @@
             </button>
           </div>
         </div>
-        <!-- Product Card 3 -->
+        <!-- Product Card 3 (Accessories) -->
         <div class="product-card relative group" data-category="accessories">
           <img
             src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg"
-            alt="Product"
+            alt="Matrix Backpack"
             class="w-full h-[500px] object-cover rounded-lg"
           />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
@@ -408,7 +408,7 @@
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
           const name = this.dataset.name;
-          const price = this.dataset.price;
+          const price = parseInt(this.dataset.price, 10);
           const img = this.dataset.img;
           // load existing cart
           let cart = localStorage.getItem('cart');
