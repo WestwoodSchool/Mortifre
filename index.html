@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mortifère - Luxury Fashion House</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
@@ -51,15 +51,19 @@
   </style>
 </head>
 <body class="bg-[#121212]">
-  <!-- HEADER: Original markup modified to be more translucent -->
+  <!-- HEADER: Using original markup but updated for a soft, translucent white -->
   <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-sm border-b border-gray-200 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
-          <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
+          <a href="index.html">
+            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12" />
+          </a>
           <div class="hidden md:flex space-x-8">
-            <a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/ec3ae3d0-4c12-45db-afdf-07a63554b33c" data-readdy="true" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
-            <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+            <!-- Latest Drop works normally -->
+            <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+            <!-- About button is intentionally inert -->
+            <span class="nav-link text-black inter opacity-70 cursor-default">About</span>
           </div>
         </div>
         <div class="flex items-center space-x-6">
@@ -76,21 +80,22 @@
 
   <!-- HERO SECTION / TITLE CARD -->
   <section class="relative h-screen">
-    <!-- Background Image (your original background) -->
+    <!-- Background Image (original) -->
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/c76eed9aed200d0c780fa5734b12bcba.jpg');"></div>
     <!-- Dark overlay -->
-    <div class="hero-overlay absolute inset-0 bg-black opacity-40"></div>
-    <!-- Blended Logo (faded in the center) -->
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+    <!-- Blended Logo in the background (faded for subtlety) -->
     <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" 
          alt="Logo" 
-         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 h-auto">
-    <!-- Title Card with glass effect -->
+         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 h-auto" />
+    <!-- Modern Glassmorphism Title Card -->
     <div class="relative z-10 max-w-2xl mx-auto text-center p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-lg">
       <h2 class="text-6xl md:text-7xl text-white inter font-bold mb-6">STREETWEAR REDEFINED</h2>
-      <p class="text-xl text-white/90 inter max-w-2xl mx-auto mb-10">
+      <p class="text-xl text-white/90 inter mx-auto mb-10">
         Breaking boundaries between luxury and street culture. Bold designs for the new generation.
       </p>
-      <a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/ec3ae3d0-4c12-45db-afdf-07a63554b33c" data-readdy="true">
+      <!-- SHOP NOW button links to Latest Drop page -->
+      <a href="latestdrop.html">
         <button class="bg-white text-black inter px-8 py-3 rounded-button hover:bg-white/90 transition-colors">
           SHOP NOW
         </button>
