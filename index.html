@@ -14,7 +14,16 @@
       theme: {
         extend: {
           colors: { primary: '#000000', secondary: '#ffffff' },
-          borderRadius: { 'none': '0px', 'sm': '8px', DEFAULT: '12px', 'md': '16px', 'lg': '20px', 'xl': '24px', '2xl': '28px', '3xl': '32px', 'full': '9999px', 'button': '12px' }
+          borderRadius: { 'none': '0px', 'sm': '8px', DEFAULT: '12px', 'md': '16px', 'lg': '20px', 'xl': '24px', '2xl': '28px', '3xl': '32px', 'full': '9999px', 'button': '12px' },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 1s ease-out forwards'
+          }
         }
       }
     }
@@ -36,8 +45,8 @@
   </style>
 </head>
 <body class="bg-[#121212]">
-  <!-- Header: White, slightly translucent with black text -->
-  <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200">
+  <!-- Header: Soft translucent white with black text -->
+  <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-sm border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-12">
         <a href="index.html">
@@ -59,18 +68,18 @@
     </div>
   </nav>
 
-  <!-- Hero Section with AI Background and a refined Title Card -->
+  <!-- Hero Section with AI-inspired background -->
   <section class="relative h-screen flex items-center justify-center">
-    <!-- AI generated background (from Unsplash) -->
+    <!-- AI generated background image (from Unsplash) -->
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://source.unsplash.com/1600x900/?ai,abstract');"></div>
-    <!-- Semi-transparent dark overlay -->
+    <!-- Dark overlay -->
     <div class="absolute inset-0 bg-black opacity-40"></div>
-    <!-- Title Card -->
-    <div class="relative z-10 text-center p-8 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg max-w-2xl">
-      <h1 class="text-5xl md:text-7xl font-bold text-black mb-4">Welcome to Mortifère</h1>
-      <p class="text-lg md:text-xl text-black mb-6">Discover our exclusive latest drop and redefine your style.</p>
+    <!-- Modern Glassmorphism Title Card -->
+    <div class="relative z-10 max-w-2xl mx-auto p-8 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-2xl animate-fadeIn">
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">Welcome to Mortifère</h1>
+      <p class="text-lg md:text-xl text-white mb-6 drop-shadow">Discover our exclusive latest drop and redefine your style.</p>
       <a href="latestdrop.html">
-        <button class="px-8 py-3 bg-black text-white rounded hover:bg-gray-800 transition">
+        <button class="px-8 py-3 bg-black/80 text-white rounded-full hover:bg-black/70 transition">
           Latest Drop
         </button>
       </a>
