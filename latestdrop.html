@@ -1,323 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latest Drop - Mortifère</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-primary: '#000000',
-secondary: '#1a1a1a'
-},
-borderRadius: {
-'none': '0px',
-'sm': '8px',
-DEFAULT: '12px',
-'md': '16px',
-'lg': '20px',
-'xl': '24px',
-'2xl': '28px',
-'3xl': '32px',
-'full': '9999px',
-'button': '12px'
-}
-}
-}
-}
-</script>
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-.playfair { font-family: 'Playfair Display', serif; }
-.inter { font-family: 'Inter', sans-serif; }
-input[type="range"]::-webkit-slider-thumb {
--webkit-appearance: none;
-appearance: none;
-width: 16px;
-height: 16px;
-background: #ffffff;
-border-radius: 50%;
-cursor: pointer;
-}
-.countdown-item {
-background: rgba(255,255,255,0.1);
-backdrop-filter: blur(10px);
-border: 1px solid rgba(255,255,255,0.2);
-}
-.product-card:hover .quick-view {
-opacity: 1;
-transform: translateY(0);
-}
-.quick-view {
-opacity: 0;
-transform: translateY(20px);
-transition: all 0.3s ease;
-}
-.toast {
-animation: slideIn 0.3s ease forwards;
-}
-@keyframes slideIn {
-from {
-transform: translateX(100%);
-opacity: 0;
-}
-to {
-transform: translateX(0);
-opacity: 1;
-}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Drop - Mortifère</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#000000', secondary: '#ffffff' },
+          borderRadius: { 'none': '0px', 'sm': '8px', DEFAULT: '12px', 'md': '16px', 'lg': '20px', 'xl': '24px', '2xl': '28px', '3xl': '32px', 'full': '9999px', 'button': '12px' }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: #ffffff;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .inter { font-family: 'Inter', sans-serif; }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #ffffff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .countdown-item {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .product-card:hover .quick-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .quick-view {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+    .toast {
+      animation: slideIn 0.3s ease forwards;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body class="bg-[#121212] text-white">
-<nav class="fixed w-full z-50 bg-white/5 backdrop-blur-sm border-b border-white/10">
-<div class="max-w-7xl mx-auto px-6 py-4">
-<div class="flex items-center justify-between">
-<div class="flex items-center space-x-12">
-<a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/adf36651-fdd5-43eb-9791-aa58adbbd967" data-readdy="true">
-<img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
-</a>
-<div class="hidden md:flex space-x-8">
-<a href="#" class="text-white inter hover:text-gray-300 transition-colors">Home</a>
-<a href="#" class="text-white inter hover:text-gray-300 transition-colors">Shop</a>
-<a href="#" class="text-white inter hover:text-gray-300 transition-colors">Collections</a>
-</div>
-</div>
-<div class="flex items-center space-x-6">
-<div class="relative">
-<input type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30">
-<i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
-</div>
-<button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
-<i class="ri-shopping-bag-line text-xl"></i>
-</button>
-</div>
-</div>
-</div>
-</nav>
-<div class="pt-24 pb-12 px-6">
-<div class="max-w-7xl mx-auto">
-<div class="flex flex-wrap items-center gap-4 mb-8">
-<button class="px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">All</button>
-<button class="px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">Clothing</button>
-<button class="px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">Accessories</button>
-<button class="px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">Footwear</button>
-<div class="relative ml-auto">
-<button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">
-<span>Size</span>
-<i class="ri-arrow-down-s-line"></i>
-</button>
-<div class="hidden absolute top-full right-0 mt-2 w-48 bg-[#1a1a1a] rounded-button shadow-xl p-2">
-<div class="grid grid-cols-4 gap-2">
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XS</button>
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">S</button>
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">M</button>
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">L</button>
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XL</button>
-<button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XXL</button>
-</div>
-</div>
-</div>
-<div class="relative">
-<button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm !rounded-button hover:bg-white/20 transition-colors">
-<span>Price</span>
-<i class="ri-arrow-down-s-line"></i>
-</button>
-<div class="hidden absolute top-full right-0 mt-2 w-64 bg-[#1a1a1a] rounded-button shadow-xl p-4">
-<div class="space-y-4">
-<div class="flex justify-between text-sm">
-<span>$0</span>
-<span>$2000+</span>
-</div>
-<input type="range" min="0" max="2000" step="100" class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer">
-</div>
-</div>
-</div>
-</div>
-<div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/eaedf31fe06aaa10b604be869d93e3c3.jpg')"></div>
-<div class="absolute inset-0 bg-black/60"></div>
-<div class="absolute inset-0 flex items-center justify-center">
-<div class="text-center">
-<h2 class="text-4xl font-bold mb-8">Next Drop: Cyber Collection</h2>
-<div class="flex justify-center space-x-4 mb-8">
-<div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-<span class="text-3xl font-bold" id="days">05</span>
-<span class="text-sm">Days</span>
-</div>
-<div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-<span class="text-3xl font-bold" id="hours">18</span>
-<span class="text-sm">Hours</span>
-</div>
-<div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-<span class="text-3xl font-bold" id="minutes">45</span>
-<span class="text-sm">Minutes</span>
-</div>
-<div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-<span class="text-3xl font-bold" id="seconds">30</span>
-<span class="text-sm">Seconds</span>
-</div>
-</div>
-<button class="bg-white text-black px-8 py-3 !rounded-button hover:bg-white/90 transition-colors">Notify Me</button>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="product-card relative group">
-<img src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
-<div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
-<div>
-<h3 class="text-xl font-bold mb-2">Neo Tokyo Jacket</h3>
-<p class="text-gray-300 mb-4">Limited Edition - 100 pieces</p>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">M</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
-</div>
-<p class="text-2xl font-bold">$1,890</p>
-</div>
-<button class="w-full bg-white text-black py-3 !rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
-</div>
-</div>
-<div class="product-card relative group">
-<img src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
-<div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
-<div>
-<h3 class="text-xl font-bold mb-2">Cyber Cargo Pants</h3>
-<p class="text-gray-300 mb-4">Limited Edition - 150 pieces</p>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">28</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">30</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
-</div>
-<p class="text-2xl font-bold">$890</p>
-</div>
-<button class="w-full bg-white text-black py-3 !rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
-</div>
-</div>
-<div class="product-card relative group">
-<img src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
-<div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
-<div>
-<h3 class="text-xl font-bold mb-2">Matrix Backpack</h3>
-<p class="text-gray-300 mb-4">Limited Edition - 80 pieces</p>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
-</div>
-<p class="text-2xl font-bold">$690</p>
-</div>
-<button class="w-full bg-white text-black py-3 !rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
-</div>
-</div>
-</div>
-<div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
-<div id="toast" class="hidden bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
-Item added to cart
-</div>
-<button class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-lg hover:bg-white/90 transition-colors">
-<i class="ri-customer-service-2-line text-2xl"></i>
-</button>
-</div>
-
-<footer class="bg-black mt-24 border-t border-white/10">
-  <div class="max-w-7xl mx-auto px-6 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-      <div>
-        <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12 mb-6">
-        <p class="text-gray-400 text-sm leading-relaxed">Experience the future of fashion with our limited edition cyber-inspired collections. Each piece is meticulously crafted for the modern urban warrior.</p>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-6">Shop</h3>
-        <ul class="space-y-4 text-gray-400">
-          <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Best Sellers</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Coming Soon</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Special Offers</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-6">Support</h3>
-        <ul class="space-y-4 text-gray-400">
-          <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Shipping Info</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Returns</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-6">Newsletter</h3>
-        <p class="text-gray-400 text-sm mb-4">Subscribe to get special offers and early access to drops.</p>
-        <div class="flex">
-          <input type="email" placeholder="Enter your email" class="bg-white/10 text-white px-4 py-2 rounded-l-button w-full focus:outline-none focus:ring-1 focus:ring-white/30">
-          <button class="bg-white text-black px-6 py-2 rounded-r-button hover:bg-white/90 transition-colors whitespace-nowrap">Subscribe</button>
+  <!-- Unified Header -->
+  <nav class="fixed w-full z-50 bg-white/5 backdrop-blur-sm border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-12">
+          <a href="index.html">
+            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="latestdrop.html" class="nav-link text-white inter hover:text-gray-300 transition-colors">Latest Drop</a>
+            <a href="#" class="nav-link text-white inter hover:text-gray-300 transition-colors">About</a>
+          </div>
         </div>
-        <div class="flex space-x-4 mt-6">
-          <a href="#" class="text-gray-400 hover:text-white transition-colors">
-            <i class="ri-instagram-line text-xl"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors">
-            <i class="ri-twitter-x-line text-xl"></i>
-          </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors">
-            <i class="ri-discord-line text-xl"></i>
-          </a>
+        <div class="flex items-center space-x-6">
+          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            <i class="ri-search-line text-xl"></i>
+          </button>
+          <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+            <i class="ri-shopping-bag-line text-xl"></i>
+          </button>
         </div>
       </div>
     </div>
-    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-      <p class="text-gray-400 text-sm">&copy; 2025 Mortifère. All rights reserved.</p>
-      <div class="flex space-x-6 mt-4 md:mt-0">
-        <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
-        <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
+  </nav>
+  
+  <!-- Page Content (kept as in your original latestdrop.html) -->
+  <div class="pt-24 pb-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap items-center gap-4 mb-8">
+        <button class="px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">All</button>
+        <button class="px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">Clothing</button>
+        <button class="px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">Accessories</button>
+        <button class="px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">Footwear</button>
+        <div class="relative ml-auto">
+          <button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">
+            <span>Size</span>
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+          <div class="hidden absolute top-full right-0 mt-2 w-48 bg-[#1a1a1a] rounded-button shadow-xl p-2">
+            <div class="grid grid-cols-4 gap-2">
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XS</button>
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">S</button>
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">M</button>
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">L</button>
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XL</button>
+              <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XXL</button>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm rounded-button hover:bg-white/20 transition-colors">
+            <span>Price</span>
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+          <div class="hidden absolute top-full right-0 mt-2 w-64 bg-[#1a1a1a] rounded-button shadow-xl p-4">
+            <div class="space-y-4">
+              <div class="flex justify-between text-sm">
+                <span>$0</span>
+                <span>$2000+</span>
+              </div>
+              <input type="range" min="0" max="2000" step="100" class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/eaedf31fe06aaa10b604be869d93e3c3.jpg')"></div>
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="text-center">
+            <h2 class="text-4xl font-bold mb-8">Next Drop: Cyber Collection</h2>
+            <div class="flex justify-center space-x-4 mb-8">
+              <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold" id="days">05</span>
+                <span class="text-sm">Days</span>
+              </div>
+              <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold" id="hours">18</span>
+                <span class="text-sm">Hours</span>
+              </div>
+              <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold" id="minutes">45</span>
+                <span class="text-sm">Minutes</span>
+              </div>
+              <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold" id="seconds">30</span>
+                <span class="text-sm">Seconds</span>
+              </div>
+            </div>
+            <button class="bg-white text-black px-8 py-3 rounded-button hover:bg-white/90 transition-colors">Notify Me</button>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="product-card relative group">
+          <img src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Neo Tokyo Jacket</h3>
+              <p class="text-gray-300 mb-4">Limited Edition - 100 pieces</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">M</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
+              </div>
+              <p class="text-2xl font-bold">$1,890</p>
+            </div>
+            <button class="w-full bg-white text-black py-3 rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card relative group">
+          <img src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Cyber Cargo Pants</h3>
+              <p class="text-gray-300 mb-4">Limited Edition - 150 pieces</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">28</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">30</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
+              </div>
+              <p class="text-2xl font-bold">$890</p>
+            </div>
+            <button class="w-full bg-white text-black py-3 rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card relative group">
+          <img src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Matrix Backpack</h3>
+              <p class="text-gray-300 mb-4">Limited Edition - 80 pieces</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
+              </div>
+              <p class="text-2xl font-bold">$690</p>
+            </div>
+            <button class="w-full bg-white text-black py-3 rounded-button hover:bg-white/90 transition-colors">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
+        <div id="toast" class="hidden bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+          Item added to cart
+        </div>
+        <button class="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-lg hover:bg-white/90 transition-colors">
+          <i class="ri-customer-service-2-line text-2xl"></i>
+        </button>
       </div>
     </div>
   </div>
-</footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
-function updateCountdown() {
-const now = new Date().getTime();
-const distance = countdownDate - now;
-document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
-}
-setInterval(updateCountdown, 1000);
-document.querySelectorAll('.product-card button').forEach(button => {
-button.addEventListener('click', () => {
-const toast = document.getElementById('toast');
-toast.classList.remove('hidden');
-setTimeout(() => {
-toast.classList.add('hidden');
-}, 3000);
-});
-});
-const dropdowns = document.querySelectorAll('.relative');
-dropdowns.forEach(dropdown => {
-const button = dropdown.querySelector('button');
-const menu = dropdown.querySelector('div.hidden');
-button.addEventListener('click', () => {
-menu.classList.toggle('hidden');
-});
-document.addEventListener('click', (e) => {
-if (!dropdown.contains(e.target)) {
-menu.classList.add('hidden');
-}
-});
-});
-});
-</script>
+  
+  <footer class="bg-black mt-24 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div>
+          <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12 mb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">Experience the future of fashion with our limited edition cyber-inspired collections. Each piece is meticulously crafted for the modern urban warrior.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-6">Shop</h3>
+          <ul class="space-y-4 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Best Sellers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Coming Soon</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Special Offers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-6">Support</h3>
+          <ul class="space-y-4 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Shipping Info</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Returns</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-6">Newsletter</h3>
+          <p class="text-gray-400 text-sm mb-4">Subscribe to get special offers and early access to drops.</p>
+          <div class="flex">
+            <input type="email" placeholder="Enter your email" class="bg-white/10 text-white px-4 py-2 rounded-l-button w-full focus:outline-none focus:ring-1 focus:ring-white/30">
+            <button class="bg-white text-black px-6 py-2 rounded-r-button hover:bg-white/90 transition-colors whitespace-nowrap">Subscribe</button>
+          </div>
+          <div class="flex space-x-4 mt-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="ri-instagram-line text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="ri-twitter-x-line text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="ri-discord-line text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">&copy; 2025 Mortifère. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+      setInterval(updateCountdown, 1000);
+      
+      document.querySelectorAll('.product-card button').forEach(button => {
+        button.addEventListener('click', () => {
+          const toast = document.getElementById('toast');
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+          }, 3000);
+        });
+      });
+      
+      const dropdowns = document.querySelectorAll('.relative');
+      dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('div.hidden');
+        button.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target)) {
+            menu.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
