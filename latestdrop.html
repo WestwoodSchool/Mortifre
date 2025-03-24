@@ -117,9 +117,10 @@
           </div>
         </div>
         <div class="flex items-center space-x-6">
-          <!-- Search input -->
+          <!-- Search input: filters products on this page -->
           <div class="relative">
             <input
+              id="search-latest"
               type="text"
               placeholder="Search"
               class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30"
@@ -264,16 +265,16 @@
             </button>
           </div>
         </div>
-        <!-- Product Card 3 (Accessories) -->
+        <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group" data-category="accessories">
           <img
-            src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg"
-            alt="Matrix Backpack"
+            src="mortifere-backpack.png"
+            alt="Mortifère Backpack"
             class="w-full h-[500px] object-cover rounded-lg"
           />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
-              <h3 class="text-xl font-bold mb-2">Matrix Backpack</h3>
+              <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
               <p class="text-gray-300 mb-4">Limited Edition - 80 pieces</p>
               <div class="flex flex-wrap gap-2 mb-4">
                 <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
@@ -282,9 +283,9 @@
             </div>
             <button
               class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors"
-              data-name="Matrix Backpack"
+              data-name="Mortifère Backpack"
               data-price="690"
-              data-img="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg"
+              data-img="mortifere-backpack.png"
             >
               Add to Cart
             </button>
@@ -396,7 +397,7 @@
         });
       });
 
-      // --- "Notify Me" button ---
+      // "Notify Me" button
       const notifyBtn = document.querySelector('.notify-btn');
       if (notifyBtn) {
         notifyBtn.addEventListener('click', function() {
@@ -404,7 +405,7 @@
         });
       }
 
-      // --- Toast & Add to Cart (storing in localStorage) ---
+      // Toast & Add to Cart
       document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -432,7 +433,7 @@
         });
       });
 
-      // --- Countdown functionality ---
+      // Countdown
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
         const now = new Date().getTime();
@@ -443,6 +444,34 @@
         document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
       }
       setInterval(updateCountdown, 1000);
+
+      // --- Search input: filter on this page
+      const searchLatest = document.getElementById('search-latest');
+      function searchProducts(term) {
+        const lowerTerm = term.toLowerCase();
+        productCards.forEach(card => {
+          const productName = card.querySelector('.add-to-cart-btn').dataset.name.toLowerCase() || '';
+          if (productName.includes(lowerTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+      // If user arrived with ?search= in URL, apply it
+      const params = new URLSearchParams(window.location.search);
+      const initSearch = params.get('search');
+      if (initSearch) {
+        searchLatest.value = initSearch;
+        searchProducts(initSearch);
+      }
+      // If user types in the search bar
+      searchLatest.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const term = e.target.value.trim();
+          searchProducts(term);
+        }
+      });
     });
   </script>
 </body>
