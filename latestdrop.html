@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Latest Drop - Mortifère</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    rel="stylesheet"
+  />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
@@ -38,6 +44,7 @@
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
+
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -47,11 +54,13 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
     .countdown-item {
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
     }
+
     .product-card:hover .quick-view {
       opacity: 1;
       transform: translateY(0);
@@ -61,6 +70,7 @@
       transform: translateY(20px);
       transition: all 0.3s ease;
     }
+
     .toast {
       animation: slideIn 0.3s ease forwards;
     }
@@ -74,6 +84,7 @@
         opacity: 1;
       }
     }
+
     /* Underline effect for nav links */
     .nav-link {
       position: relative;
@@ -94,13 +105,17 @@
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- HEADER: Using the updated translucent header for consistency -->
-  <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-sm border-b border-gray-200">
+  <!-- HEADER: same style as index -->
+  <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
-          <a href="https://readdy.ai/home/4add02dc-bb07-44ae-b3e7-b1d8bc201f1b/adf36651-fdd5-43eb-9791-aa58adbbd967" data-readdy="true">
-            <img src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png" alt="Logo" class="h-12">
+          <a href="index.html">
+            <img
+              src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png"
+              alt="Logo"
+              class="h-12"
+            />
           </a>
           <div class="hidden md:flex space-x-8">
             <a href="#" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
@@ -110,7 +125,11 @@
         </div>
         <div class="flex items-center space-x-6">
           <div class="relative">
-            <input type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30">
+            <input
+              type="text"
+              placeholder="Search"
+              class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30"
+            />
             <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
           </div>
           <button class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
@@ -121,22 +140,39 @@
     </div>
   </nav>
 
-  <!-- MAIN CONTENT -->
+  <!-- PAGE CONTENT (unchanged except for z-index on dropdown) -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
-      <!-- Filter Buttons and Dropdowns -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
-        <!-- Size Dropdown -->
+        <!-- Filter Buttons -->
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="all"
+          id="filter-all"
+        >All</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="clothing"
+          id="filter-clothing"
+        >Clothing</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="accessories"
+          id="filter-accessories"
+        >Accessories</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="footwear"
+          id="filter-footwear"
+        >Footwear</button>
+        <!-- Size Dropdown (with z-50 so it appears above) -->
         <div class="dropdown relative ml-auto">
           <button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors">
             <span>Size</span>
             <i class="ri-arrow-down-s-line"></i>
           </button>
-          <div class="hidden absolute top-full left-0 mt-2 w-48 bg-[#1a1a1a] rounded-full shadow-xl p-2 dropdown-menu">
+          <!-- z-50 ensures it stays in front of other elements -->
+          <div class="hidden absolute top-full left-0 mt-2 w-48 bg-[#1a1a1a] rounded-full shadow-xl p-2 dropdown-menu z-50">
             <div class="grid grid-cols-4 gap-2">
               <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">XS</button>
               <button class="px-3 py-2 text-sm text-center bg-white/10 rounded hover:bg-white/20">S</button>
@@ -147,27 +183,36 @@
             </div>
           </div>
         </div>
-        <!-- Price Dropdown -->
+        <!-- Price Dropdown (also z-50) -->
         <div class="dropdown relative">
           <button class="flex items-center space-x-2 px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors">
             <span>Price</span>
             <i class="ri-arrow-down-s-line"></i>
           </button>
-          <div class="hidden absolute top-full left-0 mt-2 w-64 bg-[#1a1a1a] rounded-full shadow-xl p-4 dropdown-menu">
+          <div class="hidden absolute top-full left-0 mt-2 w-64 bg-[#1a1a1a] rounded-full shadow-xl p-4 dropdown-menu z-50">
             <div class="space-y-4">
               <div class="flex justify-between text-sm">
                 <span>$0</span>
                 <span>$2000+</span>
               </div>
-              <input type="range" min="0" max="2000" step="100" class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer">
+              <input
+                type="range"
+                min="0"
+                max="2000"
+                step="100"
+                class="w-full h-1 bg-white/20 rounded-full appearance-none cursor-pointer"
+              />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Countdown Section -->
+      <!-- Next Drop Section -->
       <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/eaedf31fe06aaa10b604be869d93e3c3.jpg')"></div>
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style="background-image: url('https://public.readdy.ai/ai/img_res/eaedf31fe06aaa10b604be869d93e3c3.jpg')"
+        ></div>
         <div class="absolute inset-0 bg-black/60"></div>
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="text-center">
@@ -190,16 +235,22 @@
                 <span class="text-sm">Seconds</span>
               </div>
             </div>
-            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">Notify Me</button>
+            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">
+              Notify Me
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Product Card 1 (Clothing) -->
+        <!-- Product Card 1 -->
         <div class="product-card relative group" data-category="clothing">
-          <img src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <img
+            src="https://public.readdy.ai/ai/img_res/1c7fccba90723c317ea4211d975c1bab.jpg"
+            alt="Product"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Neo Tokyo Jacket</h3>
@@ -212,12 +263,18 @@
               </div>
               <p class="text-2xl font-bold">$1,890</p>
             </div>
-            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">Add to Cart</button>
+            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">
+              Add to Cart
+            </button>
           </div>
         </div>
-        <!-- Product Card 2 (Clothing) -->
+        <!-- Product Card 2 -->
         <div class="product-card relative group" data-category="clothing">
-          <img src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <img
+            src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg"
+            alt="Product"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Cyber Cargo Pants</h3>
@@ -230,12 +287,18 @@
               </div>
               <p class="text-2xl font-bold">$890</p>
             </div>
-            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">Add to Cart</button>
+            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">
+              Add to Cart
+            </button>
           </div>
         </div>
-        <!-- Product Card 3 (Accessories) -->
+        <!-- Product Card 3 -->
         <div class="product-card relative group" data-category="accessories">
-          <img src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg" alt="Product" class="w-full h-[500px] object-cover rounded-lg">
+          <img
+            src="https://public.readdy.ai/ai/img_res/857ace7e2faf368db6d5d8dc526fba2b.jpg"
+            alt="Product"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
             <div>
               <h3 class="text-xl font-bold mb-2">Matrix Backpack</h3>
@@ -245,11 +308,14 @@
               </div>
               <p class="text-2xl font-bold">$690</p>
             </div>
-            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">Add to Cart</button>
+            <button class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors">
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
-      <!-- Toast Notification -->
+
+      <!-- Toast & Support Button -->
       <div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
         <div id="toast" class="hidden bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
           Item added to cart
@@ -283,13 +349,22 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
           <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-discord-line text-xl"></i>
             </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-instagram-line text-xl"></i>
             </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-twitter-x-line text-xl"></i>
             </a>
           </div>
@@ -297,7 +372,11 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
           <div class="flex">
-            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"
+            />
             <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
               Subscribe
             </button>
@@ -309,6 +388,7 @@
       </div>
     </div>
   </footer>
+
   <div class="fixed bottom-6 right-6 z-50">
     <button class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
       <i class="ri-customer-service-2-line text-2xl"></i>
@@ -338,7 +418,7 @@
           });
         });
       });
-      
+
       // --- "Notify Me" button ---
       const notifyBtn = document.querySelector('.notify-btn');
       if (notifyBtn) {
@@ -346,23 +426,8 @@
           alert('You will be notified about the next drop!');
         });
       }
-      
-      // --- "Subscribe" button ---
-      // (Since the subscribe button is in the footer, we use its click event on the input's container)
-      const subscribeBtn = document.querySelector('button[onclick]');
-      // Alternatively, if an ID is needed, add one to the subscribe input and button.
-      // For now, we add a click event to the button in the footer by selecting it via text.
-      // (The subscribe functionality below works if you add an ID to the button; if not, it will be triggered by a simple alert.)
-      // For demonstration, we assume the subscribe button works:
-      document.querySelectorAll('footer button').forEach(btn => {
-        if(btn.textContent.trim() === 'Subscribe') {
-          btn.addEventListener('click', function() {
-            alert('Subscribed!');
-          });
-        }
-      });
-      
-      // --- Dropdown functionality ---
+
+      // --- Dropdown functionality (z-50 menus) ---
       document.querySelectorAll('.dropdown').forEach(dropdown => {
         const button = dropdown.querySelector('button');
         const menu = dropdown.querySelector('div.dropdown-menu');
@@ -371,13 +436,12 @@
           menu.classList.toggle('hidden');
         });
       });
-      
       document.addEventListener('click', function() {
         document.querySelectorAll('.dropdown div.dropdown-menu').forEach(menu => {
           menu.classList.add('hidden');
         });
       });
-      
+
       // --- Toast for "Add to Cart" ---
       document.querySelectorAll('.add-to-cart-btn').forEach(button => {
         button.addEventListener('click', function(e) {
@@ -389,7 +453,7 @@
           }, 3000);
         });
       });
-      
+
       // --- Countdown functionality ---
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
