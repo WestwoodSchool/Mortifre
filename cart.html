@@ -4,6 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Cart - Mortifère</title>
+  <!-- Favicon: Winged M Logo -->
+  <link rel="icon" type="image/png" href="winged-logo.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -46,7 +49,7 @@
         <div class="flex items-center space-x-12">
           <a href="index.html">
             <img
-              src="https://static.readdy.ai/image/528407808c03f1c6591c0c05e94c3ce0/8db9c4c02ef1e45333d0f25492d11adc.png"
+              src="winged-logo.png"
               alt="Logo"
               class="h-12"
             />
@@ -55,7 +58,7 @@
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
           </div>
         </div>
-        <!-- Cart icon leads here, but we are on the cart page -->
+        <!-- Cart icon leads here, but we're on cart page -->
         <div class="flex items-center space-x-6">
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
@@ -133,7 +136,7 @@
           subtotal += item.price * item.quantity;
         });
         // Example shipping & tax logic
-        const shipping = subtotal > 0 ? 15 : 0; // Flat $15 shipping if cart not empty
+        const shipping = subtotal > 0 ? 15 : 0; // $15 shipping if cart not empty
         const taxRate = 0.08; // 8% tax
         const tax = Math.round(subtotal * taxRate);
         const grandTotal = subtotal + shipping + tax;
