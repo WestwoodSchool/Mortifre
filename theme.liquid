@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} - Mortifère</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ 'winged-logo.png' | asset_url }}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#ffffff'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '8px',
+                        DEFAULT: '12px',
+                        'md': '16px',
+                        'lg': '20px',
+                        'xl': '24px',
+                        '2xl': '28px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '12px'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+</head>
+<body class="bg-[#121212] text-white">
+
+    <!-- HEADER -->
+    <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo as Home -->
+                <div class="flex items-center space-x-12">
+                    <a href="{{ routes.home_url }}">
+                        <img src="{{ 'winged-logo.png' | asset_url }}" alt="Logo" class="h-12">
+                    </a>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="{{ routes.home_url }}" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
+                        <a href="/collections/latest-drop" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+                        <a href="/pages/about" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+                    </div>
+                </div>
+                <!-- Search & Cart -->
+                <div class="flex items-center space-x-6">
+                    <div class="relative">
+                        <input id="search" type="text" placeholder="Search" class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30">
+                        <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
+                    </div>
+                    <a href="/cart" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+                        <i class="ri-shopping-bag-line text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-24 pb-12 px-6">
+        {{ content_for_layout }}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1a1a1a] py-8">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400 inter">&copy; 2025 Mortifère. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const term = e.target.value.trim();
+                    if (term) {
+                        window.location.href = '/search?q=' + encodeURIComponent(term);
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
