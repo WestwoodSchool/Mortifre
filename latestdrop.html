@@ -96,10 +96,15 @@
     .nav-link:hover::after {
       width: 100%;
     }
+
+    /* Modal Styles */
+    #product-modal {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- HEADER: same style as index, no border -->
+  <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -112,12 +117,11 @@
             />
           </a>
           <div class="hidden md:flex space-x-8">
-            <!-- Only "Home" remains -->
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
           </div>
         </div>
         <div class="flex items-center space-x-6">
-          <!-- Search input: filters products on this page -->
+          <!-- Search input -->
           <div class="relative">
             <input
               id="search-latest"
@@ -127,7 +131,7 @@
             />
             <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
           </div>
-          <!-- Cart icon leads to cart.html -->
+          <!-- Cart icon -->
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
           </a>
@@ -139,7 +143,7 @@
   <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
-      <!-- Filter Buttons (no size/price) -->
+      <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
         <button
           class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
@@ -200,9 +204,9 @@
 
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Product Card 1 (Clothing): Mortifère Hoodie (front/back) -->
-        <div class="product-card relative group" data-category="clothing">
-          <!-- On hover, fade from front to back image -->
+        <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
+        <div class="product-card relative group cursor-pointer" data-category="clothing">
+          <!-- Front/Back Image Hover Effect -->
           <img
             src="hoodie-front.png"
             alt="Mortifère Hoodie Front"
@@ -225,19 +229,20 @@
               </div>
               <p class="text-2xl font-bold">$1,890</p>
             </div>
-            <!-- Data for the cart -->
+            <!-- Data attributes for modal and cart -->
             <button
               class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors"
               data-name="Mortifère Hoodie"
               data-price="1890"
               data-img="hoodie-front.png"
+              onclick="event.stopPropagation();"
             >
               Add to Cart
             </button>
           </div>
         </div>
-        <!-- Product Card 2 (Clothing) -->
-        <div class="product-card relative group" data-category="clothing">
+        <!-- Product Card 2 (Clothing): Cyber Cargo Pants -->
+        <div class="product-card relative group cursor-pointer" data-category="clothing">
           <img
             src="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg"
             alt="Cyber Cargo Pants"
@@ -260,13 +265,14 @@
               data-name="Cyber Cargo Pants"
               data-price="890"
               data-img="https://public.readdy.ai/ai/img_res/e987d5227e9f7c7d5b124079c04f4b35.jpg"
+              onclick="event.stopPropagation();"
             >
               Add to Cart
             </button>
           </div>
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
-        <div class="product-card relative group" data-category="accessories">
+        <div class="product-card relative group cursor-pointer" data-category="accessories">
           <img
             src="mortifere-backpack.jpg"
             alt="Mortifère Backpack"
@@ -286,6 +292,7 @@
               data-name="Mortifère Backpack"
               data-price="690"
               data-img="mortifere-backpack.png"
+              onclick="event.stopPropagation();"
             >
               Add to Cart
             </button>
@@ -373,6 +380,17 @@
     </button>
   </div>
 
+  <!-- Modal for Product Details -->
+  <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg">
+      <button id="close-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
+      <img id="modal-img" src="" alt="Product Image" class="w-full rounded">
+      <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
+      <p id="modal-price" class="text-xl mt-2"></p>
+      <p id="modal-description" class="mt-4">Product description goes here.</p>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -397,7 +415,7 @@
         });
       });
 
-      // "Notify Me" button
+      // --- "Notify Me" button ---
       const notifyBtn = document.querySelector('.notify-btn');
       if (notifyBtn) {
         notifyBtn.addEventListener('click', function() {
@@ -405,7 +423,7 @@
         });
       }
 
-      // Toast & Add to Cart
+      // --- Toast & Add to Cart ---
       document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -433,7 +451,7 @@
         });
       });
 
-      // Countdown
+      // --- Countdown ---
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
         const now = new Date().getTime();
@@ -445,7 +463,7 @@
       }
       setInterval(updateCountdown, 1000);
 
-      // --- Search input: filter on this page
+      // --- Search input: filter on this page ---
       const searchLatest = document.getElementById('search-latest');
       function searchProducts(term) {
         const lowerTerm = term.toLowerCase();
@@ -465,11 +483,48 @@
         searchLatest.value = initSearch;
         searchProducts(initSearch);
       }
-      // If user types in the search bar
       searchLatest.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
           const term = e.target.value.trim();
           searchProducts(term);
+        }
+      });
+
+      // --- Modal Popup for Product Details ---
+      const modal = document.getElementById('product-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalName = document.getElementById('modal-name');
+      const modalPrice = document.getElementById('modal-price');
+      const closeModalBtn = document.getElementById('close-modal');
+
+      productCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const btn = card.querySelector('.add-to-cart-btn');
+          const name = btn.getAttribute('data-name');
+          const price = btn.getAttribute('data-price');
+          const imgSrc = btn.getAttribute('data-img');
+          modalImg.src = imgSrc;
+          modalName.textContent = name;
+          modalPrice.textContent = "$" + price;
+          modal.classList.remove('hidden');
+        });
+      });
+
+      closeModalBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+      });
+
+      // Close modal when clicking outside the modal content
+      modal.addEventListener('click', function(e) {
+        if(e.target === modal) {
+          modal.classList.add('hidden');
+        }
+      });
+
+      // Close modal on Escape key press
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden');
         }
       });
     });
