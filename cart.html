@@ -8,7 +8,34 @@
   <!-- Favicon (Winged Logo) -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
 
+  <!-- Tailwind CSS & Config -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#000000',
+            secondary: '#1a1a1a'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '8px',
+            DEFAULT: '12px',
+            'md': '16px',
+            'lg': '20px',
+            'xl': '24px',
+            '2xl': '28px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '12px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link
@@ -19,6 +46,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
     rel="stylesheet"
   />
+
   <style>
     .nav-link {
       position: relative;
@@ -36,39 +64,33 @@
     .nav-link:hover::after {
       width: 100%;
     }
-
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- HEADER: soft translucent white, matching the others -->
+  <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
           <a href="index.html">
-            <img
-              src="winged-logo.png"
-              alt="Logo"
-              class="h-12"
-            />
+            <img src="winged-logo.png" alt="Logo" class="h-12" />
           </a>
           <div class="hidden md:flex space-x-8">
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
           </div>
         </div>
-        <!-- Right side: search, cart (cart -> same page) -->
+        <!-- Right side: search & cart icon -->
         <div class="flex items-center space-x-6">
-          <!-- Cart page might not have products to search, so we redirect to latestdrop? -->
           <div class="relative">
             <input
               id="search-cart"
               type="text"
               placeholder="Search"
-              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
+              class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30"
             />
-            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
+            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
           </div>
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
@@ -82,9 +104,10 @@
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-5xl mx-auto">
       <h1 class="text-3xl font-bold mb-8">Your Cart</h1>
+      <!-- Cart Items Container -->
       <div id="cart-container" class="space-y-6"></div>
 
-      <!-- Subtotal/Shipping/Tax/Total -->
+      <!-- Cart Summary: Subtotal, Shipping, Tax, Total -->
       <div id="cart-summary" class="bg-[#1a1a1a] p-4 mt-6 rounded-lg border border-white/10 hidden">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
           <div class="space-y-2">
@@ -100,34 +123,26 @@
 
       <!-- Cart Buttons -->
       <div class="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <!-- Clear Cart: white -->
-        <button
-          id="clear-cart"
-          class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors"
-        >
+        <!-- Clear Cart Button -->
+        <button id="clear-cart" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors">
           Clear Cart
         </button>
-        <!-- Continue Shopping: white -->
-        <a
-          href="latestdrop.html"
-          class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors text-center"
-        >
+        <!-- Continue Shopping Button -->
+        <a href="latestdrop.html" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors text-center">
           Continue Shopping
         </a>
-        <!-- Checkout: white, aligned to the right if on large screens -->
-        <button
-          id="checkout-btn"
-          class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors ml-auto md:ml-0"
-        >
+        <!-- Proceed to Checkout Button -->
+        <button id="checkout-btn" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors ml-auto md:ml-0">
           Proceed to Checkout
         </button>
       </div>
     </div>
   </div>
 
+  <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Cart search: redirect to latestdrop with ?search= if user hits Enter
+      // --- Cart Search Redirect ---
       const searchCart = document.getElementById('search-cart');
       searchCart.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
@@ -138,6 +153,7 @@
         }
       });
 
+      // --- Cart Variables ---
       const container = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
       const checkoutBtn = document.getElementById('checkout-btn');
@@ -147,23 +163,24 @@
       const taxLine = document.getElementById('tax-line');
       const grandtotalLine = document.getElementById('grandtotal-line');
 
-      // Load cart from localStorage
+      // --- Load Cart from LocalStorage ---
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
 
+      // --- Calculate Totals ---
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => {
           subtotal += item.price * item.quantity;
         });
-        // Example shipping & tax logic
-        const shipping = subtotal > 0 ? 15 : 0; // $15 shipping if cart not empty
-        const taxRate = 0.08; // 8% tax
+        const shipping = subtotal > 0 ? 15 : 0; // Flat $15 shipping if not empty
+        const taxRate = 0.08; // 8% tax rate
         const tax = Math.round(subtotal * taxRate);
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
 
+      // --- Render Cart Items ---
       function renderCart() {
         if (cart.length === 0) {
           container.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
@@ -172,7 +189,7 @@
         }
         cartSummary.classList.remove('hidden');
 
-        // Build a table layout
+        // Build a table layout for cart items
         let html = `
           <div class="bg-[#1a1a1a] p-4 rounded-lg border border-white/10">
             <table class="w-full text-left">
@@ -197,19 +214,16 @@
               <td class="py-3">$${totalPrice}</td>
               <td class="py-3">
                 <div class="flex items-center space-x-2">
-                  <!-- Decrement: white button -->
                   <button data-index="${index}" data-action="decrement"
                     class="px-2 bg-white text-black rounded-button hover:bg-gray-200 transition-colors"
                   >-</button>
                   <span>${item.quantity}</span>
-                  <!-- Increment: white button -->
                   <button data-index="${index}" data-action="increment"
                     class="px-2 bg-white text-black rounded-button hover:bg-gray-200 transition-colors"
                   >+</button>
                 </div>
               </td>
               <td class="py-3">
-                <!-- Remove: light gray -->
                 <button data-index="${index}" data-action="remove"
                   class="px-4 py-1 bg-gray-300 text-black rounded-button hover:bg-gray-200 transition-colors"
                 >X</button>
@@ -224,7 +238,7 @@
         `;
         container.innerHTML = html;
 
-        // Attach events for +, -, remove
+        // --- Attach Event Listeners for Increment, Decrement, Remove ---
         container.querySelectorAll('button[data-action]').forEach(btn => {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.index, 10);
@@ -245,6 +259,7 @@
         });
       }
 
+      // --- Render Cart Summary ---
       function renderSummary() {
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         subtotalLine.textContent = `Subtotal: $${subtotal}`;
@@ -253,10 +268,11 @@
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
 
+      // Initial render of cart and summary
       renderCart();
       renderSummary();
 
-      // Clear Cart
+      // --- Clear Cart ---
       clearBtn.addEventListener('click', function() {
         cart = [];
         localStorage.removeItem('cart');
@@ -264,14 +280,14 @@
         renderSummary();
       });
 
-      // Checkout
+      // --- Checkout Handler ---
       checkoutBtn.addEventListener('click', function() {
         const { grandTotal } = calculateTotals();
         if (grandTotal === 0) {
           alert('Your cart is empty!');
           return;
         }
-        // Replace with your own checkout flow:
+        // Replace with your checkout flow as needed.
         alert(`Proceeding to checkout. Total: $${grandTotal}`);
       });
     });
