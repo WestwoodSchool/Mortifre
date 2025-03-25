@@ -66,6 +66,11 @@
     }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
+
+    /* Checkout Modal Styles */
+    #checkout-modal {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
@@ -123,19 +128,33 @@
 
       <!-- Cart Buttons -->
       <div class="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <!-- Clear Cart Button -->
         <button id="clear-cart" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors">
           Clear Cart
         </button>
-        <!-- Continue Shopping Button -->
         <a href="latestdrop.html" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors text-center">
           Continue Shopping
         </a>
-        <!-- Proceed to Checkout Button -->
         <button id="checkout-btn" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors ml-auto md:ml-0">
           Proceed to Checkout
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkout-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg">
+      <button id="close-checkout-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
+      <h2 class="text-2xl font-bold mb-4">Checkout</h2>
+      <div id="checkout-summary" class="mb-4">
+        <p id="checkout-subtotal">Subtotal: $0</p>
+        <p id="checkout-shipping">Shipping: $0</p>
+        <p id="checkout-tax">Tax: $0</p>
+        <p id="checkout-total" class="font-bold">Total: $0</p>
+      </div>
+      <button id="place-order-btn" class="bg-secondary text-white px-6 py-3 rounded-button hover:bg-secondary/90 transition-colors w-full">
+        Place Order
+      </button>
     </div>
   </div>
 
@@ -163,6 +182,15 @@
       const taxLine = document.getElementById('tax-line');
       const grandtotalLine = document.getElementById('grandtotal-line');
 
+      // --- Checkout Modal Variables ---
+      const checkoutModal = document.getElementById('checkout-modal');
+      const closeCheckoutModal = document.getElementById('close-checkout-modal');
+      const checkoutSubtotal = document.getElementById('checkout-subtotal');
+      const checkoutShipping = document.getElementById('checkout-shipping');
+      const checkoutTax = document.getElementById('checkout-tax');
+      const checkoutTotal = document.getElementById('checkout-total');
+      const placeOrderBtn = document.getElementById('place-order-btn');
+
       // --- Load Cart from LocalStorage ---
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [];
@@ -189,7 +217,6 @@
         }
         cartSummary.classList.remove('hidden');
 
-        // Build a table layout for cart items
         let html = `
           <div class="bg-[#1a1a1a] p-4 rounded-lg border border-white/10">
             <table class="w-full text-left">
@@ -268,6 +295,15 @@
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
 
+      // --- Update Checkout Modal Summary ---
+      function updateCheckoutModal() {
+        const { subtotal, shipping, tax, grandTotal } = calculateTotals();
+        checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
+        checkoutShipping.textContent = `Shipping: $${shipping}`;
+        checkoutTax.textContent = `Tax: $${tax}`;
+        checkoutTotal.textContent = `Total: $${grandTotal}`;
+      }
+
       // Initial render of cart and summary
       renderCart();
       renderSummary();
@@ -280,15 +316,47 @@
         renderSummary();
       });
 
-      // --- Checkout Handler ---
+      // --- Checkout Modal Handlers ---
       checkoutBtn.addEventListener('click', function() {
         const { grandTotal } = calculateTotals();
         if (grandTotal === 0) {
           alert('Your cart is empty!');
           return;
         }
-        // Replace with your checkout flow as needed.
-        alert(`Proceeding to checkout. Total: $${grandTotal}`);
+        updateCheckoutModal();
+        checkoutModal.classList.remove('hidden');
+      });
+
+      closeCheckoutModal.addEventListener('click', function() {
+        checkoutModal.classList.add('hidden');
+      });
+
+      checkoutModal.addEventListener('click', function(e) {
+        if(e.target === checkoutModal) {
+          checkoutModal.classList.add('hidden');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          checkoutModal.classList.add('hidden');
+        }
+      });
+
+      // --- Place Order ---
+      placeOrderBtn.addEventListener('click', function() {
+        const { grandTotal } = calculateTotals();
+        if (grandTotal === 0) {
+          alert('Your cart is empty!');
+          return;
+        }
+        // Simulate a checkout process
+        alert(`Order placed successfully! Total: $${grandTotal}`);
+        cart = [];
+        localStorage.removeItem('cart');
+        renderCart();
+        renderSummary();
+        checkoutModal.classList.add('hidden');
       });
     });
   </script>
