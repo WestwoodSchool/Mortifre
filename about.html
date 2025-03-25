@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Mortifère - Luxury Fashion House</title>
 
+  <!-- Favicon (Winged Logo) -->
+  <link rel="icon" type="image/png" href="winged-logo.png" />
+
+  <!-- Tailwind CSS & Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#000000', secondary: '#ffffff' },
+          borderRadius: {
+            'none': '0px',
+            'sm': '8px',
+            DEFAULT: '12px',
+            'md': '16px',
+            'lg': '20px',
+            'xl': '24px',
+            '2xl': '28px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '12px'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet"/>
+  
+  <style>
+    /* Underline effect for nav links */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: #000;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .inter { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#121212]">
+  <!-- HEADER -->
+  <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Logo & Navigation -->
+        <div class="flex items-center space-x-12">
+          <a href="index.html">
+            <img src="winged-logo.png" alt="Logo" class="h-12" />
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+            <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+          </div>
+        </div>
+        <!-- Right: Search & Cart Icon -->
+        <div class="flex items-center space-x-6">
+          <div class="relative">
+            <input
+              id="search-about"
+              type="text"
+              placeholder="Search"
+              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
+            />
+            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
+          </div>
+          <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+            <i class="ri-shopping-bag-line text-xl"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ABOUT CONTENT -->
+  <main class="pt-24 pb-12 px-6">
+    <div class="max-w-5xl mx-auto text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">About Mortifère</h1>
+      <p class="mb-4 inter text-lg">
+        Mortifère is a luxury fashion house that redefines streetwear with a unique blend of modern aesthetics and timeless sophistication.
+        Our collections are crafted for those who dare to push boundaries and stand out from the crowd.
+      </p>
+      <p class="mb-4 inter text-lg">
+        Founded on the belief that fashion is an art form, Mortifère merges impeccable craftsmanship with innovative design.
+        Each piece tells a story—one of creativity, passion, and a relentless pursuit of excellence.
+      </p>
+      <p class="mb-4 inter text-lg">
+        At Mortifère, we celebrate individuality and strive to empower our customers to express their unique style.
+        Our limited edition drops ensure that every item remains exclusive, echoing the essence of modern luxury.
+      </p>
+      <p class="mb-4 inter text-lg">
+        Join us on our journey to transform the fashion landscape and experience a world where art meets style.
+      </p>
+      <img src="mortifere-backpack.jpg" alt="Mortifère Collection" class="w-full mt-8 rounded-lg shadow-lg" />
+    </div>
+  </main>
+
+  <script>
+    // Simple search on the About page: redirect to latestdrop.html?search=...
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchAbout = document.getElementById('search-about');
+      searchAbout.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const term = e.target.value.trim();
+          if (term) {
+            window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
