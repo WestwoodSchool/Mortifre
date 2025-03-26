@@ -11,8 +11,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    rel="stylesheet"
+  />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
@@ -42,13 +48,13 @@
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
-    
+
     .countdown-item {
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
     }
-    
+
     /* Quick view overlay */
     .product-card:hover .quick-view {
       opacity: 1;
@@ -59,9 +65,9 @@
       transform: translateY(20px);
       transition: all 0.3s ease;
     }
-    
-    /* (Cart toast removed per request) */
-    
+
+    /* Removed toast for "Add to cart" per request */
+
     /* Underline effect for nav links */
     .nav-link {
       position: relative;
@@ -79,11 +85,16 @@
     .nav-link:hover::after {
       width: 100%;
     }
-    
+
     /* Modal Styles */
-    #product-modal { background-color: rgba(0, 0, 0, 0.5); }
-    .size-option.selected { background-color: #000; color: #fff; }
-    
+    #product-modal {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .size-option.selected {
+      background-color: #000;
+      color: #fff;
+    }
+
     /* Falling drops animation for countdown background */
     .falling-drops {
       position: absolute;
@@ -108,7 +119,7 @@
       0% { transform: translateY(-100px) rotate(0deg); }
       100% { transform: translateY(110vh) rotate(360deg); }
     }
-    
+
     /* Support Chat (Fred) Styles */
     #support-chat {
       position: fixed;
@@ -160,23 +171,6 @@
       gap: 8px;
       margin-top: 8px;
     }
-    #support-chat .chat-input {
-      display: flex;
-      border-top: 1px solid #ccc;
-    }
-    #support-chat .chat-input input {
-      flex: 1;
-      padding: 8px;
-      border: none;
-      outline: none;
-    }
-    #support-chat .chat-input button {
-      padding: 8px 12px;
-      border: none;
-      background: #000;
-      color: #fff;
-      cursor: pointer;
-    }
     .message {
       margin-bottom: 8px;
       display: flex;
@@ -197,25 +191,6 @@
       height: 24px;
       border-radius: 50%;
       margin-right: 6px;
-    }
-    .typing-indicator {
-      display: flex;
-      align-items: center;
-      margin: 4px 0;
-    }
-    .typing-indicator span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin: 0 2px;
-      background: #000;
-      border-radius: 50%;
-      opacity: 0.5;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink {
-      0%, 80% { opacity: 0.5; }
-      40% { opacity: 1; }
     }
   </style>
 </head>
@@ -252,10 +227,26 @@
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="all"
+          id="filter-all"
+        >All</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="clothing"
+          id="filter-clothing"
+        >Clothing</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="accessories"
+          id="filter-accessories"
+        >Accessories</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="footwear"
+          id="filter-footwear"
+        >Footwear</button>
       </div>
 
       <!-- Next Drop Section -->
@@ -297,8 +288,16 @@
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
           <!-- Front/Back Image Hover Effect -->
-          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"/>
-          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
+          <img
+            src="hoodie-front.png"
+            alt="Mortifère Hoodie Front"
+            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
+          />
+          <img
+            src="hoodie-back.png"
+            alt="Mortifère Hoodie Back"
+            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -315,7 +314,11 @@
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
-          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg"/>
+          <img
+            src="sweats.png"
+            alt="Mortifère Sweats"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -332,7 +335,11 @@
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories">
-          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg"/>
+          <img
+            src="mortifere-backpack.jpg"
+            alt="Mortifère Backpack"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -348,14 +355,17 @@
 
       <!-- Fixed Support Button -->
       <div class="fixed bottom-6 right-6 z-50">
-        <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
+        <button
+          id="support-btn"
+          class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors"
+        >
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Footer (Preserved from original) -->
+  <!-- FOOTER -->
   <footer class="bg-black py-16">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -377,13 +387,22 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
           <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-discord-line text-xl"></i>
             </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-instagram-line text-xl"></i>
             </a>
-            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
               <i class="ri-twitter-x-line text-xl"></i>
             </a>
           </div>
@@ -391,7 +410,11 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
           <div class="flex">
-            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"/>
+            <input
+              type="email"
+              placeholder="Your email"
+              class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"
+            />
             <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
               Subscribe
             </button>
@@ -408,11 +431,11 @@
   <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg overflow-y-auto max-h-[90vh]">
       <button id="close-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
-      <img id="modal-img" src="" alt="Product Image" class="w-full rounded"/>
+      <img id="modal-img" src="" alt="Product Image" class="w-full rounded" />
       <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
       <p id="modal-price" class="text-xl mt-2"></p>
       <p id="modal-description" class="mt-4">Product description goes here.</p>
-      
+
       <!-- New Size Selection Section -->
       <div id="modal-sizes" class="mt-4">
         <p class="font-bold mb-2">Select Size:</p>
@@ -420,19 +443,28 @@
           <!-- Size buttons will be injected here -->
         </div>
       </div>
-      
+
       <!-- New Quantity Selector -->
       <div id="modal-quantity" class="mt-4">
         <p class="font-bold mb-2">Quantity:</p>
         <div class="flex items-center">
           <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
-          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200"/>
+          <input
+            type="number"
+            id="quantity-input"
+            value="1"
+            min="1"
+            class="w-12 text-center border-t border-b border-gray-200"
+          />
           <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
         </div>
       </div>
-      
+
       <!-- Modal Add to Cart Button (Only here!) -->
-      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
+      <button
+        id="modal-add-to-cart"
+        class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors"
+      >
         Add to Cart
       </button>
     </div>
@@ -441,7 +473,7 @@
   <!-- Support Chat Modal for Fred -->
   <div id="support-chat">
     <header>
-      <img src="fred.png" alt="Fred"/>
+      <img src="fred.png" alt="Fred" />
       <span>Fred Support</span>
       <button class="chat-close">&times;</button>
     </header>
@@ -449,10 +481,7 @@
       <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
-    <div class="chat-input">
-      <input type="text" id="chat-input" placeholder="Type your message..."/>
-      <button id="chat-send">Send</button>
-    </div>
+    <!-- Removed freeform chat input & typing indicator -->
   </div>
 
   <!-- JAVASCRIPT FUNCTIONALITY -->
@@ -469,7 +498,7 @@
         drop.style.animationDelay = (Math.random() * 3) + 's';
         dropsContainer.appendChild(drop);
       }
-      
+
       /* ------------------ FILTER FUNCTIONALITY ------------------ */
       const filterButtons = document.querySelectorAll('.filter-button');
       const productCards = document.querySelectorAll('.product-card');
@@ -479,11 +508,13 @@
           filterButtons.forEach(btn => btn.classList.remove('bg-gray-300', 'text-black'));
           this.classList.add('bg-gray-300', 'text-black');
           productCards.forEach(card => {
-            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
+            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter)
+              ? 'block'
+              : 'none';
           });
         });
       });
-      
+
       /* ------------------ NOTIFY ME BUTTON ------------------ */
       const notifyBtn = document.querySelector('.notify-btn');
       if (notifyBtn) {
@@ -491,7 +522,7 @@
           alert('You will be notified about the next drop!');
         });
       }
-      
+
       /* ------------------ COUNTDOWN TIMER ------------------ */
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
@@ -503,7 +534,7 @@
         document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
       }
       setInterval(updateCountdown, 1000);
-      
+
       /* ------------------ SEARCH FUNCTIONALITY ------------------ */
       const searchLatest = document.getElementById('search-latest');
       function searchProducts(term) {
@@ -525,7 +556,7 @@
           searchProducts(term);
         }
       });
-      
+
       /* ------------------ MODAL FOR PRODUCT DETAILS ------------------ */
       const modal = document.getElementById('product-modal');
       const modalImg = document.getElementById('modal-img');
@@ -536,6 +567,7 @@
       const sizeOptionsContainer = document.getElementById('size-options');
       const quantityInput = document.getElementById('quantity-input');
       let selectedSize = null;
+
       productCards.forEach(card => {
         card.addEventListener('click', function() {
           const name = card.querySelector('.quick-view h3').textContent;
@@ -545,6 +577,8 @@
           modalName.textContent = name;
           modalPrice.textContent = "$" + price;
           modalDescription.textContent = "Product description goes here.";
+
+          // Clear out size options
           sizeOptionsContainer.innerHTML = '';
           selectedSize = null;
           const sizeButtons = card.querySelectorAll('.quick-view .size-option');
@@ -558,25 +592,29 @@
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
             });
+            // Optionally select first size by default
             if (index === 0) {
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
             }
             sizeOptionsContainer.appendChild(newBtn);
           });
+
           quantityInput.value = 1;
           modal.classList.remove('hidden');
         });
       });
+
       closeModalBtn.addEventListener('click', function() {
         modal.classList.add('hidden');
       });
       modal.addEventListener('click', function(e) {
-        if(e.target === modal) modal.classList.add('hidden');
+        if (e.target === modal) modal.classList.add('hidden');
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') modal.classList.add('hidden');
       });
+
       document.getElementById('decrease-qty').addEventListener('click', function(e) {
         e.stopPropagation();
         let current = parseInt(quantityInput.value, 10);
@@ -587,116 +625,91 @@
         let current = parseInt(quantityInput.value, 10);
         quantityInput.value = current + 1;
       });
+
       document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
         e.stopPropagation();
         const name = modalName.textContent;
         const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
         const img = modalImg.src;
         const quantity = parseInt(quantityInput.value, 10);
+
         if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
           alert("Please select a size.");
           return;
         }
+
         let cart = localStorage.getItem('cart');
         cart = cart ? JSON.parse(cart) : [];
         const existing = cart.find(item => item.name === name && item.size === selectedSize);
-        if (existing) { existing.quantity += quantity; }
-        else { cart.push({ name, price, img, size: selectedSize, quantity }); }
+        if (existing) {
+          existing.quantity += quantity;
+        } else {
+          cart.push({ name, price, img, size: selectedSize, quantity });
+        }
         localStorage.setItem('cart', JSON.stringify(cart));
         modal.classList.add('hidden');
       });
-      
+
       /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
       const supportBtn = document.getElementById('support-btn');
       const supportChat = document.getElementById('support-chat');
-      const chatInput = document.getElementById('chat-input');
-      const chatSend = document.getElementById('chat-send');
       const chatBody = document.getElementById('chat-body');
       const faqOptionsContainer = document.getElementById('faq-options');
-      
+      const closeChatBtn = document.querySelector('#support-chat .chat-close');
+
       // Predefined FAQ conversation tree
       const faqTree = {
         initial: [
-          { id: "faq1", question: "How do I track my order?", answer: "You can track your order by entering your order number on our tracking page.", followUps: [
+          {
+            id: "faq1",
+            question: "How do I track my order?",
+            answer: "You can track your order by entering your order number on our tracking page.",
+            followUps: [
               { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
               { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
               { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-          ]},
-          { id: "faq2", question: "What shipping options are available?", answer: "We offer standard and express shipping worldwide.", followUps: [
+            ]
+          },
+          {
+            id: "faq2",
+            question: "What shipping options are available?",
+            answer: "We offer standard and express shipping worldwide.",
+            followUps: [
               { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
               { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
               { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-          ]},
-          { id: "faq3", question: "What is your return policy?", answer: "We offer a 30-day return policy on all products.", followUps: [
+            ]
+          },
+          {
+            id: "faq3",
+            question: "What is your return policy?",
+            answer: "We offer a 30-day return policy on all products.",
+            followUps: [
               { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
               { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
               { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-          ]},
-          { id: "faq4", question: "Do you have a size guide?", answer: "Yes, a detailed size guide is available on each product page.", followUps: [
+            ]
+          },
+          {
+            id: "faq4",
+            question: "Do you have a size guide?",
+            answer: "Yes, a detailed size guide is available on each product page.",
+            followUps: [
               { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
               { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
               { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-          ]}
+            ]
+          }
         ]
       };
-      
-      let currentFaq = null;
-      
-      // Render FAQ options aligned to the right
-      function renderFAQOptions(options) {
-        faqOptionsContainer.innerHTML = "";
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", function() {
-            addMessage("user", option.question);
-            addMessage("fred", option.answer);
-            if(option.followUps && option.followUps.length > 0) {
-              currentFaq = option;
-              renderFAQOptions(option.followUps);
-            } else {
-              faqOptionsContainer.innerHTML = "";
-              const connectBtn = document.createElement("button");
-              connectBtn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-              connectBtn.textContent = "Connect with a real person";
-              connectBtn.addEventListener("click", function() {
-                addMessage("user", "Connect me with a real person.");
-                addMessage("fred", "Connecting you with a support representative now...");
-                faqOptionsContainer.innerHTML = "";
-              });
-              faqOptionsContainer.appendChild(connectBtn);
-            }
-          });
-          faqOptionsContainer.appendChild(btn);
-        });
-      }
-      
-      // Reset chat when closing
+
+      // Reset chat content
       function resetChat() {
         chatBody.innerHTML = "";
         faqOptionsContainer.innerHTML = "";
       }
-      
-      // Open chat and render initial FAQ options
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. How can I help you today? Here are some common topics:");
-        renderFAQOptions(faqTree.initial);
-      }
-      
-      // Toggle support chat on support button click
-      supportBtn.addEventListener("click", () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      });
-      
-      // Chat message functions
+
+      // Create a new message bubble
       function addMessage(sender, text) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("message", sender);
@@ -713,45 +726,80 @@
         chatBody.appendChild(msgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
-      
-      // Handle freeform chat messages
-      chatSend.addEventListener("click", async () => {
-        const text = chatInput.value.trim();
-        if (!text) return;
-        addMessage("user", text);
-        chatInput.value = "";
-        const typingDiv = document.createElement("div");
-        typingDiv.classList.add("typing-indicator");
-        typingDiv.innerHTML = "<span></span><span></span><span></span>";
-        chatBody.appendChild(typingDiv);
+
+      // Show a user bubble with clickable FAQ options
+      function showOptionsAsUserBubble(options) {
+        // Create a user bubble
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user");
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        
+        // Create a container for the buttons
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        
+        options.forEach(option => {
+          const btn = document.createElement("button");
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
+          btn.textContent = option.question;
+          btn.addEventListener("click", () => handleOptionClick(option));
+          buttonsDiv.appendChild(btn);
+        });
+        
+        bubble.appendChild(buttonsDiv);
+        userMsgDiv.appendChild(bubble);
+        chatBody.appendChild(userMsgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        chatBody.removeChild(typingDiv);
-        let response = "";
-        const lowerText = text.toLowerCase();
-        if(lowerText.includes("order")) {
-          response = "I can help with orders. Could you please provide your order number?";
-        } else if(lowerText.includes("help")) {
-          response = "Sure, please tell me more about the issue you're experiencing.";
-        } else if(lowerText.includes("shipping")) {
-          response = "Our standard shipping takes 3-5 business days. Would you like more details?";
+      }
+
+      // Display Fred's answer, then if followUps exist, show them as new user bubble
+      function handleOptionClick(option) {
+        // Add user message (the question)
+        addMessage("user", option.question);
+        // Add Fred's response
+        addMessage("fred", option.answer);
+
+        // If followUps exist, show them
+        if (option.followUps && option.followUps.length > 0) {
+          showOptionsAsUserBubble(option.followUps);
         } else {
-          response = "Thanks for your message. Would you like help with order tracking, shipping, returns, or size guides?";
+          // Otherwise, optionally show a "Connect with a real person" button
+          const finalConnect = {
+            id: "connectReal",
+            question: "Connect with a real person",
+            answer: "Connecting you with a support representative..."
+          };
+          showOptionsAsUserBubble([finalConnect]);
         }
-        addMessage("fred", response);
-      });
-      chatInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          chatSend.click();
+      }
+
+      // Start the chat by greeting from Fred, then show initial FAQ options as a user bubble
+      function openChat() {
+        supportChat.style.display = "flex";
+        resetChat();
+        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
+        showOptionsAsUserBubble(faqTree.initial);
+      }
+
+      // Toggle the chat when clicking the support button
+      const toggleChat = () => {
+        if (supportChat.style.display === "flex") {
+          supportChat.style.display = "none";
+          resetChat();
+        } else {
+          openChat();
         }
-      });
-      
-      document.querySelector('#support-chat .chat-close').addEventListener("click", () => {
+      };
+
+      supportBtn.addEventListener("click", toggleChat);
+
+      // Close chat with X button
+      closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
       });
-      
+
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
       const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
@@ -768,13 +816,13 @@
       const checkoutTax = document.getElementById('checkout-tax');
       const checkoutTotal = document.getElementById('checkout-total');
       const checkoutForm = document.getElementById('checkout-form');
-      
+
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [
         { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
         { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
       ];
-      
+
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => { subtotal += item.price * item.quantity; });
@@ -783,8 +831,9 @@
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
-      
+
       function renderCart() {
+        if (!cartContainer) return; // If there's no cart on this page, skip
         if (cart.length === 0) {
           cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
@@ -847,99 +896,104 @@
           });
         });
       }
-      
+
       function renderSummary() {
+        if (!cartSummary) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         subtotalLine.textContent = `Subtotal: $${subtotal}`;
         shippingLine.textContent = `Shipping: $${shipping}`;
         taxLine.textContent = `Tax: $${tax}`;
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
-      
+
       function updateCheckoutModal() {
+        if (!checkoutModal) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
         checkoutShipping.textContent = `Shipping: $${shipping}`;
         checkoutTax.textContent = `Tax: $${tax}`;
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
-      
-      renderCart();
-      renderSummary();
-      
-      clearBtn.addEventListener('click', function() {
-        cart = [];
-        localStorage.removeItem('cart');
+
+      // Only run cart logic if the cart elements exist on this page
+      if (document.getElementById('cart-container')) {
         renderCart();
         renderSummary();
-      });
-      
-      checkoutBtn.addEventListener('click', function() {
-        const { grandTotal } = calculateTotals();
-        if (grandTotal === 0) {
-          alert('Your cart is empty!');
-          return;
-        }
-        updateCheckoutModal();
-        checkoutModal.classList.remove('hidden');
-      });
-      
-      closeCheckoutModal.addEventListener('click', function() {
-        checkoutModal.classList.add('hidden');
-      });
-      
-      checkoutModal.addEventListener('click', function(e) {
-        if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
-      });
-      
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
-      });
-      
-      paypal.HostedFields.render({
-        createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
-        styles: {
-          'input': { 'font-size': '16px', 'color': '#3A3A3A' },
-          ':focus': { 'color': 'black' },
-          '.valid': { 'color': 'green' },
-          '.invalid': { 'color': 'red' }
-        },
-        fields: {
-          number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
-          expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
-          cvv: { selector: '#cvv', placeholder: '123' }
-        }
-      }).then(function(hostedFieldsInstance) {
-        checkoutForm.addEventListener('submit', function(event) {
-          event.preventDefault();
-          const fullName = document.getElementById('full-name').value.trim();
-          const email = document.getElementById('email').value.trim();
-          const phone = document.getElementById('phone').value.trim();
-          const address = document.getElementById('address').value.trim();
-          const city = document.getElementById('city').value.trim();
-          const state = document.getElementById('state').value.trim();
-          const zip = document.getElementById('zip').value.trim();
-          const country = document.getElementById('country').value.trim();
-          if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
-            alert('Please fill in all required shipping fields.');
+
+        clearBtn.addEventListener('click', function() {
+          cart = [];
+          localStorage.removeItem('cart');
+          renderCart();
+          renderSummary();
+        });
+
+        checkoutBtn.addEventListener('click', function() {
+          const { grandTotal } = calculateTotals();
+          if (grandTotal === 0) {
+            alert('Your cart is empty!');
             return;
           }
-          hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
-            alert('Payment successful! Card Token: ' + payload.nonce);
-            cart = [];
-            localStorage.removeItem('cart');
-            renderCart();
-            renderSummary();
-            checkoutModal.classList.add('hidden');
-          }).catch(function(err) {
-            console.error('Payment failed:', err);
-            alert('Payment failed, please try again.');
-          });
+          updateCheckoutModal();
+          checkoutModal.classList.remove('hidden');
         });
-      }).catch(function(err) {
-        console.error('Hosted Fields failed to load:', err);
-        alert('Payment fields could not be loaded. Please try again later.');
-      });
+
+        closeCheckoutModal.addEventListener('click', function() {
+          checkoutModal.classList.add('hidden');
+        });
+
+        checkoutModal.addEventListener('click', function(e) {
+          if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
+        });
+
+        paypal.HostedFields.render({
+          createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
+          styles: {
+            'input': { 'font-size': '16px', 'color': '#3A3A3A' },
+            ':focus': { 'color': 'black' },
+            '.valid': { 'color': 'green' },
+            '.invalid': { 'color': 'red' }
+          },
+          fields: {
+            number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
+            expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
+            cvv: { selector: '#cvv', placeholder: '123' }
+          }
+        }).then(function(hostedFieldsInstance) {
+          checkoutForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('full-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const state = document.getElementById('state').value.trim();
+            const zip = document.getElementById('zip').value.trim();
+            const country = document.getElementById('country').value.trim();
+            if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
+              alert('Please fill in all required shipping fields.');
+              return;
+            }
+            hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
+              alert('Payment successful! Card Token: ' + payload.nonce);
+              cart = [];
+              localStorage.removeItem('cart');
+              renderCart();
+              renderSummary();
+              checkoutModal.classList.add('hidden');
+            }).catch(function(err) {
+              console.error('Payment failed:', err);
+              alert('Payment failed, please try again.');
+            });
+          });
+        }).catch(function(err) {
+          console.error('Hosted Fields failed to load:', err);
+          alert('Payment fields could not be loaded. Please try again later.');
+        });
+      }
     });
   </script>
 </body>
