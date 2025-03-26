@@ -101,6 +101,11 @@
     #product-modal {
       background-color: rgba(0, 0, 0, 0.5);
     }
+    /* Selected size style */
+    .size-option.selected {
+      background-color: #000;
+      color: #fff;
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
@@ -222,10 +227,10 @@
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
               <p class="text-gray-300 mb-4">Limited Edition - 100 pieces</p>
               <div class="flex flex-wrap gap-2 mb-4">
-                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
-                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">M</button>
-                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
-                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">M</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
               </div>
               <p class="text-2xl font-bold">$1,890</p>
             </div>
@@ -242,35 +247,35 @@
           </div>
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
-<div class="product-card relative group cursor-pointer" data-category="clothing">
-  <img
-    src="sweats.png"
-    alt="Mortifère Sweats"
-    class="w-full h-[500px] object-cover rounded-lg"
-  />
-  <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
-    <div>
-      <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
-      <p class="text-gray-300 mb-4">Limited Edition - 150 pieces</p>
-      <div class="flex flex-wrap gap-2 mb-4">
-        <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">28</button>
-        <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">30</button>
-        <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
-        <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
-      </div>
-      <p class="text-2xl font-bold">$890</p>
-    </div>
-    <button
-      class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors"
-      data-name="Mortifère Sweats"
-      data-price="890"
-      data-img="sweats.png"
-      onclick="event.stopPropagation();"
-    >
-      Add to Cart
-    </button>
-  </div>
-</div>
+        <div class="product-card relative group cursor-pointer" data-category="clothing">
+          <img
+            src="sweats.png"
+            alt="Mortifère Sweats"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
+          <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
+              <p class="text-gray-300 mb-4">Limited Edition - 150 pieces</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">28</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">30</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
+              </div>
+              <p class="text-2xl font-bold">$890</p>
+            </div>
+            <button
+              class="add-to-cart-btn w-full bg-white text-black py-3 rounded-full hover:bg-white/90 transition-colors"
+              data-name="Mortifère Sweats"
+              data-price="890"
+              data-img="sweats.png"
+              onclick="event.stopPropagation();"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories">
           <img
@@ -283,7 +288,7 @@
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
               <p class="text-gray-300 mb-4">Limited Edition - 80 pieces</p>
               <div class="flex flex-wrap gap-2 mb-4">
-                <button class="px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
+                <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
               </div>
               <p class="text-2xl font-bold">$690</p>
             </div>
@@ -382,12 +387,35 @@
 
   <!-- Modal for Product Details -->
   <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
-    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg">
+    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg overflow-y-auto max-h-[90vh]">
       <button id="close-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
       <img id="modal-img" src="" alt="Product Image" class="w-full rounded">
       <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
       <p id="modal-price" class="text-xl mt-2"></p>
       <p id="modal-description" class="mt-4">Product description goes here.</p>
+      
+      <!-- New Size Selection Section -->
+      <div id="modal-sizes" class="mt-4">
+        <p class="font-bold mb-2">Select Size:</p>
+        <div id="size-options" class="flex gap-2">
+          <!-- Size buttons will be injected here -->
+        </div>
+      </div>
+      
+      <!-- New Quantity Selector -->
+      <div id="modal-quantity" class="mt-4">
+        <p class="font-bold mb-2">Quantity:</p>
+        <div class="flex items-center">
+          <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
+          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200"/>
+          <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
+        </div>
+      </div>
+      
+      <!-- Modal Add to Cart Button -->
+      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
+        Add to Cart
+      </button>
     </div>
   </div>
 
@@ -423,7 +451,7 @@
         });
       }
 
-      // --- Toast & Add to Cart ---
+      // --- Toast & Add to Cart for quick view button ---
       document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -433,12 +461,12 @@
           // load existing cart
           let cart = localStorage.getItem('cart');
           cart = cart ? JSON.parse(cart) : [];
-          // check if item is in cart
-          const existing = cart.find(item => item.name === name);
+          // check if item is in cart (ignoring size since modal selection will include it)
+          const existing = cart.find(item => item.name === name && item.size === 'default');
           if (existing) {
             existing.quantity++;
           } else {
-            cart.push({ name, price, img, quantity: 1 });
+            cart.push({ name, price, img, size: 'default', quantity: 1 });
           }
           localStorage.setItem('cart', JSON.stringify(cart));
 
@@ -495,8 +523,14 @@
       const modalImg = document.getElementById('modal-img');
       const modalName = document.getElementById('modal-name');
       const modalPrice = document.getElementById('modal-price');
+      const modalDescription = document.getElementById('modal-description');
       const closeModalBtn = document.getElementById('close-modal');
+      const sizeOptionsContainer = document.getElementById('size-options');
+      const quantityInput = document.getElementById('quantity-input');
 
+      let selectedSize = null; // Track selected size
+
+      // When a product card is clicked, populate and show the modal
       productCards.forEach(card => {
         card.addEventListener('click', function() {
           const btn = card.querySelector('.add-to-cart-btn');
@@ -506,6 +540,35 @@
           modalImg.src = imgSrc;
           modalName.textContent = name;
           modalPrice.textContent = "$" + price;
+          // Optionally, you can set modalDescription.textContent here if you have a dataset attribute for description.
+          modalDescription.textContent = "Product description goes here.";
+
+          // Populate size options by cloning the buttons from the product card
+          sizeOptionsContainer.innerHTML = '';
+          selectedSize = null;
+          const sizeButtons = card.querySelectorAll('.quick-view .size-option');
+          sizeButtons.forEach((sizeBtn, index) => {
+            const newBtn = document.createElement('button');
+            newBtn.textContent = sizeBtn.textContent;
+            newBtn.className = "size-option px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300";
+            newBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              // Deselect any previously selected button
+              sizeOptionsContainer.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+              newBtn.classList.add('selected');
+              selectedSize = newBtn.textContent;
+            });
+            // Optionally, select the first option by default
+            if(index === 0){
+              newBtn.classList.add('selected');
+              selectedSize = newBtn.textContent;
+            }
+            sizeOptionsContainer.appendChild(newBtn);
+          });
+
+          // Reset quantity to 1 when opening modal
+          quantityInput.value = 1;
+
           modal.classList.remove('hidden');
         });
       });
@@ -526,6 +589,56 @@
         if (e.key === 'Escape') {
           modal.classList.add('hidden');
         }
+      });
+
+      // --- Quantity Selector Functionality ---
+      document.getElementById('decrease-qty').addEventListener('click', function(e) {
+        e.stopPropagation();
+        let current = parseInt(quantityInput.value, 10);
+        if (current > 1) {
+          quantityInput.value = current - 1;
+        }
+      });
+      document.getElementById('increase-qty').addEventListener('click', function(e) {
+        e.stopPropagation();
+        let current = parseInt(quantityInput.value, 10);
+        quantityInput.value = current + 1;
+      });
+
+      // --- Modal Add to Cart ---
+      document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
+        e.stopPropagation();
+        const name = modalName.textContent;
+        const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
+        const img = modalImg.src;
+        const quantity = parseInt(quantityInput.value, 10);
+
+        // Ensure a size is selected if size options exist
+        if(sizeOptionsContainer.children.length > 0 && !selectedSize) {
+          alert("Please select a size.");
+          return;
+        }
+
+        let cart = localStorage.getItem('cart');
+        cart = cart ? JSON.parse(cart) : [];
+        // Check for existing product with the same size
+        const existing = cart.find(item => item.name === name && item.size === selectedSize);
+        if (existing) {
+          existing.quantity += quantity;
+        } else {
+          cart.push({ name, price, img, size: selectedSize, quantity });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Show toast notification
+        const toast = document.getElementById('toast');
+        toast.textContent = "Item added to cart";
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 3000);
+        // Close modal after adding to cart
+        modal.classList.add('hidden');
       });
     });
   </script>
