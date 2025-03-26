@@ -60,7 +60,7 @@
       transition: all 0.3s ease;
     }
     
-    /* (Removed cart toast functionality per request) */
+    /* (Cart toast removed per request) */
     
     /* Underline effect for nav links */
     .nav-link {
@@ -151,6 +151,14 @@
       padding: 12px;
       overflow-y: auto;
       background: #f5f5f5;
+    }
+    /* Align FAQ options to the right */
+    #faq-options {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      margin-top: 8px;
     }
     #support-chat .chat-input {
       display: flex;
@@ -438,7 +446,7 @@
       <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
-      <!-- Render initial FAQ options -->
+      <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
     <div class="chat-input">
@@ -560,9 +568,15 @@
           modal.classList.remove('hidden');
         });
       });
-      closeModalBtn.addEventListener('click', function() { modal.classList.add('hidden'); });
-      modal.addEventListener('click', function(e) { if(e.target === modal) modal.classList.add('hidden'); });
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.add('hidden'); });
+      closeModalBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+      });
+      modal.addEventListener('click', function(e) {
+        if(e.target === modal) modal.classList.add('hidden');
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') modal.classList.add('hidden');
+      });
       document.getElementById('decrease-qty').addEventListener('click', function(e) {
         e.stopPropagation();
         let current = parseInt(quantityInput.value, 10);
@@ -626,9 +640,9 @@
         ]
       };
       
-      let currentFaq = null; // Track current FAQ node
+      let currentFaq = null;
       
-      // Render FAQ options based on current state
+      // Render FAQ options aligned to the right
       function renderFAQOptions(options) {
         faqOptionsContainer.innerHTML = "";
         options.forEach(option => {
@@ -642,6 +656,7 @@
               currentFaq = option;
               renderFAQOptions(option.followUps);
             } else {
+              faqOptionsContainer.innerHTML = "";
               const connectBtn = document.createElement("button");
               connectBtn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
               connectBtn.textContent = "Connect with a real person";
@@ -650,7 +665,6 @@
                 addMessage("fred", "Connecting you with a support representative now...");
                 faqOptionsContainer.innerHTML = "";
               });
-              faqOptionsContainer.innerHTML = "";
               faqOptionsContainer.appendChild(connectBtn);
             }
           });
@@ -658,10 +672,16 @@
         });
       }
       
-      // When chat opens, show initial FAQ options
+      // Reset chat when closing
+      function resetChat() {
+        chatBody.innerHTML = "";
+        faqOptionsContainer.innerHTML = "";
+      }
+      
+      // Open chat and render initial FAQ options
       function openChat() {
         supportChat.style.display = "flex";
-        faqOptionsContainer.innerHTML = "";
+        resetChat();
         addMessage("fred", "Hi there! I'm Fred, your support assistant. How can I help you today? Here are some common topics:");
         renderFAQOptions(faqTree.initial);
       }
@@ -670,12 +690,13 @@
       supportBtn.addEventListener("click", () => {
         if (supportChat.style.display === "flex") {
           supportChat.style.display = "none";
+          resetChat();
         } else {
           openChat();
         }
       });
       
-      // Function to add a message to chat
+      // Chat message functions
       function addMessage(sender, text) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("message", sender);
@@ -715,7 +736,7 @@
         } else if(lowerText.includes("shipping")) {
           response = "Our standard shipping takes 3-5 business days. Would you like more details?";
         } else {
-          response = "Thank you for your message. Would you like help with order tracking, shipping, returns, or size guides?";
+          response = "Thanks for your message. Would you like help with order tracking, shipping, returns, or size guides?";
         }
         addMessage("fred", response);
       });
@@ -724,6 +745,11 @@
           e.preventDefault();
           chatSend.click();
         }
+      });
+      
+      document.querySelector('#support-chat .chat-close').addEventListener("click", () => {
+        supportChat.style.display = "none";
+        resetChat();
       });
       
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
