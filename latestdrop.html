@@ -106,6 +106,31 @@
       background-color: #000;
       color: #fff;
     }
+
+    /* Falling drops animation for countdown background */
+    .falling-drops {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .falling-drop {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: url('parachute-box.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
@@ -174,6 +199,8 @@
 
       <!-- Next Drop Section -->
       <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
+        <!-- Falling drops animation container added -->
+        <div class="falling-drops"></div>
         <div
           class="absolute inset-0 bg-cover bg-center"
           style="background-image: url('https://public.readdy.ai/ai/img_res/eaedf31fe06aaa10b604be869d93e3c3.jpg')"
@@ -422,6 +449,18 @@
   <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // --- Falling Drops Animation (New Addition) ---
+      const dropsContainer = document.querySelector('.falling-drops');
+      const dropCount = 20;
+      for (let i = 0; i < dropCount; i++) {
+        const drop = document.createElement('div');
+        drop.classList.add('falling-drop');
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        drop.style.animationDelay = (Math.random() * 3) + 's';
+        dropsContainer.appendChild(drop);
+      }
+
       // --- Filter functionality for product cards ---
       const filterButtons = document.querySelectorAll('.filter-button');
       const productCards = document.querySelectorAll('.product-card');
@@ -451,7 +490,7 @@
         });
       }
 
-      // --- Toast & Add to Cart for quick view button ---
+      // --- Toast & Add to Cart for quick view button (Original functionality preserved) ---
       document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -479,7 +518,7 @@
         });
       });
 
-      // --- Countdown ---
+      // --- Countdown Timer ---
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
         const now = new Date().getTime();
@@ -518,7 +557,7 @@
         }
       });
 
-      // --- Modal Popup for Product Details ---
+      // --- Modal Popup for Product Details (Enhanced) ---
       const modal = document.getElementById('product-modal');
       const modalImg = document.getElementById('modal-img');
       const modalName = document.getElementById('modal-name');
@@ -540,10 +579,10 @@
           modalImg.src = imgSrc;
           modalName.textContent = name;
           modalPrice.textContent = "$" + price;
-          // Optionally, you can set modalDescription.textContent here if you have a dataset attribute for description.
+          // Optionally, set modalDescription here if you have additional data.
           modalDescription.textContent = "Product description goes here.";
 
-          // Populate size options by cloning the buttons from the product card
+          // Populate size options by cloning the buttons from the product card's quick-view
           sizeOptionsContainer.innerHTML = '';
           selectedSize = null;
           const sizeButtons = card.querySelectorAll('.quick-view .size-option');
@@ -553,7 +592,7 @@
             newBtn.className = "size-option px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300";
             newBtn.addEventListener('click', function(e) {
               e.stopPropagation();
-              // Deselect any previously selected button
+              // Deselect previously selected button
               sizeOptionsContainer.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
@@ -605,7 +644,7 @@
         quantityInput.value = current + 1;
       });
 
-      // --- Modal Add to Cart ---
+      // --- Modal Add to Cart (Enhanced) ---
       document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
         e.stopPropagation();
         const name = modalName.textContent;
@@ -621,7 +660,7 @@
 
         let cart = localStorage.getItem('cart');
         cart = cart ? JSON.parse(cart) : [];
-        // Check for existing product with the same size
+        // Check for an existing product with the same name and size
         const existing = cart.find(item => item.name === name && item.size === selectedSize);
         if (existing) {
           existing.quantity += quantity;
