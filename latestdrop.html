@@ -11,14 +11,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
@@ -55,7 +49,7 @@
       border: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Quick-view overlay */
+    /* Quick view overlay */
     .product-card:hover .quick-view {
       opacity: 1;
       transform: translateY(0);
@@ -141,7 +135,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
           <a href="index.html">
-            <img src="winged-logo.png" alt="Logo" class="h-12" />
+            <img src="winged-logo.png" alt="Logo" class="h-12"/>
           </a>
           <div class="hidden md:flex space-x-8">
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
@@ -150,7 +144,7 @@
         <div class="flex items-center space-x-6">
           <!-- Search input -->
           <div class="relative">
-            <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
+            <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30"/>
             <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
           </div>
           <!-- Cart icon -->
@@ -175,7 +169,7 @@
 
       <!-- Next Drop Section -->
       <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
-        <!-- Falling drops animation container added -->
+        <!-- Falling drops animation container -->
         <div class="falling-drops"></div>
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('drop.png')"></div>
         <div class="absolute inset-0 bg-black/60"></div>
@@ -200,9 +194,7 @@
                 <span class="text-sm">Seconds</span>
               </div>
             </div>
-            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">
-              Notify Me
-            </button>
+            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">Notify Me</button>
           </div>
         </div>
       </div>
@@ -212,8 +204,8 @@
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
           <!-- Front/Back Image Hover Effect -->
-          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
-          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"/>
+          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -224,12 +216,14 @@
                 <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
                 <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
               </div>
+              <p class="text-2xl font-bold">$1,890</p>
             </div>
+            <!-- Removed Add to Cart button from hover -->
           </div>
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
-          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg" />
+          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg"/>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -240,12 +234,14 @@
                 <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
                 <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
               </div>
+              <p class="text-2xl font-bold">$890</p>
             </div>
+            <!-- Removed Add to Cart button from hover -->
           </div>
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories">
-          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg" />
+          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg"/>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -253,7 +249,9 @@
               <div class="flex flex-wrap gap-2 mb-4">
                 <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
               </div>
+              <p class="text-2xl font-bold">$690</p>
             </div>
+            <!-- Removed Add to Cart button from hover -->
           </div>
         </div>
       </div>
@@ -270,11 +268,66 @@
     </div>
   </div>
 
+  <!-- Footer (Preserved from original) -->
+  <footer class="bg-black py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div>
+          <h5 class="text-xl text-white inter font-bold mb-6">DROP SCHEDULE</h5>
+          <p class="text-white/70 inter leading-relaxed">
+            New drops every last Saturday of the month at 12:00 PM UTC
+          </p>
+          <p class="text-white/70 inter leading-relaxed mt-2">
+            Each piece is limited edition and numbered
+          </p>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Support</h5>
+          <p class="text-white/70 inter mb-2">support@mortifere.com</p>
+          <p class="text-white/70 inter mb-2">FAQ</p>
+          <p class="text-white/70 inter">Shipping Information</p>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+              <i class="ri-discord-line text-xl"></i>
+            </a>
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+              <i class="ri-instagram-line text-xl"></i>
+            </a>
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
+              <i class="ri-twitter-x-line text-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
+          <div class="flex">
+            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"/>
+            <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-12 pt-8">
+        <p class="text-white/50 inter text-center">&copy; 2025 Mortifère. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fixed bottom-6 right-6 z-50">
+    <button class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
+      <i class="ri-customer-service-2-line text-2xl"></i>
+    </button>
+  </div>
+
   <!-- Modal for Product Details -->
   <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
     <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg overflow-y-auto max-h-[90vh]">
       <button id="close-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
-      <img id="modal-img" src="" alt="Product Image" class="w-full rounded">
+      <img id="modal-img" src="" alt="Product Image" class="w-full rounded"/>
       <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
       <p id="modal-price" class="text-xl mt-2"></p>
       <p id="modal-description" class="mt-4">Product description goes here.</p>
@@ -349,7 +402,7 @@
       }
 
       // --- (Removed) Quick view Add-to-Cart button ---
-      // (The add-to-cart button on hover has been removed – now, users must click the product card to open the modal.)
+      // (The add-to-cart button on hover has been removed – users now must click the product card to open the modal.)
 
       // --- Countdown Timer ---
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
@@ -368,7 +421,7 @@
       function searchProducts(term) {
         const lowerTerm = term.toLowerCase();
         productCards.forEach(card => {
-          const productName = card.querySelector('.add-to-cart-btn')?.dataset.name?.toLowerCase() || '';
+          const productName = card.querySelector('.add-to-cart-btn')?.dataset?.name?.toLowerCase() || '';
           if (productName.includes(lowerTerm)) {
             card.style.display = 'block';
           } else {
@@ -405,11 +458,8 @@
       // When a product card is clicked, populate and show the modal
       productCards.forEach(card => {
         card.addEventListener('click', function() {
-          // Get product info from the quick view (size buttons are in the quick view)
           const btn = card.querySelector('.quick-view .size-option');
           const name = card.querySelector('.quick-view h3').textContent;
-          // For price and img, grab from a data attribute on a hidden element if needed,
-          // or use a default method; here we use the first image as product image.
           const price = card.querySelector('.quick-view p.text-2xl')?.textContent?.replace('$', '').trim() || '0';
           const imgSrc = card.querySelector('img:not(.absolute)')?.src || '';
           modalImg.src = imgSrc;
