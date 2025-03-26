@@ -141,7 +141,6 @@
       border-radius: 50%;
       margin-right: 8px;
     }
-    /* Add a close button in chat header */
     #support-chat header .chat-close {
       margin-left: auto;
       background: transparent;
@@ -183,9 +182,17 @@
       max-width: 70%;
       padding: 8px 12px;
       border-radius: 12px;
+      display: flex;
+      align-items: center;
     }
     .message.fred .bubble { background: #e0e0e0; color: #000; }
     .message.user .bubble { background: #000; color: #fff; }
+    .message.fred img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
     .typing-indicator {
       display: flex;
       align-items: center;
@@ -339,7 +346,7 @@
         <div id="toast" class="hidden bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
           Item added to cart
         </div>
-        <!-- Support button triggers Fred's chat -->
+        <!-- Support button remains always visible -->
         <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
@@ -445,6 +452,7 @@
     </header>
     <div class="chat-body" id="chat-body">
       <div class="message fred">
+        <img src="fred.png" alt="Fred"/>
         <div class="bubble">Hi there! I'm Fred, your friendly support assistant. How can I help you today?</div>
       </div>
     </div>
@@ -508,7 +516,8 @@
       function searchProducts(term) {
         const lowerTerm = term.toLowerCase();
         productCards.forEach(card => {
-          const productName = card.querySelector('.add-to-cart-btn')?.dataset?.name?.toLowerCase() || '';
+          // Fallback if add-to-cart button data is missing – use product name from quick view
+          const productName = card.querySelector('.quick-view h3')?.textContent?.toLowerCase() || '';
           card.style.display = productName.includes(lowerTerm) ? 'block' : 'none';
         });
       }
@@ -609,17 +618,26 @@
       const chatInput = document.getElementById('chat-input');
       const chatSend = document.getElementById('chat-send');
       const chatBody = document.getElementById('chat-body');
-      // Toggle chat on support button click
+
+      // Toggle support chat when support button is clicked
       supportBtn.addEventListener('click', () => {
         supportChat.style.display = supportChat.style.display === 'flex' ? 'none' : 'flex';
       });
       // Close chat when clicking the close button in header
-      const chatClose = document.querySelector('#support-chat .chat-close');
-      chatClose.addEventListener('click', () => { supportChat.style.display = 'none'; });
+      document.querySelector('#support-chat .chat-close').addEventListener('click', () => {
+        supportChat.style.display = 'none';
+      });
+
       // Function to add a message to chat
       function addMessage(sender, text) {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
+        if (sender === 'fred') {
+          const avatar = document.createElement('img');
+          avatar.src = 'fred.png';
+          avatar.alt = 'Fred';
+          msgDiv.appendChild(avatar);
+        }
         const bubble = document.createElement('div');
         bubble.classList.add('bubble');
         bubble.textContent = text;
@@ -627,35 +645,42 @@
         chatBody.appendChild(msgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
-      // Function to simulate Fred's typing and real responses
-      function fredRespond(userMsg) {
-        // Display typing indicator
+
+      // Function to fetch Fred's real response (replace URL with your API endpoint)
+      async function fetchFredResponse(userMsg) {
+        try {
+          // Replace the URL below with your actual AI API endpoint.
+          const response = await fetch('https://api.example.com/fred-chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMsg })
+          });
+          const data = await response.json();
+          return data.reply;
+        } catch (error) {
+          console.error('Error fetching Fred response:', error);
+          // Fallback response if API fails
+          return "I'm having trouble connecting to our support server. Please try again later.";
+        }
+      }
+
+      // Function to simulate Fred typing and then display response
+      async function fredRespond(userMsg) {
         const typingDiv = document.createElement('div');
         typingDiv.classList.add('typing-indicator');
         typingDiv.innerHTML = '<span></span><span></span><span></span>';
         chatBody.appendChild(typingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
-        setTimeout(() => {
-          chatBody.removeChild(typingDiv);
-          // Determine Fred's response based on keywords
-          let response = "";
-          const lowerMsg = userMsg.toLowerCase();
-          if(lowerMsg.includes("order")) {
-            response = "I can help with orders. Can you please provide your order number?";
-          } else if(lowerMsg.includes("help")) {
-            response = "Sure, I'm here to help! Please tell me more about your issue.";
-          } else if(lowerMsg.includes("price") || lowerMsg.includes("cost")) {
-            response = "Our prices are competitive and reflect the quality of our products.";
-          } else if(lowerMsg.includes("shipping")) {
-            response = "Shipping typically takes 3-5 business days. Can I help with anything else?";
-          } else {
-            response = "Thank you for reaching out. Could you please provide more details so I can assist you better?";
-          }
-          addMessage('fred', response);
-        }, 1500);
+        // Wait 1.5 seconds to simulate typing
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        chatBody.removeChild(typingDiv);
+        // Get Fred's real response from the API
+        const reply = await fetchFredResponse(userMsg);
+        addMessage('fred', reply);
       }
-      // Handle sending a chat message
-      chatSend.addEventListener('click', () => {
+
+      // Handle sending chat messages
+      chatSend.addEventListener('click', async () => {
         const text = chatInput.value.trim();
         if (!text) return;
         addMessage('user', text);
@@ -685,11 +710,13 @@
       const checkoutTax = document.getElementById('checkout-tax');
       const checkoutTotal = document.getElementById('checkout-total');
       const checkoutForm = document.getElementById('checkout-form');
+
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [
         { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
         { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
       ];
+
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => { subtotal += item.price * item.quantity; });
@@ -698,6 +725,7 @@
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
+
       function renderCart() {
         if (cart.length === 0) {
           cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
@@ -761,6 +789,7 @@
           });
         });
       }
+
       function renderSummary() {
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         subtotalLine.textContent = `Subtotal: $${subtotal}`;
@@ -768,6 +797,7 @@
         taxLine.textContent = `Tax: $${tax}`;
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
+
       function updateCheckoutModal() {
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
@@ -775,14 +805,17 @@
         checkoutTax.textContent = `Tax: $${tax}`;
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
+
       renderCart();
       renderSummary();
+
       clearBtn.addEventListener('click', function() {
         cart = [];
         localStorage.removeItem('cart');
         renderCart();
         renderSummary();
       });
+
       checkoutBtn.addEventListener('click', function() {
         const { grandTotal } = calculateTotals();
         if (grandTotal === 0) {
@@ -792,15 +825,19 @@
         updateCheckoutModal();
         checkoutModal.classList.remove('hidden');
       });
+
       closeCheckoutModal.addEventListener('click', function() {
         checkoutModal.classList.add('hidden');
       });
+
       checkoutModal.addEventListener('click', function(e) {
         if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
       });
+
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
       });
+
       paypal.HostedFields.render({
         createOrder: function() {
           return Promise.resolve('DUMMY_ORDER_ID');
