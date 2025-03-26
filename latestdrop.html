@@ -64,14 +64,8 @@
       animation: slideIn 0.3s ease forwards;
     }
     @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     /* Underline effect for nav links */
@@ -93,30 +87,21 @@
     }
 
     /* Modal Styles */
-    #product-modal {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    /* Selected size style */
-    .size-option.selected {
-      background-color: #000;
-      color: #fff;
-    }
+    #product-modal { background-color: rgba(0, 0, 0, 0.5); }
+    .size-option.selected { background-color: #000; color: #fff; }
 
     /* Falling drops animation for countdown background */
     .falling-drops {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
     }
     .falling-drop {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 50px; height: 50px;
       background: url('parachute-box.png') no-repeat center center;
       background-size: contain;
       opacity: 0.8;
@@ -156,6 +141,15 @@
       border-radius: 50%;
       margin-right: 8px;
     }
+    /* Add a close button in chat header */
+    #support-chat header .chat-close {
+      margin-left: auto;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
     #support-chat .chat-body {
       flex: 1;
       padding: 12px;
@@ -183,25 +177,15 @@
       margin-bottom: 8px;
       display: flex;
     }
-    .message.fred {
-      justify-content: flex-start;
-    }
-    .message.user {
-      justify-content: flex-end;
-    }
+    .message.fred { justify-content: flex-start; }
+    .message.user { justify-content: flex-end; }
     .message .bubble {
       max-width: 70%;
       padding: 8px 12px;
       border-radius: 12px;
     }
-    .message.fred .bubble {
-      background: #e0e0e0;
-      color: #000;
-    }
-    .message.user .bubble {
-      background: #000;
-      color: #fff;
-    }
+    .message.fred .bubble { background: #e0e0e0; color: #000; }
+    .message.user .bubble { background: #000; color: #fff; }
     .typing-indicator {
       display: flex;
       align-items: center;
@@ -457,9 +441,9 @@
     <header>
       <img src="fred.png" alt="Fred"/>
       <span>Fred Support</span>
+      <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
-      <!-- Chat messages will appear here -->
       <div class="message fred">
         <div class="bubble">Hi there! I'm Fred, your friendly support assistant. How can I help you today?</div>
       </div>
@@ -625,13 +609,14 @@
       const chatInput = document.getElementById('chat-input');
       const chatSend = document.getElementById('chat-send');
       const chatBody = document.getElementById('chat-body');
-
-      // Toggle support chat when clicking the support button
+      // Toggle chat on support button click
       supportBtn.addEventListener('click', () => {
         supportChat.style.display = supportChat.style.display === 'flex' ? 'none' : 'flex';
       });
-
-      // Function to add a message to the chat body
+      // Close chat when clicking the close button in header
+      const chatClose = document.querySelector('#support-chat .chat-close');
+      chatClose.addEventListener('click', () => { supportChat.style.display = 'none'; });
+      // Function to add a message to chat
       function addMessage(sender, text) {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
@@ -642,9 +627,9 @@
         chatBody.appendChild(msgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
-
-      // Function to simulate Fred's typing indicator and response
+      // Function to simulate Fred's typing and real responses
       function fredRespond(userMsg) {
+        // Display typing indicator
         const typingDiv = document.createElement('div');
         typingDiv.classList.add('typing-indicator');
         typingDiv.innerHTML = '<span></span><span></span><span></span>';
@@ -652,19 +637,23 @@
         chatBody.scrollTop = chatBody.scrollHeight;
         setTimeout(() => {
           chatBody.removeChild(typingDiv);
-          // Fred's response - for demonstration, a simple echo or canned answer
+          // Determine Fred's response based on keywords
           let response = "";
-          if(userMsg.toLowerCase().includes("help")) {
-            response = "Sure, I'm here to help! What can I assist you with?";
-          } else if(userMsg.trim() === "") {
-            response = "Please type your question.";
+          const lowerMsg = userMsg.toLowerCase();
+          if(lowerMsg.includes("order")) {
+            response = "I can help with orders. Can you please provide your order number?";
+          } else if(lowerMsg.includes("help")) {
+            response = "Sure, I'm here to help! Please tell me more about your issue.";
+          } else if(lowerMsg.includes("price") || lowerMsg.includes("cost")) {
+            response = "Our prices are competitive and reflect the quality of our products.";
+          } else if(lowerMsg.includes("shipping")) {
+            response = "Shipping typically takes 3-5 business days. Can I help with anything else?";
           } else {
-            response = "I appreciate your message! Let me look into that for you.";
+            response = "Thank you for reaching out. Could you please provide more details so I can assist you better?";
           }
           addMessage('fred', response);
         }, 1500);
       }
-
       // Handle sending a chat message
       chatSend.addEventListener('click', () => {
         const text = chatInput.value.trim();
@@ -681,7 +670,7 @@
       });
 
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
-      const container = document.getElementById('cart-container');
+      const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
       const checkoutBtn = document.getElementById('checkout-btn');
       const cartSummary = document.getElementById('cart-summary');
@@ -696,13 +685,11 @@
       const checkoutTax = document.getElementById('checkout-tax');
       const checkoutTotal = document.getElementById('checkout-total');
       const checkoutForm = document.getElementById('checkout-form');
-
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [
         { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
         { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
       ];
-
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => { subtotal += item.price * item.quantity; });
@@ -711,10 +698,9 @@
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
-
       function renderCart() {
         if (cart.length === 0) {
-          container.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+          cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
           return;
         }
@@ -738,7 +724,7 @@
           html += `
             <tr class="border-b border-white/5">
               <td class="py-3 flex items-center space-x-4">
-                <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+                <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded"/>
                 <span>${item.name}</span>
               </td>
               <td class="py-3">${item.size || '-'}</td>
@@ -761,8 +747,8 @@
             </table>
           </div>
         `;
-        container.innerHTML = html;
-        container.querySelectorAll('button[data-action]').forEach(btn => {
+        cartContainer.innerHTML = html;
+        cartContainer.querySelectorAll('button[data-action]').forEach(btn => {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.index, 10);
             const action = this.dataset.action;
@@ -775,7 +761,6 @@
           });
         });
       }
-
       function renderSummary() {
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         subtotalLine.textContent = `Subtotal: $${subtotal}`;
@@ -783,7 +768,6 @@
         taxLine.textContent = `Tax: $${tax}`;
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
-
       function updateCheckoutModal() {
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
@@ -791,17 +775,14 @@
         checkoutTax.textContent = `Tax: $${tax}`;
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
-
       renderCart();
       renderSummary();
-
       clearBtn.addEventListener('click', function() {
         cart = [];
         localStorage.removeItem('cart');
         renderCart();
         renderSummary();
       });
-
       checkoutBtn.addEventListener('click', function() {
         const { grandTotal } = calculateTotals();
         if (grandTotal === 0) {
@@ -811,20 +792,15 @@
         updateCheckoutModal();
         checkoutModal.classList.remove('hidden');
       });
-
       closeCheckoutModal.addEventListener('click', function() {
         checkoutModal.classList.add('hidden');
       });
-
       checkoutModal.addEventListener('click', function(e) {
         if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
       });
-
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
       });
-
-      // --- PayPal Hosted Fields Integration ---
       paypal.HostedFields.render({
         createOrder: function() {
           return Promise.resolve('DUMMY_ORDER_ID');
