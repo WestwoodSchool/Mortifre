@@ -8,24 +8,46 @@
   <!-- Favicon (Winged Logo) -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
 
-  <!-- Tailwind CSS, Fonts & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    rel="stylesheet"
+  />
 
-  <style>
-    /* Ensure no default margins or scroll bars */
-    html, body {
-      margin: 0; 
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: #121212;
-      color: #ffffff;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#000000', secondary: '#ffffff' },
+          borderRadius: {
+            'none': '0px',
+            'sm': '8px',
+            DEFAULT: '12px',
+            'md': '16px',
+            'lg': '20px',
+            'xl': '24px',
+            '2xl': '28px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '12px'
+          }
+        }
+      }
     }
-
-    /* Navigation link underline effect */
+  </script>
+  <style>
+    /* Remove default body margin/padding */
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+    /* Underline effect for nav links */
     .nav-link {
       position: relative;
     }
@@ -42,154 +64,71 @@
     .nav-link:hover::after {
       width: 100%;
     }
-
-    /* Hero section (video background) */
-    .hero-section {
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 72px); /* Adjust if your nav is a different height */
-      overflow: hidden;
-    }
-    .hero-video {
-      position: absolute;
-      top: 0; 
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-    }
-
-    /* Minimalistic Sign-In/Sign-Up Overlay */
-    #account-overlay {
-      position: fixed;
-      top: 0; left: 0; 
-      width: 100%;
-      height: 100%;
-      display: none;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(10px);
-      z-index: 300;
-      align-items: center;
-      justify-content: center;
-    }
-    .account-modal {
-      background: #000; 
-      color: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      width: 400px;
-      max-width: 90%;
-      position: relative;
-      overflow: hidden;
-    }
-    .account-modal::before {
-      content: "";
-      position: absolute;
-      top: 50%; 
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: url('wing-motif.png') no-repeat center center;
-      background-size: 200px 200px; 
-      opacity: 0.08;
-      width: 200px; 
-      height: 200px;
-      pointer-events: none;
-    }
-    .close-account-overlay {
-      position: absolute;
-      top: 1rem; 
-      right: 1rem;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      color: #fff;
-      cursor: pointer;
-    }
-    .form-field {
-      background: #111;
-      color: #fff;
-      border: 1px solid #333;
-      width: 100%;
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .form-button {
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.3s;
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    .form-button:hover {
-      background: #ccc;
-    }
-    .toggle-link {
-      color: #fff;
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 0.875rem;
-      margin-top: -0.5rem;
-      display: inline-block;
-    }
   </style>
 </head>
-<body>
-
-  <!-- NAVIGATION -->
-  <nav class="bg-[#f5f5f5]/30 backdrop-blur-md fixed w-full z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center space-x-12">
-        <a href="index.html">
-          <img src="winged-logo.png" alt="Logo" class="h-12" />
-        </a>
-        <div class="hidden md:flex space-x-8">
-          <a href="latestdrop.html" class="nav-link text-black hover:text-gray-700 transition-colors">Latest Drop</a>
-          <a href="about.html" class="nav-link text-black hover:text-gray-700 transition-colors">About</a>
+<body class="bg-[#121212] overflow-hidden">
+  <!-- HEADER: Soft, near-white translucent background, no border -->
+  <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Logo & Nav -->
+        <div class="flex items-center space-x-12">
+          <a href="index.html">
+            <img
+              src="winged-logo.png"
+              alt="Logo"
+              class="h-12"
+            />
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <!-- Latest Drop points to the other page -->
+            <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+            <!-- About button now directs to about.html -->
+            <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+          </div>
         </div>
-      </div>
-      <div class="flex items-center space-x-4">
-        <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
-        <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-          <i class="ri-shopping-bag-line text-xl"></i>
-        </a>
+        <!-- Right side: search & cart icon -->
+        <div class="flex items-center space-x-6">
+          <div class="relative">
+            <input
+              id="search-index"
+              type="text"
+              placeholder="Search"
+              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
+            />
+            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
+          </div>
+          <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+            <i class="ri-shopping-bag-line text-xl"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <section class="hero-section">
-    <video autoplay muted loop playsinline class="hero-video">
+  <!-- HERO SECTION / TITLE CARD -->
+  <section class="relative h-screen overflow-hidden">
+    <!-- Video Background -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    >
       <source src="Untitled design (1).mp4" type="video/mp4"/>
     </video>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="max-w-2xl text-center p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-lg">
-        <h2 class="text-6xl md:text-7xl text-white font-bold mb-6">STREETWEAR REDEFINED</h2>
-        <p class="text-xl text-white/90 mb-10">
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+    <!-- Centered Title Card -->
+    <div class="relative z-10 flex items-center justify-center h-full">
+      <div class="max-w-2xl mx-auto text-center p-8 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 shadow-lg">
+        <h2 class="text-6xl md:text-7xl text-white inter font-bold mb-6">STREETWEAR REDEFINED</h2>
+        <p class="text-xl text-white/90 inter mb-10">
           Outshine the Ordinary. Defy the Expected.
         </p>
         <a href="latestdrop.html">
-          <!-- Rounded edges for the SHOP NOW button -->
-          <button class="bg-white text-black px-8 py-3 rounded-button hover:bg-white/90 transition-colors">
+          <button class="bg-white text-black inter px-8 py-3 rounded-full hover:bg-white/90 transition-colors">
             SHOP NOW
           </button>
         </a>
@@ -197,82 +136,17 @@
     </div>
   </section>
 
-  <!-- SIGN-IN / SIGN-UP OVERLAY -->
-  <div id="account-overlay" class="fixed inset-0 hidden z-300 items-center justify-center bg-black/50 backdrop-blur-sm">
-    <div class="account-modal">
-      <button class="close-account-overlay">&times;</button>
-      <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
-      <input type="text" id="account-email" placeholder="Email" class="form-field" />
-      <input type="password" id="account-password" placeholder="Password" class="form-field" />
-      <button id="login-btn" class="form-button">Sign In</button>
-      <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
-    </div>
-  </div>
-
   <script>
+    // Simple search on index: redirect to latestdrop.html?search=...
     document.addEventListener('DOMContentLoaded', function() {
-      // Show the account overlay on icon click
-      const accountIcon = document.getElementById('account-icon');
-      const accountOverlay = document.getElementById('account-overlay');
-      const closeOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
-      const loginBtn = document.getElementById('login-btn');
-      const toggleSignupLink = document.getElementById('toggle-signup');
-      const overlayTitle = document.getElementById('overlay-title');
-
-      let isSignUp = false;
-
-      accountIcon.addEventListener('click', function() {
-        accountOverlay.classList.remove('hidden');
-        accountOverlay.style.display = 'flex';
-      });
-
-      closeOverlayBtn.addEventListener('click', function() {
-        accountOverlay.style.display = 'none';
-        accountOverlay.classList.add('hidden');
-      });
-
-      accountOverlay.addEventListener('click', function(e) {
-        if (e.target === accountOverlay) {
-          accountOverlay.style.display = 'none';
-          accountOverlay.classList.add('hidden');
-        }
-      });
-
-      // Toggle between Sign In and Sign Up
-      toggleSignupLink.addEventListener('click', function() {
-        isSignUp = !isSignUp;
-        if (isSignUp) {
-          overlayTitle.textContent = "Sign Up";
-          loginBtn.textContent = "Create Account";
-          toggleSignupLink.textContent = "Sign In";
-        } else {
-          overlayTitle.textContent = "Sign In";
-          loginBtn.textContent = "Sign In";
-          toggleSignupLink.textContent = "Sign Up";
-        }
-      });
-
-      // Basic sign in / sign up logic
-      loginBtn.addEventListener('click', function() {
-        const email = document.getElementById('account-email').value.trim();
-        const password = document.getElementById('account-password').value.trim();
-        if (!email || !password) {
-          alert("Please enter your email and password.");
-          return;
-        }
-        if (isSignUp) {
-          localStorage.setItem('accountEmail', email);
-          alert("Account created for " + email);
-        } else {
-          const existingEmail = localStorage.getItem('accountEmail');
-          if (existingEmail === email) {
-            alert("Welcome back, " + email + "!");
-          } else {
-            alert("No account found for this email. Please sign up first.");
+      const searchIndex = document.getElementById('search-index');
+      searchIndex.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          const term = e.target.value.trim();
+          if (term) {
+            window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
           }
         }
-        accountOverlay.style.display = 'none';
-        accountOverlay.classList.add('hidden');
       });
     });
   </script>
