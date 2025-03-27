@@ -179,6 +179,67 @@
       opacity: 1;
     }
     
+    /* Minimalistic Sign-In/Sign-Up Overlay for Account */
+    #account-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      display: none;
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .account-modal {
+      background: #000;
+      color: #fff;
+      width: 400px;
+      max-width: 90%;
+      padding: 30px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .close-account-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .form-field {
+      display: block;
+      width: 100%;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .form-button {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-button:hover {
+      background: #ccc;
+    }
+    .toggle-link {
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 640px) {
       #support-chat {
@@ -215,6 +276,18 @@
       </div>
     </div>
   </header>
+
+  <!-- Account Overlay -->
+  <div id="account-overlay">
+    <div class="account-modal">
+      <button class="close-account-overlay">&times;</button>
+      <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
+      <input type="text" id="account-email" placeholder="Email" class="form-field"/>
+      <input type="password" id="account-password" placeholder="Password" class="form-field"/>
+      <button id="login-btn" class="form-button">Sign In</button>
+      <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
+    </div>
+  </div>
 
   <!-- CART CONTENT -->
   <main class="pt-24 pb-12 px-6">
@@ -338,14 +411,16 @@
     document.addEventListener('DOMContentLoaded', function() {
       /* ------------------ SEARCH FUNCTIONALITY ------------------ */
       const searchCart = document.getElementById('search-cart');
-      searchCart.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          const term = e.target.value.trim();
-          if (term) {
-            window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
+      if (searchCart) {
+        searchCart.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            const term = e.target.value.trim();
+            if (term) {
+              window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
+            }
           }
-        }
-      });
+        });
+      }
       
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
       const cartContainer = document.getElementById('cart-container');
@@ -669,6 +744,59 @@
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
+      });
+      
+      /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
+      const accountIcon = document.getElementById('account-icon');
+      const accountOverlay = document.getElementById('account-overlay');
+      let isSignUp = false;
+      const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
+      const loginBtn = document.getElementById('login-btn');
+      const toggleSignupLink = document.getElementById('toggle-signup');
+      const overlayTitle = document.getElementById('overlay-title');
+
+      accountIcon.addEventListener('click', function() {
+        accountOverlay.style.display = "flex";
+      });
+      closeAccountOverlayBtn.addEventListener('click', function() {
+        accountOverlay.style.display = "none";
+      });
+      accountOverlay.addEventListener('click', function(e) {
+        if (e.target === accountOverlay) {
+          accountOverlay.style.display = "none";
+        }
+      });
+      toggleSignupLink.addEventListener('click', function() {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+          overlayTitle.textContent = "Sign Up";
+          loginBtn.textContent = "Create Account";
+          toggleSignupLink.textContent = "Sign In";
+        } else {
+          overlayTitle.textContent = "Sign In";
+          loginBtn.textContent = "Sign In";
+          toggleSignupLink.textContent = "Sign Up";
+        }
+      });
+      loginBtn.addEventListener('click', function() {
+        const email = document.getElementById('account-email').value.trim();
+        const password = document.getElementById('account-password').value.trim();
+        if (!email || !password) {
+          alert("Please enter your email and password.");
+          return;
+        }
+        if (isSignUp) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+        } else {
+          const existingEmail = localStorage.getItem('accountEmail');
+          if (existingEmail === email) {
+            alert("Welcome back, " + email + "!");
+          } else {
+            alert("No account found for this email. Please sign up first.");
+          }
+        }
+        accountOverlay.style.display = "none";
       });
     });
   </script>
