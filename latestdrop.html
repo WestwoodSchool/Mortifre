@@ -11,14 +11,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
@@ -45,6 +39,11 @@
     }
   </script>
   <style>
+    /* Ensure no default margins/padding */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
@@ -55,7 +54,7 @@
       border: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Quick view overlay */
+    /* Quick view overlay for product cards */
     .product-card:hover .quick-view {
       opacity: 1;
       transform: translateY(0);
@@ -134,7 +133,7 @@
       overflow: hidden;
       z-index: 100;
     }
-    /* Fred's header: cream (#f5f5dc) with black text */
+    /* Fred’s header styled in cream with black text */
     #support-chat header {
       background: #f5f5dc;
       color: #000;
@@ -162,7 +161,7 @@
       overflow-y: auto;
       background: #f5f5f5;
     }
-    /* Align FAQ options to the right */
+    /* FAQ options aligned to the right */
     #faq-options {
       display: flex;
       flex-direction: column;
@@ -303,7 +302,7 @@
   </nav>
 
   <!-- Minimalistic Sign-In/Sign-Up Overlay for Account -->
-  <div id="account-overlay" class="fixed inset-0 hidden z-300 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  <div id="account-overlay">
     <div class="account-modal">
       <button class="close-account-overlay">&times;</button>
       <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
@@ -319,26 +318,10 @@
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="all"
-          id="filter-all"
-        >All</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="clothing"
-          id="filter-clothing"
-        >Clothing</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="accessories"
-          id="filter-accessories"
-        >Accessories</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="footwear"
-          id="filter-footwear"
-        >Footwear</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
       </div>
 
       <!-- Next Drop Section -->
@@ -380,16 +363,8 @@
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
           <!-- Front/Back Image Hover Effect -->
-          <img
-            src="hoodie-front.png"
-            alt="Mortifère Hoodie Front"
-            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
-          />
-          <img
-            src="hoodie-back.png"
-            alt="Mortifère Hoodie Back"
-            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          />
+          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
+          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -406,11 +381,7 @@
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
         <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Sweats" data-price="890" data-img="sweats.png">
-          <img
-            src="sweats.png"
-            alt="Mortifère Sweats"
-            class="w-full h-[500px] object-cover rounded-lg"
-          />
+          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg" />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -427,11 +398,7 @@
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories" data-name="Mortifère Backpack" data-price="690" data-img="mortifere-backpack.jpg">
-          <img
-            src="mortifere-backpack.jpg"
-            alt="Mortifère Backpack"
-            class="w-full h-[500px] object-cover rounded-lg"
-          />
+          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg" />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -447,10 +414,7 @@
 
       <!-- Fixed Support Button -->
       <div class="fixed bottom-6 right-6 z-50">
-        <button
-          id="support-btn"
-          class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors"
-        >
+        <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
@@ -577,11 +541,7 @@
           filterButtons.forEach(btn => btn.classList.remove('bg-gray-300', 'text-black'));
           this.classList.add('bg-gray-300', 'text-black');
           productCards.forEach(card => {
-            if (filter === 'all' || card.getAttribute('data-category') === filter) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
-            }
+            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
           });
         });
       });
@@ -702,12 +662,10 @@
         const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
         const img = modalImg.src;
         const quantity = parseInt(quantityInput.value, 10);
-
         if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
           alert("Please select a size.");
           return;
         }
-
         let cart = localStorage.getItem('cart');
         cart = cart ? JSON.parse(cart) : [];
         const existing = cart.find(item => item.name === name && item.size === selectedSize);
@@ -843,21 +801,7 @@
 
       /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
       const accountIcon = document.getElementById('account-icon');
-      const accountOverlay = document.createElement('div');
-      accountOverlay.id = "account-overlay";
-      accountOverlay.className = "fixed inset-0 hidden z-300 flex items-center justify-center bg-black/50 backdrop-blur-sm";
-      accountOverlay.innerHTML = `
-        <div class="account-modal">
-          <button class="close-account-overlay">&times;</button>
-          <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
-          <input type="text" id="account-email" placeholder="Email" class="form-field"/>
-          <input type="password" id="account-password" placeholder="Password" class="form-field"/>
-          <button id="login-btn" class="form-button">Sign In</button>
-          <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
-        </div>
-      `;
-      document.body.appendChild(accountOverlay);
-
+      const accountOverlay = document.getElementById('account-overlay');
       let isSignUp = false;
       const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
       const loginBtn = document.getElementById('login-btn');
@@ -909,6 +853,7 @@
       });
 
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
+      // (Note: Cart/checkout code remains here if needed for your cart.html page)
       const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
       const checkoutBtn = document.getElementById('checkout-btn');
