@@ -8,6 +8,7 @@
   <!-- Favicon (Winged Logo) -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
 
+  <!-- Tailwind, Fonts & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -52,59 +53,92 @@
     .nav-link:hover::after {
       width: 100%;
     }
+    
+    /* Account Modal Styles */
+    #account-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      padding: 20px;
+      z-index: 200;
+      display: none;
+    }
+    #account-modal h2 {
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    #account-modal input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    #account-modal button {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="bg-[#121212]">
-  <!-- HEADER: Soft, near-white translucent background, no border -->
+  <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <!-- Left: Logo & Nav -->
-        <div class="flex items-center space-x-12">
-          <a href="index.html">
-            <img
-              src="winged-logo.png"
-              alt="Logo"
-              class="h-12"
-            />
-          </a>
-          <div class="hidden md:flex space-x-8">
-            <!-- Latest Drop points to the other page -->
-            <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
-            <!-- About button now directs to about.html -->
-            <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
-          </div>
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Left: Logo & Navigation -->
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="winged-logo.png" alt="Logo" class="h-12" />
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+          <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
+          <a href="#" id="account-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">My Account</a>
         </div>
-        <!-- Right: Icons & Search -->
-        <div class="flex items-center space-x-6">
-          <!-- Search input (index -> redirect to latestdrop with ?search=) -->
-          <div class="relative">
-            <input
-              id="search-index"
-              type="text"
-              placeholder="Search"
-              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
-            />
-            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
-          </div>
-          <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-            <i class="ri-shopping-bag-line text-xl"></i>
-          </button>
+      </div>
+      <!-- Right: Search & Cart -->
+      <div class="flex items-center space-x-6 relative">
+        <div class="relative">
+          <input
+            id="search-index"
+            type="text"
+            placeholder="Search"
+            class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
+          />
+          <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
         </div>
+        <!-- Cart button now links directly -->
+        <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+          <i class="ri-shopping-bag-line text-xl"></i>
+        </a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION / TITLE CARD -->
+  <!-- Account Modal -->
+  <div id="account-modal">
+    <h2>My Account</h2>
+    <input type="text" id="account-email" placeholder="Email" />
+    <input type="password" id="account-password" placeholder="Password" />
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn" class="mt-2">Sign Up</button>
+  </div>
+
+  <!-- HERO SECTION -->
   <section class="relative h-screen overflow-hidden">
     <!-- Video Background -->
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      class="absolute inset-0 w-full h-full object-cover"
-    >
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
       <source src="Untitled design (1).mp4" type="video/mp4"/>
     </video>
     <!-- Dark overlay -->
@@ -126,7 +160,7 @@
   </section>
 
   <script>
-    // Simple search on index: redirect to latestdrop.html?search=...
+    // Redirect search query on Enter
     document.addEventListener('DOMContentLoaded', function() {
       const searchIndex = document.getElementById('search-index');
       searchIndex.addEventListener('keydown', function(e) {
@@ -135,6 +169,44 @@
           if (term) {
             window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
           }
+        }
+      });
+      
+      // Account Modal Toggle
+      const accountLink = document.getElementById('account-link');
+      const accountModal = document.getElementById('account-modal');
+      accountLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        accountModal.style.display = "block";
+      });
+      // Simple close when clicking outside modal (or you can add a dedicated close button)
+      window.addEventListener('click', function(e) {
+        if (e.target === accountModal) {
+          accountModal.style.display = "none";
+        }
+      });
+      
+      // (Optional) Login and Signup button handlers:
+      document.getElementById('login-btn').addEventListener('click', function() {
+        // Dummy login – store email in localStorage
+        const email = document.getElementById('account-email').value;
+        if (email) {
+          localStorage.setItem('accountEmail', email);
+          alert("Logged in as " + email);
+          accountModal.style.display = "none";
+        } else {
+          alert("Please enter your email.");
+        }
+      });
+      document.getElementById('signup-btn').addEventListener('click', function() {
+        // Dummy signup – store email in localStorage
+        const email = document.getElementById('account-email').value;
+        if (email) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+          accountModal.style.display = "none";
+        } else {
+          alert("Please enter your email.");
         }
       });
     });
