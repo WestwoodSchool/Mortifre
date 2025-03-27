@@ -66,8 +66,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Removed toast for "Add to cart" per request */
-
     /* Underline effect for nav links */
     .nav-link {
       position: relative;
@@ -136,9 +134,10 @@
       overflow: hidden;
       z-index: 100;
     }
+    /* Fred's header: cream (#f5f5dc) with black text */
     #support-chat header {
-      background: #000;
-      color: #fff;
+      background: #f5f5dc;
+      color: #000;
       padding: 12px;
       display: flex;
       align-items: center;
@@ -153,7 +152,7 @@
       margin-left: auto;
       background: transparent;
       border: none;
-      color: #fff;
+      color: #000;
       font-size: 24px;
       cursor: pointer;
     }
@@ -192,6 +191,102 @@
       border-radius: 50%;
       margin-right: 6px;
     }
+
+    /* Minimalistic Sign-In/Sign-Up Overlay */
+    #account-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      display: none;
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .account-modal {
+      background: #000;
+      color: #fff;
+      width: 400px;
+      max-width: 90%;
+      padding: 30px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .account-modal::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: url('wing-motif.png') no-repeat center center;
+      background-size: 200px 200px;
+      opacity: 0.08;
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+    }
+    .close-account-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .account-modal h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .form-field {
+      display: block;
+      width: 100%;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .form-button {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-button:hover {
+      background: #ccc;
+    }
+    .toggle-link {
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    /* Fixed Support Button */
+    .fixed-support {
+      position: fixed;
+      bottom: 6px;
+      right: 6px;
+      z-index: 50;
+    }
+
+    @media (max-width: 640px) {
+      #support-chat {
+        width: 90%;
+        right: 5%;
+        bottom: 70px;
+      }
+      .nav-link { font-size: 0.875rem; }
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
@@ -217,10 +312,24 @@
           <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
             <i class="ri-shopping-bag-line text-xl"></i>
           </a>
+          <!-- Account icon -->
+          <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
         </div>
       </div>
     </div>
   </nav>
+
+  <!-- Minimalistic Sign-In/Sign-Up Overlay for Account -->
+  <div id="account-overlay" class="fixed inset-0 hidden z-300 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="account-modal">
+      <button class="close-account-overlay">&times;</button>
+      <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
+      <input type="text" id="account-email" placeholder="Email" class="form-field"/>
+      <input type="password" id="account-password" placeholder="Password" class="form-field"/>
+      <button id="login-btn" class="form-button">Sign In</button>
+      <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
+    </div>
+  </div>
 
   <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
@@ -286,7 +395,7 @@
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
-        <div class="product-card relative group cursor-pointer" data-category="clothing">
+        <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
           <!-- Front/Back Image Hover Effect -->
           <img
             src="hoodie-front.png"
@@ -313,7 +422,7 @@
           </div>
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
-        <div class="product-card relative group cursor-pointer" data-category="clothing">
+        <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Sweats" data-price="890" data-img="sweats.png">
           <img
             src="sweats.png"
             alt="Mortifère Sweats"
@@ -334,7 +443,7 @@
           </div>
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
-        <div class="product-card relative group cursor-pointer" data-category="accessories">
+        <div class="product-card relative group cursor-pointer" data-category="accessories" data-name="Mortifère Backpack" data-price="690" data-img="mortifere-backpack.jpg">
           <img
             src="mortifere-backpack.jpg"
             alt="Mortifère Backpack"
@@ -387,22 +496,13 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
           <div class="flex space-x-4">
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-discord-line text-xl"></i>
             </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-instagram-line text-xl"></i>
             </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-twitter-x-line text-xl"></i>
             </a>
           </div>
@@ -449,22 +549,13 @@
         <p class="font-bold mb-2">Quantity:</p>
         <div class="flex items-center">
           <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
-          <input
-            type="number"
-            id="quantity-input"
-            value="1"
-            min="1"
-            class="w-12 text-center border-t border-b border-gray-200"
-          />
+          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200"/>
           <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
         </div>
       </div>
 
       <!-- Modal Add to Cart Button (Only here!) -->
-      <button
-        id="modal-add-to-cart"
-        class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors"
-      >
+      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
         Add to Cart
       </button>
     </div>
@@ -481,7 +572,6 @@
       <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
-    <!-- Removed freeform chat input & typing indicator -->
   </div>
 
   <!-- JAVASCRIPT FUNCTIONALITY -->
@@ -609,7 +699,7 @@
         modal.classList.add('hidden');
       });
       modal.addEventListener('click', function(e) {
-        if (e.target === modal) modal.classList.add('hidden');
+        if(e.target === modal) modal.classList.add('hidden');
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') modal.classList.add('hidden');
@@ -657,7 +747,6 @@
       const faqOptionsContainer = document.getElementById('faq-options');
       const closeChatBtn = document.querySelector('#support-chat .chat-close');
 
-      // Predefined FAQ conversation tree
       const faqTree = {
         initial: [
           {
@@ -703,13 +792,11 @@
         ]
       };
 
-      // Reset chat content
       function resetChat() {
         chatBody.innerHTML = "";
         faqOptionsContainer.innerHTML = "";
       }
 
-      // Create a new message bubble
       function addMessage(sender, text) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("message", sender);
@@ -727,15 +814,12 @@
         chatBody.scrollTop = chatBody.scrollHeight;
       }
 
-      // Show a user bubble with clickable FAQ options
       function showOptionsAsUserBubble(options) {
-        // Create a user bubble
         const userMsgDiv = document.createElement("div");
         userMsgDiv.classList.add("message", "user");
         const bubble = document.createElement("div");
         bubble.classList.add("bubble");
         
-        // Create a container for the buttons
         const buttonsDiv = document.createElement("div");
         buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
         
@@ -753,28 +837,17 @@
         chatBody.scrollTop = chatBody.scrollHeight;
       }
 
-      // Display Fred's answer, then if followUps exist, show them as new user bubble
       function handleOptionClick(option) {
-        // Add user message (the question)
         addMessage("user", option.question);
-        // Add Fred's response
         addMessage("fred", option.answer);
-
-        // If followUps exist, show them
-        if (option.followUps && option.followUps.length > 0) {
+        if(option.followUps && option.followUps.length > 0) {
           showOptionsAsUserBubble(option.followUps);
         } else {
-          // Otherwise, optionally show a "Connect with a real person" button
-          const finalConnect = {
-            id: "connectReal",
-            question: "Connect with a real person",
-            answer: "Connecting you with a support representative..."
-          };
-          showOptionsAsUserBubble([finalConnect]);
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
         }
       }
 
-      // Start the chat by greeting from Fred, then show initial FAQ options as a user bubble
       function openChat() {
         supportChat.style.display = "flex";
         resetChat();
@@ -782,7 +855,6 @@
         showOptionsAsUserBubble(faqTree.initial);
       }
 
-      // Toggle the chat when clicking the support button
       const toggleChat = () => {
         if (supportChat.style.display === "flex") {
           supportChat.style.display = "none";
@@ -793,8 +865,6 @@
       };
 
       supportBtn.addEventListener("click", toggleChat);
-
-      // Close chat with X button
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
@@ -833,7 +903,7 @@
       }
 
       function renderCart() {
-        if (!cartContainer) return; // If there's no cart on this page, skip
+        if (!cartContainer) return;
         if (cart.length === 0) {
           cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
@@ -915,7 +985,6 @@
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
 
-      // Only run cart logic if the cart elements exist on this page
       if (document.getElementById('cart-container')) {
         renderCart();
         renderSummary();
@@ -994,6 +1063,136 @@
           alert('Payment fields could not be loaded. Please try again later.');
         });
       }
+
+      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
+      const supportBtn = document.getElementById('support-btn');
+      const supportChat = document.getElementById('support-chat');
+      const chatBody = document.getElementById('chat-body');
+      const faqOptionsContainer = document.getElementById('faq-options');
+      const closeChatBtn = document.querySelector('#support-chat .chat-close');
+
+      const faqTree = {
+        initial: [
+          {
+            id: "faq1",
+            question: "How do I track my order?",
+            answer: "You can track your order by entering your order number on our tracking page.",
+            followUps: [
+              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
+              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
+              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq2",
+            question: "What shipping options are available?",
+            answer: "We offer standard and express shipping worldwide.",
+            followUps: [
+              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
+              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
+              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq3",
+            question: "What is your return policy?",
+            answer: "We offer a 30-day return policy on all products.",
+            followUps: [
+              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
+              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
+              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq4",
+            question: "Do you have a size guide?",
+            answer: "Yes, a detailed size guide is available on each product page.",
+            followUps: [
+              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
+              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
+              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          }
+        ]
+      };
+
+      function resetChat() {
+        chatBody.innerHTML = "";
+        faqOptionsContainer.innerHTML = "";
+      }
+
+      function addMessage(sender, text) {
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("message", sender);
+        if (sender === "fred") {
+          const avatar = document.createElement("img");
+          avatar.src = "fred.png";
+          avatar.alt = "Fred";
+          msgDiv.appendChild(avatar);
+        }
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.textContent = text;
+        msgDiv.appendChild(bubble);
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function showOptionsAsUserBubble(options) {
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user");
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        
+        options.forEach(option => {
+          const btn = document.createElement("button");
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
+          btn.textContent = option.question;
+          btn.addEventListener("click", () => handleOptionClick(option));
+          buttonsDiv.appendChild(btn);
+        });
+        
+        bubble.appendChild(buttonsDiv);
+        userMsgDiv.appendChild(bubble);
+        chatBody.appendChild(userMsgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function handleOptionClick(option) {
+        addMessage("user", option.question);
+        addMessage("fred", option.answer);
+        if(option.followUps && option.followUps.length > 0) {
+          showOptionsAsUserBubble(option.followUps);
+        } else {
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
+        }
+      }
+
+      function openChat() {
+        supportChat.style.display = "flex";
+        resetChat();
+        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
+        showOptionsAsUserBubble(faqTree.initial);
+      }
+
+      const toggleChat = () => {
+        if (supportChat.style.display === "flex") {
+          supportChat.style.display = "none";
+          resetChat();
+        } else {
+          openChat();
+        }
+      };
+
+      supportBtn.addEventListener("click", toggleChat);
+      closeChatBtn.addEventListener("click", () => {
+        supportChat.style.display = "none";
+        resetChat();
+      });
     });
   </script>
 </body>
