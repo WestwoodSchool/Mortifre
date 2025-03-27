@@ -26,8 +26,7 @@
         extend: {
           colors: {
             primary: '#000000',
-            secondary: '#1a1a1a',
-            // You can add cream if needed later (e.g., for account or support chat)
+            secondary: '#1a1a1a'
           },
           borderRadius: {
             'none': '0px',
@@ -50,7 +49,6 @@
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
 
-    /* Countdown item style */
     .countdown-item {
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
@@ -68,7 +66,7 @@
       transition: all 0.3s ease;
     }
 
-    /* (Toast removed per request) */
+    /* Removed toast for "Add to cart" per request */
 
     /* Underline effect for nav links */
     .nav-link {
@@ -138,10 +136,9 @@
       overflow: hidden;
       z-index: 100;
     }
-    /* Fred's header now in cream white */
     #support-chat header {
-      background: #f5f5dc;
-      color: #000;
+      background: #000;
+      color: #fff;
       padding: 12px;
       display: flex;
       align-items: center;
@@ -156,7 +153,7 @@
       margin-left: auto;
       background: transparent;
       border: none;
-      color: #000;
+      color: #fff;
       font-size: 24px;
       cursor: pointer;
     }
@@ -195,38 +192,16 @@
       border-radius: 50%;
       margin-right: 6px;
     }
-
-    /* Remove Add to Cart button from quick view overlay */
-    .quick-view button.add-to-cart-btn {
-      display: none;
-    }
-
-    /* Fixed Support Button styling */
-    .fixed-support {
-      position: fixed;
-      bottom: 6px;
-      right: 6px;
-      z-index: 50;
-    }
-
-    @media (max-width: 640px) {
-      #support-chat {
-        width: 90%;
-        right: 5%;
-        bottom: 70px;
-      }
-      .nav-link { font-size: 0.875rem; }
-    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
-  <!-- Header -->
+  <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-12">
           <a href="index.html">
-            <img src="winged-logo.png" alt="Logo" class="h-12" />
+            <img src="winged-logo.png" alt="Logo" class="h-12"/>
           </a>
           <div class="hidden md:flex space-x-8">
             <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
@@ -247,19 +222,36 @@
     </div>
   </nav>
 
-  <!-- Page Content -->
+  <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="all"
+          id="filter-all"
+        >All</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="clothing"
+          id="filter-clothing"
+        >Clothing</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="accessories"
+          id="filter-accessories"
+        >Accessories</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="footwear"
+          id="filter-footwear"
+        >Footwear</button>
       </div>
 
       <!-- Next Drop Section -->
       <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
+        <!-- Falling drops animation container -->
         <div class="falling-drops"></div>
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('drop.png')"></div>
         <div class="absolute inset-0 bg-black/60"></div>
@@ -294,12 +286,18 @@
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
-        <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
+        <div class="product-card relative group cursor-pointer" data-category="clothing">
           <!-- Front/Back Image Hover Effect -->
-          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
-          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <!-- Wishlist Icon -->
-          <i class="ri-heart-line wishlist-icon" data-product="Mortifère Hoodie"></i>
+          <img
+            src="hoodie-front.png"
+            alt="Mortifère Hoodie Front"
+            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
+          />
+          <img
+            src="hoodie-back.png"
+            alt="Mortifère Hoodie Back"
+            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -315,8 +313,12 @@
           </div>
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
-        <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Sweats" data-price="890" data-img="sweats.png">
-          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg" />
+        <div class="product-card relative group cursor-pointer" data-category="clothing">
+          <img
+            src="sweats.png"
+            alt="Mortifère Sweats"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -332,8 +334,12 @@
           </div>
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
-        <div class="product-card relative group cursor-pointer" data-category="accessories" data-name="Mortifère Backpack" data-price="690" data-img="mortifere-backpack.jpg">
-          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg" />
+        <div class="product-card relative group cursor-pointer" data-category="accessories">
+          <img
+            src="mortifere-backpack.jpg"
+            alt="Mortifère Backpack"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -348,13 +354,78 @@
       </div>
 
       <!-- Fixed Support Button -->
-      <div class="fixed-support fixed bottom-6 right-6 z-50">
-        <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
+      <div class="fixed bottom-6 right-6 z-50">
+        <button
+          id="support-btn"
+          class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors"
+        >
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
     </div>
   </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-black py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div>
+          <h5 class="text-xl text-white inter font-bold mb-6">DROP SCHEDULE</h5>
+          <p class="text-white/70 inter leading-relaxed">
+            New drops every last Saturday of the month at 12:00 PM UTC
+          </p>
+          <p class="text-white/70 inter leading-relaxed mt-2">
+            Each piece is limited edition and numbered
+          </p>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Support</h5>
+          <p class="text-white/70 inter mb-2">support@mortifere.com</p>
+          <p class="text-white/70 inter mb-2">FAQ</p>
+          <p class="text-white/70 inter">Shipping Information</p>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
+          <div class="flex space-x-4">
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
+              <i class="ri-discord-line text-xl"></i>
+            </a>
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
+              <i class="ri-instagram-line text-xl"></i>
+            </a>
+            <a
+              href="#"
+              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
+            >
+              <i class="ri-twitter-x-line text-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
+          <div class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"
+            />
+            <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-12 pt-8">
+        <p class="text-white/50 inter text-center">&copy; 2025 Mortifère. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Modal for Product Details -->
   <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
@@ -368,7 +439,9 @@
       <!-- New Size Selection Section -->
       <div id="modal-sizes" class="mt-4">
         <p class="font-bold mb-2">Select Size:</p>
-        <div id="size-options" class="flex gap-2"></div>
+        <div id="size-options" class="flex gap-2">
+          <!-- Size buttons will be injected here -->
+        </div>
       </div>
 
       <!-- New Quantity Selector -->
@@ -376,25 +449,28 @@
         <p class="font-bold mb-2">Quantity:</p>
         <div class="flex items-center">
           <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
-          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200" />
+          <input
+            type="number"
+            id="quantity-input"
+            value="1"
+            min="1"
+            class="w-12 text-center border-t border-b border-gray-200"
+          />
           <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
         </div>
       </div>
 
-      <!-- Modal Add to Cart Button (Only in Modal) -->
-      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
+      <!-- Modal Add to Cart Button (Only here!) -->
+      <button
+        id="modal-add-to-cart"
+        class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors"
+      >
         Add to Cart
       </button>
-
-      <!-- Recommendations Section -->
-      <div id="recommendations">
-        <h3 class="font-bold">You Might Also Like</h3>
-        <div id="rec-container" class="flex gap-4"></div>
-      </div>
     </div>
   </div>
 
-  <!-- Support Chat (Fred) Modal -->
+  <!-- Support Chat Modal for Fred -->
   <div id="support-chat">
     <header>
       <img src="fred.png" alt="Fred" />
@@ -402,8 +478,10 @@
       <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
+      <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
+    <!-- Removed freeform chat input & typing indicator -->
   </div>
 
   <!-- JAVASCRIPT FUNCTIONALITY -->
@@ -500,7 +578,7 @@
           modalPrice.textContent = "$" + price;
           modalDescription.textContent = "Product description goes here.";
 
-          // Clear and build size options from the quick view buttons on the card
+          // Clear out size options
           sizeOptionsContainer.innerHTML = '';
           selectedSize = null;
           const sizeButtons = card.querySelectorAll('.quick-view .size-option');
@@ -514,6 +592,7 @@
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
             });
+            // Optionally select first size by default
             if (index === 0) {
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
@@ -522,21 +601,6 @@
           });
 
           quantityInput.value = 1;
-          
-          // Build Recommendations: show other products as clickable items
-          const recContainer = document.getElementById('rec-container');
-          recContainer.innerHTML = '';
-          productCards.forEach(prod => {
-            if (prod.getAttribute('data-name') !== name) {
-              const recDiv = document.createElement('div');
-              recDiv.className = "rec-item";
-              recDiv.innerHTML = `<img src="${prod.getAttribute('data-img')}" alt="${prod.getAttribute('data-name')}" /><p class="text-xs mt-1">${prod.getAttribute('data-name')}</p>`;
-              recDiv.addEventListener('click', function() {
-                openModal(prod);
-              });
-              recContainer.appendChild(recDiv);
-            }
-          });
           modal.classList.remove('hidden');
         });
       });
@@ -545,7 +609,7 @@
         modal.classList.add('hidden');
       });
       modal.addEventListener('click', function(e) {
-        if(e.target === modal) modal.classList.add('hidden');
+        if (e.target === modal) modal.classList.add('hidden');
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') modal.classList.add('hidden');
@@ -593,6 +657,7 @@
       const faqOptionsContainer = document.getElementById('faq-options');
       const closeChatBtn = document.querySelector('#support-chat .chat-close');
 
+      // Predefined FAQ conversation tree
       const faqTree = {
         initial: [
           {
@@ -638,11 +703,13 @@
         ]
       };
 
+      // Reset chat content
       function resetChat() {
         chatBody.innerHTML = "";
         faqOptionsContainer.innerHTML = "";
       }
 
+      // Create a new message bubble
       function addMessage(sender, text) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("message", sender);
@@ -660,13 +727,18 @@
         chatBody.scrollTop = chatBody.scrollHeight;
       }
 
+      // Show a user bubble with clickable FAQ options
       function showOptionsAsUserBubble(options) {
+        // Create a user bubble
         const userMsgDiv = document.createElement("div");
         userMsgDiv.classList.add("message", "user");
         const bubble = document.createElement("div");
         bubble.classList.add("bubble");
+        
+        // Create a container for the buttons
         const buttonsDiv = document.createElement("div");
         buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        
         options.forEach(option => {
           const btn = document.createElement("button");
           btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
@@ -674,23 +746,35 @@
           btn.addEventListener("click", () => handleOptionClick(option));
           buttonsDiv.appendChild(btn);
         });
+        
         bubble.appendChild(buttonsDiv);
         userMsgDiv.appendChild(bubble);
         chatBody.appendChild(userMsgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
 
+      // Display Fred's answer, then if followUps exist, show them as new user bubble
       function handleOptionClick(option) {
+        // Add user message (the question)
         addMessage("user", option.question);
+        // Add Fred's response
         addMessage("fred", option.answer);
+
+        // If followUps exist, show them
         if (option.followUps && option.followUps.length > 0) {
           showOptionsAsUserBubble(option.followUps);
         } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
+          // Otherwise, optionally show a "Connect with a real person" button
+          const finalConnect = {
+            id: "connectReal",
+            question: "Connect with a real person",
+            answer: "Connecting you with a support representative..."
+          };
+          showOptionsAsUserBubble([finalConnect]);
         }
       }
 
+      // Start the chat by greeting from Fred, then show initial FAQ options as a user bubble
       function openChat() {
         supportChat.style.display = "flex";
         resetChat();
@@ -698,15 +782,19 @@
         showOptionsAsUserBubble(faqTree.initial);
       }
 
-      supportBtn.addEventListener("click", () => {
+      // Toggle the chat when clicking the support button
+      const toggleChat = () => {
         if (supportChat.style.display === "flex") {
           supportChat.style.display = "none";
           resetChat();
         } else {
           openChat();
         }
-      });
+      };
 
+      supportBtn.addEventListener("click", toggleChat);
+
+      // Close chat with X button
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
@@ -745,7 +833,7 @@
       }
 
       function renderCart() {
-        if (!cartContainer) return;
+        if (!cartContainer) return; // If there's no cart on this page, skip
         if (cart.length === 0) {
           cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
@@ -827,6 +915,7 @@
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
 
+      // Only run cart logic if the cart elements exist on this page
       if (document.getElementById('cart-container')) {
         renderCart();
         renderSummary();
@@ -905,132 +994,6 @@
           alert('Payment fields could not be loaded. Please try again later.');
         });
       }
-
-      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
-      const supportBtn = document.getElementById('support-btn');
-      const supportChat = document.getElementById('support-chat');
-      const chatBody = document.getElementById('chat-body');
-      const faqOptionsContainer = document.getElementById('faq-options');
-      const closeChatBtn = document.querySelector('#support-chat .chat-close');
-
-      const faqTree = {
-        initial: [
-          {
-            id: "faq1",
-            question: "How do I track my order?",
-            answer: "You can track your order by entering your order number on our tracking page.",
-            followUps: [
-              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
-              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
-              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq2",
-            question: "What shipping options are available?",
-            answer: "We offer standard and express shipping worldwide.",
-            followUps: [
-              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
-              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
-              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq3",
-            question: "What is your return policy?",
-            answer: "We offer a 30-day return policy on all products.",
-            followUps: [
-              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
-              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
-              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq4",
-            question: "Do you have a size guide?",
-            answer: "Yes, a detailed size guide is available on each product page.",
-            followUps: [
-              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
-              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
-              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          }
-        ]
-      };
-
-      function resetChat() {
-        chatBody.innerHTML = "";
-        faqOptionsContainer.innerHTML = "";
-      }
-
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-
-      function showOptionsAsUserBubble(options) {
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.classList.add("message", "user");
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", () => handleOptionClick(option));
-          buttonsDiv.appendChild(btn);
-        });
-        bubble.appendChild(buttonsDiv);
-        userMsgDiv.appendChild(bubble);
-        chatBody.appendChild(userMsgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-
-      function handleOptionClick(option) {
-        addMessage("user", option.question);
-        addMessage("fred", option.answer);
-        if(option.followUps && option.followUps.length > 0) {
-          showOptionsAsUserBubble(option.followUps);
-        } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
-        }
-      }
-
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
-        showOptionsAsUserBubble(faqTree.initial);
-      }
-
-      supportBtn.addEventListener("click", () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      });
-
-      closeChatBtn.addEventListener("click", () => {
-        supportChat.style.display = "none";
-        resetChat();
-      });
     });
   </script>
 </body>
