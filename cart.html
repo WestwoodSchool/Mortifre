@@ -4,17 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Cart - Mortifère</title>
-  <link rel="icon" type="image/png" href="winged-logo.png" />
   
-  <!-- Tailwind CSS & Config -->
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Mortifère - Your luxury streetwear cart. Review your selected items, choose shipping options, and check out securely." />
+  <meta property="og:title" content="My Cart - Mortifère" />
+  <meta property="og:description" content="Review your luxury streetwear selections, view recommendations, and complete your purchase securely." />
+  <meta property="og:image" content="drop.png" />
+  <meta property="og:url" content="https://yourdomain.com/cart.html" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="winged-logo.png" />
+
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             primary: '#000000',
-            secondary: '#1a1a1a'
+            secondary: '#1a1a1a',
+            cream: '#f5f5dc'
           },
           borderRadius: {
             'none': '0px',
@@ -32,14 +49,12 @@
       }
     }
   </script>
-  
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
-  
   <style>
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .inter { font-family: 'Inter', sans-serif; }
+    
+    /* Header Navigation & Search */
     .nav-link {
       position: relative;
     }
@@ -56,127 +71,297 @@
     .nav-link:hover::after {
       width: 100%;
     }
-    .playfair { font-family: 'Playfair Display', serif; }
-    .inter { font-family: 'Inter', sans-serif; }
     
-    /* Additional styling for form inputs */
-    .form-input {
+    /* Dynamic Search Suggestions */
+    #search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
       width: 100%;
-      padding: 0.5rem;
+      background: #fff;
+      color: #000;
       border: 1px solid #ccc;
-      border-radius: 0.375rem;
+      border-top: none;
+      z-index: 10;
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #search-suggestions div {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    #search-suggestions div:hover {
+      background: #f0f0f0;
+    }
+    
+    /* Cart Table */
+    #cart-container table {
+      width: 100%;
+    }
+    
+    /* Modal Styles */
+    #checkout-modal, #account-modal {
+      background: rgba(0,0,0,0.5);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 150;
+      display: none;
+    }
+    #checkout-modal > div, #account-modal > div {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+    }
+    
+    /* Support Chat (Fred) */
+    #support-chat {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 450px;
+      max-height: 500px;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100;
+    }
+    /* Change Fred's header to cream */
+    #support-chat header {
+      background: #f5f5dc;
+      color: #000;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+    }
+    #support-chat header img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    #support-chat header .chat-close {
+      margin-left: auto;
+      background: transparent;
+      border: none;
+      color: #000;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    #support-chat .chat-body {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      background: #f5f5f5;
+    }
+    #faq-options {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .message {
+      margin-bottom: 8px;
+      display: flex;
+    }
+    .message.fred { justify-content: flex-start; }
+    .message.user { justify-content: flex-end; }
+    .message .bubble {
+      max-width: 70%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .message.fred .bubble { background: #e0e0e0; color: #000; }
+    .message.user .bubble { background: #000; color: #fff; }
+    .message.fred img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    
+    /* Wishlist Icon */
+    .wishlist-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    .wishlist-icon:hover {
+      opacity: 1;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      #support-chat {
+        width: 90%;
+        right: 5%;
+        bottom: 70px;
+      }
+      .nav-link {
+        font-size: 0.875rem;
+      }
     }
   </style>
-  
-  <!-- PayPal JS SDK with Hosted Fields (Sandbox) -->
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&components=buttons,hosted-fields&currency=USD"></script>
 </head>
 <body class="bg-[#121212] text-white">
   <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-12">
-          <a href="index.html">
-            <img src="winged-logo.png" alt="Logo" class="h-12" />
-          </a>
-          <div class="hidden md:flex space-x-8">
-            <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
-          </div>
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="winged-logo.png" alt="Logo" class="h-12" />
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
+          <a href="#" id="account-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">My Account</a>
+          <a href="#" id="wishlist-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">Wishlist</a>
         </div>
-        <!-- Right side: search & cart icon -->
-        <div class="flex items-center space-x-6">
-          <div class="relative">
-            <input id="search-cart" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
-            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
-          </div>
-          <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-            <i class="ri-shopping-bag-line text-xl"></i>
-          </a>
+      </div>
+      <div class="flex items-center space-x-6 relative">
+        <div class="relative">
+          <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
+          <div id="search-suggestions"></div>
+          <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
         </div>
+        <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+          <i class="ri-shopping-bag-line text-xl"></i>
+        </a>
       </div>
     </div>
   </nav>
-  
-  <!-- CART CONTENT -->
+
+  <!-- Account Modal -->
+  <div id="account-modal">
+    <div>
+      <h2>My Account</h2>
+      <input type="text" id="account-email" placeholder="Email" />
+      <input type="password" id="account-password" placeholder="Password" />
+      <button id="login-btn">Log In</button>
+      <button id="signup-btn" class="mt-2">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       <h1 class="text-3xl font-bold mb-8">Your Cart</h1>
-      <div id="cart-container" class="space-y-6">
-        <!-- Cart items will be rendered here dynamically -->
-      </div>
-      <!-- Order Summary (For demo purposes, replace with dynamic calculation) -->
+      <div id="cart-container"></div>
+      
+      <!-- Order Summary -->
       <div id="cart-summary" class="bg-[#1a1a1a] p-4 mt-6 rounded-lg border border-white/10 hidden">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
           <div class="space-y-2">
             <p id="subtotal-line" class="text-gray-300">Subtotal: $0</p>
-            <p id="shipping-line" class="text-gray-300">Shipping: $0</p>
+            <p id="shipping-line" class="text-gray-300">Shipping: $15</p>
             <p id="tax-line" class="text-gray-300">Tax: $0</p>
           </div>
           <div>
             <p id="grandtotal-line" class="text-xl font-bold">Total: $0</p>
           </div>
         </div>
+        <!-- Enhanced Checkout: Shipping Options -->
+        <div class="mt-4">
+          <p class="mb-2">Shipping Speed:</p>
+          <label class="mr-4">
+            <input type="radio" name="shipping" value="standard" checked /> Standard ($15)
+          </label>
+          <label>
+            <input type="radio" name="shipping" value="express" /> Express ($35)
+          </label>
+        </div>
       </div>
+      
       <div class="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
         <button id="clear-cart" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors">Clear Cart</button>
         <a href="latestdrop.html" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors text-center">Continue Shopping</a>
         <button id="checkout-btn" class="bg-white text-black px-6 py-3 rounded-button hover:bg-gray-200 transition-colors ml-auto md:ml-0">Proceed to Checkout</button>
       </div>
+      
+      <!-- Recommended Products -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-4">You Might Also Like</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="border p-2 rounded">
+            <img src="hoodie-front.png" alt="Recommended Hoodie" class="w-full" />
+            <p class="text-sm mt-1">Mortifère Hoodie</p>
+          </div>
+          <div class="border p-2 rounded">
+            <img src="sweats.png" alt="Recommended Sweats" class="w-full" />
+            <p class="text-sm mt-1">Mortifère Sweats</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <!-- CHECKOUT MODAL -->
-  <div id="checkout-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-3xl overflow-y-auto max-h-full">
       <button id="close-checkout-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
       <h2 class="text-2xl font-bold mb-4">Checkout</h2>
       <!-- Order Summary in Modal -->
       <div id="checkout-order-summary" class="mb-6 border-b border-gray-300 pb-4">
         <p id="checkout-subtotal" class="mb-1">Subtotal: $0</p>
-        <p id="checkout-shipping" class="mb-1">Shipping: $0</p>
+        <p id="checkout-shipping" class="mb-1">Shipping: $15</p>
         <p id="checkout-tax" class="mb-1">Tax: $0</p>
         <p id="checkout-total" class="font-bold">Total: $0</p>
       </div>
-      <!-- Checkout Form -->
+      <!-- Enhanced Checkout Form -->
       <form id="checkout-form" class="space-y-4">
         <h3 class="text-xl font-semibold">Shipping Information</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium mb-1" for="full-name">Full Name</label>
-            <input type="text" id="full-name" required class="form-input" />
+            <input type="text" id="full-name" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="email">Email</label>
-            <input type="email" id="email" required class="form-input" />
+            <input type="email" id="email" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="phone">Phone Number</label>
-            <input type="tel" id="phone" required class="form-input" />
+            <input type="tel" id="phone" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="address">Address</label>
-            <input type="text" id="address" required class="form-input" />
+            <input type="text" id="address" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="city">City</label>
-            <input type="text" id="city" required class="form-input" />
+            <input type="text" id="city" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="state">State/Province</label>
-            <input type="text" id="state" required class="form-input" />
+            <input type="text" id="state" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="zip">Zip/Postal Code</label>
-            <input type="text" id="zip" required class="form-input" />
+            <input type="text" id="zip" required class="w-full p-2 rounded border border-gray-300" />
           </div>
           <div>
             <label class="block text-sm font-medium mb-1" for="country">Country</label>
-            <input type="text" id="country" required class="form-input" />
+            <input type="text" id="country" required class="w-full p-2 rounded border border-gray-300" />
           </div>
         </div>
         <h3 class="text-xl font-semibold mt-6">Payment Information</h3>
-        <!-- PayPal Hosted Fields Container -->
+        <!-- PayPal Hosted Fields -->
         <div id="card-fields" class="space-y-4">
           <div>
             <label class="block text-sm font-medium mb-1">Card Number</label>
@@ -203,30 +388,295 @@
       </form>
     </div>
   </div>
-  
-  <!-- FOOTER -->
-  <footer class="bg-[#1a1a1a] py-8">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <p class="text-gray-400 inter">&copy; 2025 Mortifère. All rights reserved.</p>
+
+  <!-- Support Chat Modal for Fred -->
+  <div id="support-chat">
+    <header>
+      <img src="fred.png" alt="Fred" />
+      <span>Fred Support</span>
+      <button class="chat-close">&times;</button>
+    </header>
+    <div class="chat-body" id="chat-body">
+      <!-- FAQ options will be rendered here as user bubbles -->
+      <div id="faq-options"></div>
     </div>
-  </footer>
-  
+    <!-- No freeform input; FAQ-based interaction only -->
+  </div>
+
   <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // --- Search Redirect ---
-      const searchCart = document.getElementById('search-cart');
-      searchCart.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          const term = e.target.value.trim();
-          if (term) {
-            window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
+      /* ------------------ FALLING DROPS ANIMATION ------------------ */
+      const dropsContainer = document.querySelector('.falling-drops');
+      const dropCount = 20;
+      for (let i = 0; i < dropCount; i++) {
+        const drop = document.createElement('div');
+        drop.classList.add('falling-drop');
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        drop.style.animationDelay = (Math.random() * 3) + 's';
+        dropsContainer.appendChild(drop);
+      }
+      
+      /* ------------------ FILTER FUNCTIONALITY ------------------ */
+      const filterButtons = document.querySelectorAll('.filter-button');
+      const productCards = document.querySelectorAll('.product-card');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+          filterButtons.forEach(btn => btn.classList.remove('bg-gray-300', 'text-black'));
+          this.classList.add('bg-gray-300', 'text-black');
+          productCards.forEach(card => {
+            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter)
+              ? 'block'
+              : 'none';
+          });
+        });
+      });
+      
+      /* ------------------ NOTIFY ME BUTTON ------------------ */
+      const notifyBtn = document.querySelector('.notify-btn');
+      if (notifyBtn) {
+        notifyBtn.addEventListener('click', function() {
+          alert('You will be notified about the next drop!');
+        });
+      }
+      
+      /* ------------------ COUNTDOWN TIMER ------------------ */
+      const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+        document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+      setInterval(updateCountdown, 1000);
+      
+      /* ------------------ DYNAMIC SEARCH SUGGESTIONS ------------------ */
+      const searchInput = document.getElementById('search-latest');
+      const suggestionBox = document.getElementById('search-suggestions');
+      searchInput.addEventListener('input', function() {
+        const term = this.value.trim().toLowerCase();
+        suggestionBox.innerHTML = "";
+        if (term.length === 0) {
+          suggestionBox.style.display = "none";
+          return;
+        }
+        let suggestions = [];
+        productCards.forEach(card => {
+          const name = card.querySelector('.quick-view h3')?.textContent || "";
+          if (name.toLowerCase().includes(term)) {
+            suggestions.push(name);
           }
+        });
+        suggestions = [...new Set(suggestions)];
+        suggestions.forEach(suggestion => {
+          const div = document.createElement("div");
+          div.textContent = suggestion;
+          div.addEventListener('click', function() {
+            searchInput.value = suggestion;
+            suggestionBox.style.display = "none";
+          });
+          suggestionBox.appendChild(div);
+        });
+        suggestionBox.style.display = suggestions.length > 0 ? "block" : "none";
+      });
+      
+      /* ------------------ MODAL FOR PRODUCT DETAILS ------------------ */
+      const modal = document.getElementById('product-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalName = document.getElementById('modal-name');
+      const modalPrice = document.getElementById('modal-price');
+      const modalDescription = document.getElementById('modal-description');
+      const closeModalBtn = document.getElementById('close-modal');
+      const sizeOptionsContainer = document.getElementById('size-options');
+      const quantityInput = document.getElementById('quantity-input');
+      let selectedSize = null;
+      
+      productCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const name = card.querySelector('.quick-view h3').textContent;
+          const price = card.querySelector('.quick-view p.text-2xl')?.textContent?.replace('$', '').trim() || '0';
+          const imgSrc = card.querySelector('img:not(.absolute)')?.src || '';
+          modalImg.src = imgSrc;
+          modalName.textContent = name;
+          modalPrice.textContent = "$" + price;
+          modalDescription.textContent = "Product description goes here.";
+          sizeOptionsContainer.innerHTML = "";
+          selectedSize = null;
+          const sizeButtons = card.querySelectorAll('.quick-view .size-option');
+          sizeButtons.forEach((sizeBtn, index) => {
+            const newBtn = document.createElement('button');
+            newBtn.textContent = sizeBtn.textContent;
+            newBtn.className = "size-option px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300";
+            newBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              sizeOptionsContainer.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+              newBtn.classList.add('selected');
+              selectedSize = newBtn.textContent;
+            });
+            if (index === 0) {
+              newBtn.classList.add('selected');
+              selectedSize = newBtn.textContent;
+            }
+            sizeOptionsContainer.appendChild(newBtn);
+          });
+          quantityInput.value = 1;
+          modal.classList.remove('hidden');
+        });
+      });
+      
+      closeModalBtn.addEventListener('click', function() { modal.classList.add('hidden'); });
+      modal.addEventListener('click', function(e) { if(e.target === modal) modal.classList.add('hidden'); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.add('hidden'); });
+      
+      document.getElementById('decrease-qty').addEventListener('click', function(e) {
+        e.stopPropagation();
+        let current = parseInt(quantityInput.value, 10);
+        if (current > 1) quantityInput.value = current - 1;
+      });
+      document.getElementById('increase-qty').addEventListener('click', function(e) {
+        e.stopPropagation();
+        let current = parseInt(quantityInput.value, 10);
+        quantityInput.value = current + 1;
+      });
+      document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
+        e.stopPropagation();
+        const name = modalName.textContent;
+        const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
+        const img = modalImg.src;
+        const quantity = parseInt(quantityInput.value, 10);
+        if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
+          alert("Please select a size.");
+          return;
+        }
+        let cart = localStorage.getItem('cart');
+        cart = cart ? JSON.parse(cart) : [];
+        const existing = cart.find(item => item.name === name && item.size === selectedSize);
+        if (existing) { existing.quantity += quantity; }
+        else { cart.push({ name, price, img, size: selectedSize, quantity }); }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        modal.classList.add('hidden');
+      });
+      
+      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
+      const supportBtn = document.getElementById('support-btn');
+      const supportChat = document.getElementById('support-chat');
+      const chatBody = document.getElementById('chat-body');
+      const faqOptionsContainer = document.getElementById('faq-options');
+      const closeChatBtn = document.querySelector('#support-chat .chat-close');
+      
+      // Predefined FAQ conversation tree
+      const faqTree = {
+        initial: [
+          {
+            id: "faq1",
+            question: "How do I track my order?",
+            answer: "You can track your order by entering your order number on our tracking page.",
+            followUps: [
+              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
+              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
+              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq2",
+            question: "What shipping options are available?",
+            answer: "We offer standard and express shipping worldwide.",
+            followUps: [
+              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
+              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
+              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq3",
+            question: "What is your return policy?",
+            answer: "We offer a 30-day return policy on all products.",
+            followUps: [
+              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
+              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
+              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq4",
+            question: "Do you have a size guide?",
+            answer: "Yes, a detailed size guide is available on each product page.",
+            followUps: [
+              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
+              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
+              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          }
+        ]
+      };
+      
+      // Reset chat
+      function resetChat() {
+        chatBody.innerHTML = "";
+        faqOptionsContainer.innerHTML = "";
+      }
+      
+      // Render FAQ options as a user bubble (buttons aligned right)
+      function showOptionsAsUserBubble(options) {
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user");
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        options.forEach(option => {
+          const btn = document.createElement("button");
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition-colors";
+          btn.textContent = option.question;
+          btn.addEventListener("click", () => handleOptionClick(option));
+          buttonsDiv.appendChild(btn);
+        });
+        bubble.appendChild(buttonsDiv);
+        userMsgDiv.appendChild(bubble);
+        chatBody.appendChild(userMsgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      
+      // Handle FAQ option click
+      function handleOptionClick(option) {
+        addMessage("user", option.question);
+        addMessage("fred", option.answer);
+        if(option.followUps && option.followUps.length > 0) {
+          showOptionsAsUserBubble(option.followUps);
+        } else {
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
+        }
+      }
+      
+      // Open chat: reset chat, greet, and show initial FAQ options
+      function openChat() {
+        supportChat.style.display = "flex";
+        resetChat();
+        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
+        showOptionsAsUserBubble(faqTree.initial);
+      }
+      
+      supportBtn.addEventListener("click", () => {
+        if (supportChat.style.display === "flex") {
+          supportChat.style.display = "none";
+          resetChat();
+        } else {
+          openChat();
         }
       });
-  
-      // --- Cart Variables & Render Functions ---
-      const container = document.getElementById('cart-container');
+      
+      closeChatBtn.addEventListener("click", () => {
+        supportChat.style.display = "none";
+        resetChat();
+      });
+      
+      /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
+      const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
       const checkoutBtn = document.getElementById('checkout-btn');
       const cartSummary = document.getElementById('cart-summary');
@@ -234,8 +684,6 @@
       const shippingLine = document.getElementById('shipping-line');
       const taxLine = document.getElementById('tax-line');
       const grandtotalLine = document.getElementById('grandtotal-line');
-  
-      // --- Checkout Modal Variables ---
       const checkoutModal = document.getElementById('checkout-modal');
       const closeCheckoutModal = document.getElementById('close-checkout-modal');
       const checkoutSubtotal = document.getElementById('checkout-subtotal');
@@ -243,26 +691,27 @@
       const checkoutTax = document.getElementById('checkout-tax');
       const checkoutTotal = document.getElementById('checkout-total');
       const checkoutForm = document.getElementById('checkout-form');
-  
-      // --- Load Cart from LocalStorage (or use example data) ---
+      
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [
         { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
         { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
       ];
-  
+      
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => { subtotal += item.price * item.quantity; });
-        const shipping = subtotal > 0 ? 15 : 0;
+        // Default shipping based on standard (radio button will update later)
+        let shipping = subtotal > 0 ? 15 : 0;
         const tax = Math.round(subtotal * 0.08);
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
-  
+      
       function renderCart() {
+        if (!cartContainer) return;
         if (cart.length === 0) {
-          container.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
+          cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
           return;
         }
@@ -286,10 +735,10 @@
           html += `
             <tr class="border-b border-white/5">
               <td class="py-3 flex items-center space-x-4">
-                <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded" />
+                <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded"/>
                 <span>${item.name}</span>
               </td>
-              <td class="py-3">${item.size ? item.size : '-'}</td>
+              <td class="py-3">${item.size || '-'}</td>
               <td class="py-3">$${totalPrice}</td>
               <td class="py-3">
                 <div class="flex items-center space-x-2">
@@ -309,8 +758,8 @@
             </table>
           </div>
         `;
-        container.innerHTML = html;
-        container.querySelectorAll('button[data-action]').forEach(btn => {
+        cartContainer.innerHTML = html;
+        cartContainer.querySelectorAll('button[data-action]').forEach(btn => {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.index, 10);
             const action = this.dataset.action;
@@ -323,33 +772,35 @@
           });
         });
       }
-  
+      
       function renderSummary() {
+        if (!cartSummary) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         subtotalLine.textContent = `Subtotal: $${subtotal}`;
         shippingLine.textContent = `Shipping: $${shipping}`;
         taxLine.textContent = `Tax: $${tax}`;
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
-  
+      
       function updateCheckoutModal() {
+        if (!checkoutModal) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
         checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
         checkoutShipping.textContent = `Shipping: $${shipping}`;
         checkoutTax.textContent = `Tax: $${tax}`;
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
-  
+      
       renderCart();
       renderSummary();
-  
+      
       clearBtn.addEventListener('click', function() {
         cart = [];
         localStorage.removeItem('cart');
         renderCart();
         renderSummary();
       });
-  
+      
       checkoutBtn.addEventListener('click', function() {
         const { grandTotal } = calculateTotals();
         if (grandTotal === 0) {
@@ -359,25 +810,21 @@
         updateCheckoutModal();
         checkoutModal.classList.remove('hidden');
       });
-  
+      
       closeCheckoutModal.addEventListener('click', function() {
         checkoutModal.classList.add('hidden');
       });
-  
+      
       checkoutModal.addEventListener('click', function(e) {
         if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
       });
-  
+      
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
       });
-  
-      // --- PayPal Hosted Fields Integration ---
+      
       paypal.HostedFields.render({
-        createOrder: function() {
-          // For demo purposes, return a dummy order ID.
-          return Promise.resolve('DUMMY_ORDER_ID');
-        },
+        createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
         styles: {
           'input': { 'font-size': '16px', 'color': '#3A3A3A' },
           ':focus': { 'color': 'black' },
@@ -385,18 +832,9 @@
           '.invalid': { 'color': 'red' }
         },
         fields: {
-          number: {
-            selector: '#card-number',
-            placeholder: '4111 1111 1111 1111'
-          },
-          expirationDate: {
-            selector: '#expiration-date',
-            placeholder: 'MM/YY'
-          },
-          cvv: {
-            selector: '#cvv',
-            placeholder: '123'
-          }
+          number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
+          expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
+          cvv: { selector: '#cvv', placeholder: '123' }
         }
       }).then(function(hostedFieldsInstance) {
         checkoutForm.addEventListener('submit', function(event) {
@@ -413,9 +851,7 @@
             alert('Please fill in all required shipping fields.');
             return;
           }
-          hostedFieldsInstance.submit({
-            cardholderName: fullName
-          }).then(function(payload) {
+          hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
             alert('Payment successful! Card Token: ' + payload.nonce);
             cart = [];
             localStorage.removeItem('cart');
@@ -430,6 +866,115 @@
       }).catch(function(err) {
         console.error('Hosted Fields failed to load:', err);
         alert('Payment fields could not be loaded. Please try again later.');
+      });
+      
+      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
+      const supportBtn = document.getElementById('support-btn');
+      const supportChat = document.getElementById('support-chat');
+      const chatBody = document.getElementById('chat-body');
+      const faqOptionsContainer = document.getElementById('faq-options');
+      const closeChatBtn = document.querySelector('#support-chat .chat-close');
+      
+      const faqTree = {
+        initial: [
+          {
+            id: "faq1",
+            question: "How do I track my order?",
+            answer: "You can track your order by entering your order number on our tracking page.",
+            followUps: [
+              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
+              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
+              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq2",
+            question: "What shipping options are available?",
+            answer: "We offer standard and express shipping worldwide.",
+            followUps: [
+              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
+              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
+              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq3",
+            question: "What is your return policy?",
+            answer: "We offer a 30-day return policy on all products.",
+            followUps: [
+              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
+              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
+              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq4",
+            question: "Do you have a size guide?",
+            answer: "Yes, a detailed size guide is available on each product page.",
+            followUps: [
+              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
+              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
+              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          }
+        ]
+      };
+      
+      function resetChat() {
+        chatBody.innerHTML = "";
+        faqOptionsContainer.innerHTML = "";
+      }
+      
+      function showOptionsAsUserBubble(options) {
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user");
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        options.forEach(option => {
+          const btn = document.createElement("button");
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
+          btn.textContent = option.question;
+          btn.addEventListener("click", () => handleOptionClick(option));
+          buttonsDiv.appendChild(btn);
+        });
+        bubble.appendChild(buttonsDiv);
+        userMsgDiv.appendChild(bubble);
+        chatBody.appendChild(userMsgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      
+      function handleOptionClick(option) {
+        addMessage("user", option.question);
+        addMessage("fred", option.answer);
+        if(option.followUps && option.followUps.length > 0) {
+          showOptionsAsUserBubble(option.followUps);
+        } else {
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
+        }
+      }
+      
+      function openChat() {
+        supportChat.style.display = "flex";
+        resetChat();
+        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
+        showOptionsAsUserBubble(faqTree.initial);
+      }
+      
+      supportBtn.addEventListener("click", () => {
+        if (supportChat.style.display === "flex") {
+          supportChat.style.display = "none";
+          resetChat();
+        } else {
+          openChat();
+        }
+      });
+      
+      closeChatBtn.addEventListener("click", () => {
+        supportChat.style.display = "none";
+        resetChat();
       });
     });
   </script>
