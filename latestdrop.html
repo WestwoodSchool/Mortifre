@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Latest Drop - Mortifère</title>
   
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Mortifère is a high-end streetwear brand featuring exclusive drops, luxury style, and interactive support." />
+  <meta property="og:title" content="Latest Drop - Mortifère" />
+  <meta property="og:description" content="Explore our latest exclusive drops, shop premium streetwear, and get support from our virtual assistant Fred." />
+  <meta property="og:image" content="drop.png" />
+  <meta property="og:url" content="https://yourdomain.com/latestdrop.html" />
+
   <!-- Favicon (Winged Logo) -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script>
     tailwind.config = {
@@ -26,7 +27,8 @@
         extend: {
           colors: {
             primary: '#000000',
-            secondary: '#1a1a1a'
+            secondary: '#1a1a1a',
+            cream: '#f5f5dc'
           },
           borderRadius: {
             'none': '0px',
@@ -49,13 +51,14 @@
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
 
+    /* Countdown Items */
     .countdown-item {
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Quick view overlay */
+    /* Quick view overlay for products */
     .product-card:hover .quick-view {
       opacity: 1;
       transform: translateY(0);
@@ -65,10 +68,8 @@
       transform: translateY(20px);
       transition: all 0.3s ease;
     }
-
-    /* Removed toast for "Add to cart" per request */
-
-    /* Underline effect for nav links */
+    
+    /* Underline effect for navigation links */
     .nav-link {
       position: relative;
     }
@@ -85,21 +86,15 @@
     .nav-link:hover::after {
       width: 100%;
     }
-
-    /* Modal Styles */
-    #product-modal {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    .size-option.selected {
-      background-color: #000;
-      color: #fff;
-    }
-
+    
+    /* Modal styles */
+    #product-modal { background-color: rgba(0, 0, 0, 0.5); }
+    .size-option.selected { background-color: #000; color: #fff; }
+    
     /* Falling drops animation for countdown background */
     .falling-drops {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -119,7 +114,7 @@
       0% { transform: translateY(-100px) rotate(0deg); }
       100% { transform: translateY(110vh) rotate(360deg); }
     }
-
+    
     /* Support Chat (Fred) Styles */
     #support-chat {
       position: fixed;
@@ -136,9 +131,10 @@
       overflow: hidden;
       z-index: 100;
     }
+    /* Change Fred's header to cream white */
     #support-chat header {
-      background: #000;
-      color: #fff;
+      background: #f5f5dc;
+      color: #000;
       padding: 12px;
       display: flex;
       align-items: center;
@@ -153,7 +149,7 @@
       margin-left: auto;
       background: transparent;
       border: none;
-      color: #fff;
+      color: #000;
       font-size: 24px;
       cursor: pointer;
     }
@@ -163,7 +159,7 @@
       overflow-y: auto;
       background: #f5f5f5;
     }
-    /* Align FAQ options to the right */
+    /* FAQ options aligned to the right */
     #faq-options {
       display: flex;
       flex-direction: column;
@@ -171,6 +167,7 @@
       gap: 8px;
       margin-top: 8px;
     }
+    /* Chat message styles */
     .message {
       margin-bottom: 8px;
       display: flex;
@@ -192,66 +189,134 @@
       border-radius: 50%;
       margin-right: 6px;
     }
+    
+    /* Wishlist icon on product cards */
+    .wishlist-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    .wishlist-icon:hover {
+      opacity: 1;
+    }
+    
+    /* Account modal styles */
+    #account-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      padding: 20px;
+      z-index: 200;
+      display: none;
+    }
+    #account-modal h2 {
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    #account-modal input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    #account-modal button {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    /* Dynamic search suggestions */
+    #search-suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      border-top: none;
+      z-index: 10;
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #search-suggestions div {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    #search-suggestions div:hover {
+      background: #f0f0f0;
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
   <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-12">
-          <a href="index.html">
-            <img src="winged-logo.png" alt="Logo" class="h-12"/>
-          </a>
-          <div class="hidden md:flex space-x-8">
-            <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
-          </div>
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="winged-logo.png" alt="Logo" class="h-12" />
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
+          <a href="#" id="account-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">My Account</a>
+          <a href="#" id="wishlist-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">Wishlist</a>
         </div>
-        <div class="flex items-center space-x-6">
-          <!-- Search input -->
-          <div class="relative">
-            <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30"/>
-            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
-          </div>
-          <!-- Cart icon -->
-          <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
-            <i class="ri-shopping-bag-line text-xl"></i>
-          </a>
+      </div>
+      <div class="flex items-center space-x-6 relative">
+        <!-- Search input with dynamic suggestions -->
+        <div class="relative">
+          <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
+          <div id="search-suggestions"></div>
+          <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
         </div>
+        <!-- Cart icon -->
+        <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300 transition-colors">
+          <i class="ri-shopping-bag-line text-xl"></i>
+        </a>
       </div>
     </div>
   </nav>
+
+  <!-- Account Modal -->
+  <div id="account-modal">
+    <h2>My Account</h2>
+    <input type="text" id="account-email" placeholder="Email" />
+    <input type="password" id="account-password" placeholder="Password" />
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn" class="mt-2">Sign Up</button>
+  </div>
 
   <!-- PAGE CONTENT -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="all"
-          id="filter-all"
-        >All</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="clothing"
-          id="filter-clothing"
-        >Clothing</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="accessories"
-          id="filter-accessories"
-        >Accessories</button>
-        <button
-          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
-          data-filter="footwear"
-          id="filter-footwear"
-        >Footwear</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
+        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
       </div>
 
       <!-- Next Drop Section -->
       <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
-        <!-- Falling drops animation container -->
         <div class="falling-drops"></div>
         <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('drop.png')"></div>
         <div class="absolute inset-0 bg-black/60"></div>
@@ -287,17 +352,10 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
-          <!-- Front/Back Image Hover Effect -->
-          <img
-            src="hoodie-front.png"
-            alt="Mortifère Hoodie Front"
-            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
-          />
-          <img
-            src="hoodie-back.png"
-            alt="Mortifère Hoodie Back"
-            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          />
+          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"/>
+          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
+          <!-- Wishlist icon -->
+          <i class="ri-heart-line wishlist-icon" data-product="Mortifère Hoodie"></i>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -314,11 +372,7 @@
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
         <div class="product-card relative group cursor-pointer" data-category="clothing">
-          <img
-            src="sweats.png"
-            alt="Mortifère Sweats"
-            class="w-full h-[500px] object-cover rounded-lg"
-          />
+          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg"/>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -335,11 +389,7 @@
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories">
-          <img
-            src="mortifere-backpack.jpg"
-            alt="Mortifère Backpack"
-            class="w-full h-[500px] object-cover rounded-lg"
-          />
+          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg"/>
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -355,10 +405,7 @@
 
       <!-- Fixed Support Button -->
       <div class="fixed bottom-6 right-6 z-50">
-        <button
-          id="support-btn"
-          class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors"
-        >
+        <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
@@ -387,22 +434,13 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Follow Us</h5>
           <div class="flex space-x-4">
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-discord-line text-xl"></i>
             </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-instagram-line text-xl"></i>
             </a>
-            <a
-              href="#"
-              class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors"
-            >
+            <a href="#" class="w-10 h-10 flex items-center justify-center text-white hover:text-secondary transition-colors">
               <i class="ri-twitter-x-line text-xl"></i>
             </a>
           </div>
@@ -410,11 +448,7 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
           <div class="flex">
-            <input
-              type="email"
-              placeholder="Your email"
-              class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"
-            />
+            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"/>
             <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
               Subscribe
             </button>
@@ -435,7 +469,7 @@
       <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
       <p id="modal-price" class="text-xl mt-2"></p>
       <p id="modal-description" class="mt-4">Product description goes here.</p>
-
+      
       <!-- New Size Selection Section -->
       <div id="modal-sizes" class="mt-4">
         <p class="font-bold mb-2">Select Size:</p>
@@ -443,28 +477,41 @@
           <!-- Size buttons will be injected here -->
         </div>
       </div>
-
+      
       <!-- New Quantity Selector -->
       <div id="modal-quantity" class="mt-4">
         <p class="font-bold mb-2">Quantity:</p>
         <div class="flex items-center">
           <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
-          <input
-            type="number"
-            id="quantity-input"
-            value="1"
-            min="1"
-            class="w-12 text-center border-t border-b border-gray-200"
-          />
+          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200" />
           <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
         </div>
       </div>
-
-      <!-- Modal Add to Cart Button (Only here!) -->
-      <button
-        id="modal-add-to-cart"
-        class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors"
-      >
+      
+      <!-- Social Sharing Buttons -->
+      <div class="mt-4 flex justify-center gap-4">
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">Share on Facebook</button>
+        <button class="bg-blue-400 text-white px-4 py-2 rounded">Share on Twitter</button>
+        <button class="bg-red-600 text-white px-4 py-2 rounded">Share on Pinterest</button>
+      </div>
+      
+      <!-- Recommended Products (Dummy Recommendations) -->
+      <div class="mt-6">
+        <h3 class="text-lg font-bold mb-2">You Might Also Like</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="border p-2 rounded">
+            <img src="hoodie-front.png" alt="Recommendation 1" class="w-full" />
+            <p class="text-sm mt-1">Mortifère Hoodie</p>
+          </div>
+          <div class="border p-2 rounded">
+            <img src="sweats.png" alt="Recommendation 2" class="w-full" />
+            <p class="text-sm mt-1">Mortifère Sweats</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modal Add to Cart Button -->
+      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
         Add to Cart
       </button>
     </div>
@@ -481,7 +528,7 @@
       <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
-    <!-- Removed freeform chat input & typing indicator -->
+    <!-- (Freeform chat input removed per request; FAQ options only) -->
   </div>
 
   <!-- JAVASCRIPT FUNCTIONALITY -->
@@ -498,7 +545,7 @@
         drop.style.animationDelay = (Math.random() * 3) + 's';
         dropsContainer.appendChild(drop);
       }
-
+      
       /* ------------------ FILTER FUNCTIONALITY ------------------ */
       const filterButtons = document.querySelectorAll('.filter-button');
       const productCards = document.querySelectorAll('.product-card');
@@ -514,7 +561,7 @@
           });
         });
       });
-
+      
       /* ------------------ NOTIFY ME BUTTON ------------------ */
       const notifyBtn = document.querySelector('.notify-btn');
       if (notifyBtn) {
@@ -522,7 +569,7 @@
           alert('You will be notified about the next drop!');
         });
       }
-
+      
       /* ------------------ COUNTDOWN TIMER ------------------ */
       const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
       function updateCountdown() {
@@ -534,29 +581,38 @@
         document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
       }
       setInterval(updateCountdown, 1000);
-
-      /* ------------------ SEARCH FUNCTIONALITY ------------------ */
-      const searchLatest = document.getElementById('search-latest');
-      function searchProducts(term) {
-        const lowerTerm = term.toLowerCase();
-        productCards.forEach(card => {
-          const productName = card.querySelector('.quick-view h3')?.textContent?.toLowerCase() || '';
-          card.style.display = productName.includes(lowerTerm) ? 'block' : 'none';
-        });
-      }
-      const params = new URLSearchParams(window.location.search);
-      const initSearch = params.get('search');
-      if (initSearch) {
-        searchLatest.value = initSearch;
-        searchProducts(initSearch);
-      }
-      searchLatest.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          const term = e.target.value.trim();
-          searchProducts(term);
+      
+      /* ------------------ DYNAMIC SEARCH SUGGESTIONS ------------------ */
+      const searchInput = document.getElementById('search-latest');
+      const suggestionBox = document.getElementById('search-suggestions');
+      searchInput.addEventListener('input', function() {
+        const term = this.value.trim().toLowerCase();
+        suggestionBox.innerHTML = "";
+        if (term.length === 0) {
+          suggestionBox.style.display = "none";
+          return;
         }
+        // Search through product names (from quick view h3)
+        let suggestions = [];
+        productCards.forEach(card => {
+          const name = card.querySelector('.quick-view h3')?.textContent || "";
+          if (name.toLowerCase().includes(term)) {
+            suggestions.push(name);
+          }
+        });
+        suggestions = [...new Set(suggestions)];
+        suggestions.forEach(suggestion => {
+          const div = document.createElement("div");
+          div.textContent = suggestion;
+          div.addEventListener('click', function() {
+            searchInput.value = suggestion;
+            suggestionBox.style.display = "none";
+          });
+          suggestionBox.appendChild(div);
+        });
+        suggestionBox.style.display = suggestions.length > 0 ? "block" : "none";
       });
-
+      
       /* ------------------ MODAL FOR PRODUCT DETAILS ------------------ */
       const modal = document.getElementById('product-modal');
       const modalImg = document.getElementById('modal-img');
@@ -567,7 +623,7 @@
       const sizeOptionsContainer = document.getElementById('size-options');
       const quantityInput = document.getElementById('quantity-input');
       let selectedSize = null;
-
+      
       productCards.forEach(card => {
         card.addEventListener('click', function() {
           const name = card.querySelector('.quick-view h3').textContent;
@@ -577,9 +633,7 @@
           modalName.textContent = name;
           modalPrice.textContent = "$" + price;
           modalDescription.textContent = "Product description goes here.";
-
-          // Clear out size options
-          sizeOptionsContainer.innerHTML = '';
+          sizeOptionsContainer.innerHTML = "";
           selectedSize = null;
           const sizeButtons = card.querySelectorAll('.quick-view .size-option');
           sizeButtons.forEach((sizeBtn, index) => {
@@ -592,29 +646,20 @@
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
             });
-            // Optionally select first size by default
             if (index === 0) {
               newBtn.classList.add('selected');
               selectedSize = newBtn.textContent;
             }
             sizeOptionsContainer.appendChild(newBtn);
           });
-
           quantityInput.value = 1;
           modal.classList.remove('hidden');
         });
       });
-
-      closeModalBtn.addEventListener('click', function() {
-        modal.classList.add('hidden');
-      });
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) modal.classList.add('hidden');
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') modal.classList.add('hidden');
-      });
-
+      
+      closeModalBtn.addEventListener('click', function() { modal.classList.add('hidden'); });
+      modal.addEventListener('click', function(e) { if(e.target === modal) modal.classList.add('hidden'); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.add('hidden'); });
       document.getElementById('decrease-qty').addEventListener('click', function(e) {
         e.stopPropagation();
         let current = parseInt(quantityInput.value, 10);
@@ -625,38 +670,32 @@
         let current = parseInt(quantityInput.value, 10);
         quantityInput.value = current + 1;
       });
-
       document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
         e.stopPropagation();
         const name = modalName.textContent;
         const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
         const img = modalImg.src;
         const quantity = parseInt(quantityInput.value, 10);
-
         if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
           alert("Please select a size.");
           return;
         }
-
         let cart = localStorage.getItem('cart');
         cart = cart ? JSON.parse(cart) : [];
         const existing = cart.find(item => item.name === name && item.size === selectedSize);
-        if (existing) {
-          existing.quantity += quantity;
-        } else {
-          cart.push({ name, price, img, size: selectedSize, quantity });
-        }
+        if (existing) { existing.quantity += quantity; }
+        else { cart.push({ name, price, img, size: selectedSize, quantity }); }
         localStorage.setItem('cart', JSON.stringify(cart));
         modal.classList.add('hidden');
       });
-
+      
       /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
       const supportBtn = document.getElementById('support-btn');
       const supportChat = document.getElementById('support-chat');
       const chatBody = document.getElementById('chat-body');
       const faqOptionsContainer = document.getElementById('faq-options');
       const closeChatBtn = document.querySelector('#support-chat .chat-close');
-
+      
       // Predefined FAQ conversation tree
       const faqTree = {
         initial: [
@@ -702,104 +741,68 @@
           }
         ]
       };
-
-      // Reset chat content
+      
+      // Reset chat on exit
       function resetChat() {
         chatBody.innerHTML = "";
         faqOptionsContainer.innerHTML = "";
       }
-
-      // Create a new message bubble
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-
-      // Show a user bubble with clickable FAQ options
+      
+      // Render FAQ options as clickable buttons in a user bubble aligned right
       function showOptionsAsUserBubble(options) {
-        // Create a user bubble
         const userMsgDiv = document.createElement("div");
         userMsgDiv.classList.add("message", "user");
         const bubble = document.createElement("div");
         bubble.classList.add("bubble");
-        
-        // Create a container for the buttons
         const buttonsDiv = document.createElement("div");
         buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        
         options.forEach(option => {
           const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition-colors";
           btn.textContent = option.question;
           btn.addEventListener("click", () => handleOptionClick(option));
           buttonsDiv.appendChild(btn);
         });
-        
         bubble.appendChild(buttonsDiv);
         userMsgDiv.appendChild(bubble);
         chatBody.appendChild(userMsgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
-
-      // Display Fred's answer, then if followUps exist, show them as new user bubble
+      
+      // Handle FAQ option click: add user's question, then Fred's answer, then show follow-ups if any
       function handleOptionClick(option) {
-        // Add user message (the question)
         addMessage("user", option.question);
-        // Add Fred's response
         addMessage("fred", option.answer);
-
-        // If followUps exist, show them
-        if (option.followUps && option.followUps.length > 0) {
+        if(option.followUps && option.followUps.length > 0) {
           showOptionsAsUserBubble(option.followUps);
         } else {
-          // Otherwise, optionally show a "Connect with a real person" button
-          const finalConnect = {
-            id: "connectReal",
-            question: "Connect with a real person",
-            answer: "Connecting you with a support representative..."
-          };
-          showOptionsAsUserBubble([finalConnect]);
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
         }
       }
-
-      // Start the chat by greeting from Fred, then show initial FAQ options as a user bubble
+      
+      // Open chat: reset, greet, and show initial FAQ options
       function openChat() {
         supportChat.style.display = "flex";
         resetChat();
         addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
         showOptionsAsUserBubble(faqTree.initial);
       }
-
-      // Toggle the chat when clicking the support button
-      const toggleChat = () => {
+      
+      supportBtn.addEventListener("click", () => {
         if (supportChat.style.display === "flex") {
           supportChat.style.display = "none";
           resetChat();
         } else {
           openChat();
         }
-      };
-
-      supportBtn.addEventListener("click", toggleChat);
-
-      // Close chat with X button
+      });
+      
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
       });
-
+      
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
       const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
@@ -816,24 +819,26 @@
       const checkoutTax = document.getElementById('checkout-tax');
       const checkoutTotal = document.getElementById('checkout-total');
       const checkoutForm = document.getElementById('checkout-form');
-
+      
       let cart = localStorage.getItem('cart');
       cart = cart ? JSON.parse(cart) : [
         { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
         { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
       ];
-
+      
       function calculateTotals() {
         let subtotal = 0;
         cart.forEach(item => { subtotal += item.price * item.quantity; });
-        const shipping = subtotal > 0 ? 15 : 0;
+        // Enhanced Checkout: Shipping speed options (Standard: $15, Express: $35)
+        let shipping = subtotal > 0 ? 15 : 0;
+        // We'll update shipping based on user selection later in checkout modal.
         const tax = Math.round(subtotal * 0.08);
         const grandTotal = subtotal + shipping + tax;
         return { subtotal, shipping, tax, grandTotal };
       }
-
+      
       function renderCart() {
-        if (!cartContainer) return; // If there's no cart on this page, skip
+        if (!cartContainer) return;
         if (cart.length === 0) {
           cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
           cartSummary.classList.add('hidden');
@@ -896,7 +901,7 @@
           });
         });
       }
-
+      
       function renderSummary() {
         if (!cartSummary) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
@@ -905,7 +910,7 @@
         taxLine.textContent = `Tax: $${tax}`;
         grandtotalLine.textContent = `Total: $${grandTotal}`;
       }
-
+      
       function updateCheckoutModal() {
         if (!checkoutModal) return;
         const { subtotal, shipping, tax, grandTotal } = calculateTotals();
@@ -914,19 +919,18 @@
         checkoutTax.textContent = `Tax: $${tax}`;
         checkoutTotal.textContent = `Total: $${grandTotal}`;
       }
-
-      // Only run cart logic if the cart elements exist on this page
+      
       if (document.getElementById('cart-container')) {
         renderCart();
         renderSummary();
-
+      
         clearBtn.addEventListener('click', function() {
           cart = [];
           localStorage.removeItem('cart');
           renderCart();
           renderSummary();
         });
-
+      
         checkoutBtn.addEventListener('click', function() {
           const { grandTotal } = calculateTotals();
           if (grandTotal === 0) {
@@ -936,19 +940,19 @@
           updateCheckoutModal();
           checkoutModal.classList.remove('hidden');
         });
-
+      
         closeCheckoutModal.addEventListener('click', function() {
           checkoutModal.classList.add('hidden');
         });
-
+      
         checkoutModal.addEventListener('click', function(e) {
           if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
         });
-
+      
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
         });
-
+      
         paypal.HostedFields.render({
           createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
           styles: {
