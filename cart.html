@@ -196,21 +196,22 @@
   <!-- HEADER -->
   <header class="bg-[#f5f5f5]/30 backdrop-blur-md py-4">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-      <a href="index.html">
-        <img src="winged-logo.png" alt="Logo" class="h-12" />
-      </a>
-      <nav class="hidden md:flex space-x-8">
-        <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
-      </nav>
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="winged-logo.png" alt="Logo" class="h-12" />
+        </a>
+        <nav class="hidden md:flex space-x-8">
+          <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
+          <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
+        </nav>
+      </div>
       <div class="flex items-center space-x-6">
-        <!-- Search input -->
-        <div class="relative">
-          <input id="search-cart" type="text" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary" />
-        </div>
         <!-- Cart icon -->
         <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
           <i class="ri-shopping-bag-line text-xl"></i>
         </a>
+        <!-- Account icon -->
+        <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
       </div>
     </div>
   </header>
