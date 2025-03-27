@@ -11,15 +11,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-    rel="stylesheet"
-  />
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet"/>
   <script>
     tailwind.config = {
       theme: {
@@ -42,11 +35,16 @@
     }
   </script>
   <style>
-    /* Remove default body margin/padding */
-    body, html {
+    /* Remove default margins and hide any extra overflow */
+    html, body {
       margin: 0;
       padding: 0;
+      overflow: hidden;
     }
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    .playfair { font-family: 'Playfair Display', serif; }
+    .inter { font-family: 'Inter', sans-serif; }
+    
     /* Underline effect for nav links */
     .nav-link {
       position: relative;
@@ -64,58 +62,136 @@
     .nav-link:hover::after {
       width: 100%;
     }
+    
+    /* Minimalistic Account Overlay */
+    #account-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      display: none;
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .account-modal {
+      background: #000;
+      color: #fff;
+      width: 400px;
+      max-width: 90%;
+      padding: 30px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .account-modal::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: url('wing-motif.png') no-repeat center center;
+      background-size: 200px 200px;
+      opacity: 0.08;
+      width: 200px;
+      height: 200px;
+      pointer-events: none;
+    }
+    .close-account-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .account-modal h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .form-field {
+      display: block;
+      width: 100%;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #fff;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .form-button {
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-button:hover {
+      background: #ccc;
+    }
+    .toggle-link {
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
   </style>
 </head>
-<body class="bg-[#121212] overflow-hidden">
-  <!-- HEADER: Soft, near-white translucent background, no border -->
+<body class="bg-[#121212]">
+  <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
-        <!-- Left: Logo & Nav -->
+        <!-- Left: Logo & Navigation -->
         <div class="flex items-center space-x-12">
           <a href="index.html">
-            <img
-              src="winged-logo.png"
-              alt="Logo"
-              class="h-12"
-            />
+            <img src="winged-logo.png" alt="Logo" class="h-12"/>
           </a>
           <div class="hidden md:flex space-x-8">
-            <!-- Latest Drop points to the other page -->
             <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
-            <!-- About button now directs to about.html -->
             <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
           </div>
         </div>
-        <!-- Right side: search & cart icon -->
+        <!-- Right: Icons & Search -->
         <div class="flex items-center space-x-6">
+          <!-- Search input (redirects on Enter) -->
           <div class="relative">
-            <input
-              id="search-index"
-              type="text"
-              placeholder="Search"
-              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
-            />
+            <input id="search-index" type="text" placeholder="Search" class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"/>
             <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
           </div>
-          <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
+          <!-- Cart icon (black) -->
+          <button class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors" onclick="window.location.href='cart.html'">
             <i class="ri-shopping-bag-line text-xl"></i>
           </button>
+          <!-- Account icon -->
+          <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
         </div>
       </div>
     </div>
   </nav>
 
+  <!-- Account Overlay (Sign In/Sign Up) -->
+  <div id="account-overlay" class="flex">
+    <div class="account-modal">
+      <button class="close-account-overlay">&times;</button>
+      <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
+      <input type="text" id="account-email" placeholder="Email" class="form-field"/>
+      <input type="password" id="account-password" placeholder="Password" class="form-field"/>
+      <button id="login-btn" class="form-button">Sign In</button>
+      <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
+    </div>
+  </div>
+
   <!-- HERO SECTION / TITLE CARD -->
   <section class="relative h-screen overflow-hidden">
     <!-- Video Background -->
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      class="absolute inset-0 w-full h-full object-cover"
-    >
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
       <source src="Untitled design (1).mp4" type="video/mp4"/>
     </video>
     <!-- Dark overlay -->
@@ -137,7 +213,7 @@
   </section>
 
   <script>
-    // Simple search on index: redirect to latestdrop.html?search=...
+    // Redirect search on Enter from index to latestdrop
     document.addEventListener('DOMContentLoaded', function() {
       const searchIndex = document.getElementById('search-index');
       searchIndex.addEventListener('keydown', function(e) {
@@ -147,6 +223,59 @@
             window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
           }
         }
+      });
+      
+      /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
+      const accountIcon = document.getElementById('account-icon');
+      const accountOverlay = document.getElementById('account-overlay');
+      let isSignUp = false;
+      const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
+      const loginBtn = document.getElementById('login-btn');
+      const toggleSignupLink = document.getElementById('toggle-signup');
+      const overlayTitle = document.getElementById('overlay-title');
+      
+      accountIcon.addEventListener('click', function() {
+        accountOverlay.style.display = "flex";
+      });
+      closeAccountOverlayBtn.addEventListener('click', function() {
+        accountOverlay.style.display = "none";
+      });
+      accountOverlay.addEventListener('click', function(e) {
+        if (e.target === accountOverlay) {
+          accountOverlay.style.display = "none";
+        }
+      });
+      toggleSignupLink.addEventListener('click', function() {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+          overlayTitle.textContent = "Sign Up";
+          loginBtn.textContent = "Create Account";
+          toggleSignupLink.textContent = "Sign In";
+        } else {
+          overlayTitle.textContent = "Sign In";
+          loginBtn.textContent = "Sign In";
+          toggleSignupLink.textContent = "Sign Up";
+        }
+      });
+      loginBtn.addEventListener('click', function() {
+        const email = document.getElementById('account-email').value.trim();
+        const password = document.getElementById('account-password').value.trim();
+        if (!email || !password) {
+          alert("Please enter your email and password.");
+          return;
+        }
+        if (isSignUp) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+        } else {
+          const existingEmail = localStorage.getItem('accountEmail');
+          if (existingEmail === email) {
+            alert("Welcome back, " + email + "!");
+          } else {
+            alert("No account found for this email. Please sign up first.");
+          }
+        }
+        accountOverlay.style.display = "none";
       });
     });
   </script>
