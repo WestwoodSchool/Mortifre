@@ -134,7 +134,6 @@
       overflow: hidden;
       z-index: 100;
     }
-    /* Fred’s header styled in cream with black text */
     #support-chat header {
       background: #f5f5dc;
       color: #000;
@@ -161,35 +160,6 @@
       padding: 12px;
       overflow-y: auto;
       background: #f5f5f5;
-    }
-    /* Align FAQ options to the right */
-    #faq-options {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .message {
-      margin-bottom: 8px;
-      display: flex;
-    }
-    .message.fred { justify-content: flex-start; }
-    .message.user { justify-content: flex-end; }
-    .message .bubble {
-      max-width: 70%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-    }
-    .message.fred .bubble { background: #e0e0e0; color: #000; }
-    .message.user .bubble { background: #000; color: #fff; }
-    .message.fred img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      margin-right: 6px;
     }
 
     /* Minimalistic Sign-In/Sign-Up Overlay for Account */
@@ -363,7 +333,6 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
-          <!-- Front/Back Image Hover Effect -->
           <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
           <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
@@ -479,7 +448,6 @@
       <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
       <p id="modal-price" class="text-xl mt-2"></p>
       <p id="modal-description" class="mt-4">Product description goes here.</p>
-
       <!-- New Size Selection Section -->
       <div id="modal-sizes" class="mt-4">
         <p class="font-bold mb-2">Select Size:</p>
@@ -487,7 +455,6 @@
           <!-- Size buttons will be injected here -->
         </div>
       </div>
-
       <!-- New Quantity Selector -->
       <div id="modal-quantity" class="mt-4">
         <p class="font-bold mb-2">Quantity:</p>
@@ -497,8 +464,7 @@
           <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
         </div>
       </div>
-
-      <!-- Modal Add to Cart Button (Only here!) -->
+      <!-- Modal Add to Cart Button -->
       <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
         Add to Cart
       </button>
@@ -513,7 +479,7 @@
       <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
-      <!-- Initial FAQ options will be rendered here -->
+      <!-- FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
   </div>
@@ -683,442 +649,6 @@
         modal.classList.add('hidden');
       });
 
-      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
-      const supportBtn = document.getElementById('support-btn');
-      const supportChat = document.getElementById('support-chat');
-      const chatBody = document.getElementById('chat-body');
-      const faqOptionsContainer = document.getElementById('faq-options');
-      const closeChatBtn = document.querySelector('#support-chat .chat-close');
-
-      const faqTree = {
-        initial: [
-          {
-            id: "faq1",
-            question: "How do I track my order?",
-            answer: "You can track your order by entering your order number on our tracking page.",
-            followUps: [
-              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
-              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
-              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq2",
-            question: "What shipping options are available?",
-            answer: "We offer standard and express shipping worldwide.",
-            followUps: [
-              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
-              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
-              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq3",
-            question: "What is your return policy?",
-            answer: "We offer a 30-day return policy on all products.",
-            followUps: [
-              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
-              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
-              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq4",
-            question: "Do you have a size guide?",
-            answer: "Yes, a detailed size guide is available on each product page.",
-            followUps: [
-              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
-              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
-              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          }
-        ]
-      };
-
-      function resetChat() {
-        chatBody.innerHTML = "";
-        faqOptionsContainer.innerHTML = "";
-      }
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function showOptionsAsUserBubble(options) {
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.classList.add("message", "user");
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", () => handleOptionClick(option));
-          buttonsDiv.appendChild(btn);
-        });
-        bubble.appendChild(buttonsDiv);
-        userMsgDiv.appendChild(bubble);
-        chatBody.appendChild(userMsgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function handleOptionClick(option) {
-        addMessage("user", option.question);
-        addMessage("fred", option.answer);
-        if(option.followUps && option.followUps.length > 0) {
-          showOptionsAsUserBubble(option.followUps);
-        } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
-        }
-      }
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
-        showOptionsAsUserBubble(faqTree.initial);
-      }
-      const toggleChat = () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      };
-      document.getElementById('support-btn').addEventListener("click", toggleChat);
-      closeChatBtn.addEventListener("click", () => {
-        supportChat.style.display = "none";
-        resetChat();
-      });
-
-      /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
-      const cartContainer = document.getElementById('cart-container');
-      const clearBtn = document.getElementById('clear-cart');
-      const checkoutBtn = document.getElementById('checkout-btn');
-      const cartSummary = document.getElementById('cart-summary');
-      const subtotalLine = document.getElementById('subtotal-line');
-      const shippingLine = document.getElementById('shipping-line');
-      const taxLine = document.getElementById('tax-line');
-      const grandtotalLine = document.getElementById('grandtotal-line');
-      const checkoutModal = document.getElementById('checkout-modal');
-      const closeCheckoutModal = document.getElementById('close-checkout-modal');
-      const checkoutSubtotal = document.getElementById('checkout-subtotal');
-      const checkoutShipping = document.getElementById('checkout-shipping');
-      const checkoutTax = document.getElementById('checkout-tax');
-      const checkoutTotal = document.getElementById('checkout-total');
-      const checkoutForm = document.getElementById('checkout-form');
-
-      let cart = localStorage.getItem('cart');
-      cart = cart ? JSON.parse(cart) : [
-        { name: 'Mortifère Hoodie', price: 1890, quantity: 1, img: 'hoodie-front.png', size: 'M' },
-        { name: 'Mortifère Backpack', price: 690, quantity: 2, img: 'mortifere-backpack.jpg', size: 'One Size' }
-      ];
-
-      function calculateTotals() {
-        let subtotal = 0;
-        cart.forEach(item => { subtotal += item.price * item.quantity; });
-        const shipping = subtotal > 0 ? 15 : 0;
-        const tax = Math.round(subtotal * 0.08);
-        const grandTotal = subtotal + shipping + tax;
-        return { subtotal, shipping, tax, grandTotal };
-      }
-
-      function renderCart() {
-        if (!cartContainer) return;
-        if (cart.length === 0) {
-          cartContainer.innerHTML = '<p class="text-gray-400">Your cart is empty.</p>';
-          cartSummary.classList.add('hidden');
-          return;
-        }
-        cartSummary.classList.remove('hidden');
-        let html = `
-          <div class="bg-[#1a1a1a] p-4 rounded-lg border border-white/10">
-            <table class="w-full text-left">
-              <thead>
-                <tr class="border-b border-white/10">
-                  <th class="py-3 text-gray-300">Item</th>
-                  <th class="py-3 text-gray-300">Size</th>
-                  <th class="py-3 text-gray-300">Price</th>
-                  <th class="py-3 text-gray-300">Quantity</th>
-                  <th class="py-3 text-gray-300">Remove</th>
-                </tr>
-              </thead>
-              <tbody>
-        `;
-        cart.forEach((item, index) => {
-          const totalPrice = item.price * item.quantity;
-          html += `
-            <tr class="border-b border-white/5">
-              <td class="py-3 flex items-center space-x-4">
-                <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded"/>
-                <span>${item.name}</span>
-              </td>
-              <td class="py-3">${item.size || '-'}</td>
-              <td class="py-3">$${totalPrice}</td>
-              <td class="py-3">
-                <div class="flex items-center space-x-2">
-                  <button data-index="${index}" data-action="decrement" class="px-2 bg-white text-black rounded-button hover:bg-gray-200 transition-colors">-</button>
-                  <span>${item.quantity}</span>
-                  <button data-index="${index}" data-action="increment" class="px-2 bg-white text-black rounded-button hover:bg-gray-200 transition-colors">+</button>
-                </div>
-              </td>
-              <td class="py-3">
-                <button data-index="${index}" data-action="remove" class="px-4 py-1 bg-gray-300 text-black rounded-button hover:bg-gray-200 transition-colors">X</button>
-              </td>
-            </tr>
-          `;
-        });
-        html += `
-              </tbody>
-            </table>
-          </div>
-        `;
-        cartContainer.innerHTML = html;
-        cartContainer.querySelectorAll('button[data-action]').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const idx = parseInt(this.dataset.index, 10);
-            const action = this.dataset.action;
-            if (action === 'increment') { cart[idx].quantity++; }
-            else if (action === 'decrement') { if (cart[idx].quantity > 1) cart[idx].quantity--; }
-            else if (action === 'remove') { cart.splice(idx, 1); }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-            renderSummary();
-          });
-        });
-      }
-
-      function renderSummary() {
-        if (!cartSummary) return;
-        const { subtotal, shipping, tax, grandTotal } = calculateTotals();
-        subtotalLine.textContent = `Subtotal: $${subtotal}`;
-        shippingLine.textContent = `Shipping: $${shipping}`;
-        taxLine.textContent = `Tax: $${tax}`;
-        grandtotalLine.textContent = `Total: $${grandTotal}`;
-      }
-
-      function updateCheckoutModal() {
-        if (!checkoutModal) return;
-        const { subtotal, shipping, tax, grandTotal } = calculateTotals();
-        checkoutSubtotal.textContent = `Subtotal: $${subtotal}`;
-        checkoutShipping.textContent = `Shipping: $${shipping}`;
-        checkoutTax.textContent = `Tax: $${tax}`;
-        checkoutTotal.textContent = `Total: $${grandTotal}`;
-      }
-
-      if (document.getElementById('cart-container')) {
-        renderCart();
-        renderSummary();
-
-        clearBtn.addEventListener('click', function() {
-          cart = [];
-          localStorage.removeItem('cart');
-          renderCart();
-          renderSummary();
-        });
-
-        checkoutBtn.addEventListener('click', function() {
-          const { grandTotal } = calculateTotals();
-          if (grandTotal === 0) {
-            alert('Your cart is empty!');
-            return;
-          }
-          updateCheckoutModal();
-          checkoutModal.classList.remove('hidden');
-        });
-
-        closeCheckoutModal.addEventListener('click', function() {
-          checkoutModal.classList.add('hidden');
-        });
-
-        checkoutModal.addEventListener('click', function(e) {
-          if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
-        });
-
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
-        });
-
-        paypal.HostedFields.render({
-          createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
-          styles: {
-            'input': { 'font-size': '16px', 'color': '#3A3A3A' },
-            ':focus': { 'color': 'black' },
-            '.valid': { 'color': 'green' },
-            '.invalid': { 'color': 'red' }
-          },
-          fields: {
-            number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
-            expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
-            cvv: { selector: '#cvv', placeholder: '123' }
-          }
-        }).then(function(hostedFieldsInstance) {
-          checkoutForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fullName = document.getElementById('full-name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const state = document.getElementById('state').value.trim();
-            const zip = document.getElementById('zip').value.trim();
-            const country = document.getElementById('country').value.trim();
-            if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
-              alert('Please fill in all required shipping fields.');
-              return;
-            }
-            hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
-              alert('Payment successful! Card Token: ' + payload.nonce);
-              cart = [];
-              localStorage.removeItem('cart');
-              renderCart();
-              renderSummary();
-              checkoutModal.classList.add('hidden');
-            }).catch(function(err) {
-              console.error('Payment failed:', err);
-              alert('Payment failed, please try again.');
-            });
-          });
-        }).catch(function(err) {
-          console.error('Hosted Fields failed to load:', err);
-          alert('Payment fields could not be loaded. Please try again later.');
-        });
-      }
-
-      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
-      const supportBtn = document.getElementById('support-btn');
-      const supportChat = document.getElementById('support-chat');
-      const chatBody = document.getElementById('chat-body');
-      const faqOptionsContainer = document.getElementById('faq-options');
-      const closeChatBtn = document.querySelector('#support-chat .chat-close');
-
-      const faqTree = {
-        initial: [
-          {
-            id: "faq1",
-            question: "How do I track my order?",
-            answer: "You can track your order by entering your order number on our tracking page.",
-            followUps: [
-              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
-              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
-              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq2",
-            question: "What shipping options are available?",
-            answer: "We offer standard and express shipping worldwide.",
-            followUps: [
-              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
-              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
-              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq3",
-            question: "What is your return policy?",
-            answer: "We offer a 30-day return policy on all products.",
-            followUps: [
-              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
-              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
-              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq4",
-            question: "Do you have a size guide?",
-            answer: "Yes, a detailed size guide is available on each product page.",
-            followUps: [
-              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
-              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
-              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          }
-        ]
-      };
-
-      function resetChat() {
-        chatBody.innerHTML = "";
-        faqOptionsContainer.innerHTML = "";
-      }
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function showOptionsAsUserBubble(options) {
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.classList.add("message", "user");
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", () => handleOptionClick(option));
-          buttonsDiv.appendChild(btn);
-        });
-        bubble.appendChild(buttonsDiv);
-        userMsgDiv.appendChild(bubble);
-        chatBody.appendChild(userMsgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function handleOptionClick(option) {
-        addMessage("user", option.question);
-        addMessage("fred", option.answer);
-        if(option.followUps && option.followUps.length > 0) {
-          showOptionsAsUserBubble(option.followUps);
-        } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
-        }
-      }
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
-        showOptionsAsUserBubble(faqTree.initial);
-      }
-      const toggleChat = () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      };
-      document.getElementById('support-btn').addEventListener("click", toggleChat);
-      closeChatBtn.addEventListener("click", () => {
-        supportChat.style.display = "none";
-        resetChat();
-      });
-
       /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
       const accountIcon = document.getElementById('account-icon');
       const accountOverlay = document.getElementById('account-overlay');
@@ -1129,14 +659,14 @@
       const overlayTitle = document.getElementById('overlay-title');
 
       accountIcon.addEventListener('click', function() {
-        accountOverlay.classList.remove('hidden');
+        accountOverlay.style.display = "flex";
       });
       closeAccountOverlayBtn.addEventListener('click', function() {
-        accountOverlay.classList.add('hidden');
+        accountOverlay.style.display = "none";
       });
       accountOverlay.addEventListener('click', function(e) {
         if (e.target === accountOverlay) {
-          accountOverlay.classList.add('hidden');
+          accountOverlay.style.display = "none";
         }
       });
       toggleSignupLink.addEventListener('click', function() {
@@ -1169,7 +699,128 @@
             alert("No account found for this email. Please sign up first.");
           }
         }
-        accountOverlay.classList.add('hidden');
+        accountOverlay.style.display = "none";
+      });
+
+      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
+      const supportBtn = document.getElementById('support-btn');
+      const supportChat = document.getElementById('support-chat');
+      const chatBody = document.getElementById('chat-body');
+      const faqOptionsContainer = document.getElementById('faq-options');
+      const closeChatBtn = document.querySelector('#support-chat .chat-close');
+
+      const faqTree = {
+        initial: [
+          {
+            id: "faq1",
+            question: "How do I track my order?",
+            answer: "You can track your order by entering your order number on our tracking page.",
+            followUps: [
+              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
+              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
+              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq2",
+            question: "What shipping options are available?",
+            answer: "We offer standard and express shipping worldwide.",
+            followUps: [
+              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
+              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
+              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq3",
+            question: "What is your return policy?",
+            answer: "We offer a 30-day return policy on all products.",
+            followUps: [
+              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
+              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
+              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          },
+          {
+            id: "faq4",
+            question: "Do you have a size guide?",
+            answer: "Yes, a detailed size guide is available on each product page.",
+            followUps: [
+              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
+              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
+              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
+            ]
+          }
+        ]
+      };
+
+      function resetChat() {
+        chatBody.innerHTML = "";
+        faqOptionsContainer.innerHTML = "";
+      }
+      function addMessage(sender, text) {
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("message", sender);
+        if (sender === "fred") {
+          const avatar = document.createElement("img");
+          avatar.src = "fred.png";
+          avatar.alt = "Fred";
+          msgDiv.appendChild(avatar);
+        }
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.textContent = text;
+        msgDiv.appendChild(bubble);
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      function showOptionsAsUserBubble(options) {
+        const userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user");
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
+        options.forEach(option => {
+          const btn = document.createElement("button");
+          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
+          btn.textContent = option.question;
+          btn.addEventListener("click", () => handleOptionClick(option));
+          buttonsDiv.appendChild(btn);
+        });
+        bubble.appendChild(buttonsDiv);
+        userMsgDiv.appendChild(bubble);
+        chatBody.appendChild(userMsgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      function handleOptionClick(option) {
+        addMessage("user", option.question);
+        addMessage("fred", option.answer);
+        if(option.followUps && option.followUps.length > 0) {
+          showOptionsAsUserBubble(option.followUps);
+        } else {
+          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
+          showOptionsAsUserBubble([finalOption]);
+        }
+      }
+      function openChat() {
+        supportChat.style.display = "flex";
+        resetChat();
+        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
+        showOptionsAsUserBubble(faqTree.initial);
+      }
+      function toggleChat() {
+        if (supportChat.style.display === "flex") {
+          supportChat.style.display = "none";
+          resetChat();
+        } else {
+          openChat();
+        }
+      }
+      supportBtn.addEventListener("click", toggleChat);
+      closeChatBtn.addEventListener("click", function() {
+        supportChat.style.display = "none";
+        resetChat();
       });
 
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
@@ -1320,172 +971,53 @@
           if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
         });
 
-        paypal.HostedFields.render({
-          createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
-          styles: {
-            'input': { 'font-size': '16px', 'color': '#3A3A3A' },
-            ':focus': { 'color': 'black' },
-            '.valid': { 'color': 'green' },
-            '.invalid': { 'color': 'red' }
-          },
-          fields: {
-            number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
-            expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
-            cvv: { selector: '#cvv', placeholder: '123' }
-          }
-        }).then(function(hostedFieldsInstance) {
-          checkoutForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fullName = document.getElementById('full-name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const state = document.getElementById('state').value.trim();
-            const zip = document.getElementById('zip').value.trim();
-            const country = document.getElementById('country').value.trim();
-            if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
-              alert('Please fill in all required shipping fields.');
-              return;
+        if(window.paypal) {
+          paypal.HostedFields.render({
+            createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
+            styles: {
+              'input': { 'font-size': '16px', 'color': '#3A3A3A' },
+              ':focus': { 'color': 'black' },
+              '.valid': { 'color': 'green' },
+              '.invalid': { 'color': 'red' }
+            },
+            fields: {
+              number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
+              expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
+              cvv: { selector: '#cvv', placeholder: '123' }
             }
-            hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
-              alert('Payment successful! Card Token: ' + payload.nonce);
-              cart = [];
-              localStorage.removeItem('cart');
-              renderCart();
-              renderSummary();
-              checkoutModal.classList.add('hidden');
-            }).catch(function(err) {
-              console.error('Payment failed:', err);
-              alert('Payment failed, please try again.');
+          }).then(function(hostedFieldsInstance) {
+            checkoutForm.addEventListener('submit', function(event) {
+              event.preventDefault();
+              const fullName = document.getElementById('full-name').value.trim();
+              const email = document.getElementById('email').value.trim();
+              const phone = document.getElementById('phone').value.trim();
+              const address = document.getElementById('address').value.trim();
+              const city = document.getElementById('city').value.trim();
+              const state = document.getElementById('state').value.trim();
+              const zip = document.getElementById('zip').value.trim();
+              const country = document.getElementById('country').value.trim();
+              if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
+                alert('Please fill in all required shipping fields.');
+                return;
+              }
+              hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
+                alert('Payment successful! Card Token: ' + payload.nonce);
+                cart = [];
+                localStorage.removeItem('cart');
+                renderCart();
+                renderSummary();
+                checkoutModal.classList.add('hidden');
+              }).catch(function(err) {
+                console.error('Payment failed:', err);
+                alert('Payment failed, please try again.');
+              });
             });
+          }).catch(function(err) {
+            console.error('Hosted Fields failed to load:', err);
+            alert('Payment fields could not be loaded. Please try again later.');
           });
-        }).catch(function(err) {
-          console.error('Hosted Fields failed to load:', err);
-          alert('Payment fields could not be loaded. Please try again later.');
-        });
-      }
-
-      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
-      const supportBtn = document.getElementById('support-btn');
-      const supportChat = document.getElementById('support-chat');
-      const chatBody = document.getElementById('chat-body');
-      const faqOptionsContainer = document.getElementById('faq-options');
-      const closeChatBtn = document.querySelector('#support-chat .chat-close');
-
-      const faqTree = {
-        initial: [
-          {
-            id: "faq1",
-            question: "How do I track my order?",
-            answer: "You can track your order by entering your order number on our tracking page.",
-            followUps: [
-              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
-              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
-              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq2",
-            question: "What shipping options are available?",
-            answer: "We offer standard and express shipping worldwide.",
-            followUps: [
-              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
-              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
-              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq3",
-            question: "What is your return policy?",
-            answer: "We offer a 30-day return policy on all products.",
-            followUps: [
-              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
-              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
-              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq4",
-            question: "Do you have a size guide?",
-            answer: "Yes, a detailed size guide is available on each product page.",
-            followUps: [
-              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
-              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
-              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          }
-        ]
-      };
-
-      function resetChat() {
-        chatBody.innerHTML = "";
-        faqOptionsContainer.innerHTML = "";
-      }
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function showOptionsAsUserBubble(options) {
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.classList.add("message", "user");
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", () => handleOptionClick(option));
-          buttonsDiv.appendChild(btn);
-        });
-        bubble.appendChild(buttonsDiv);
-        userMsgDiv.appendChild(bubble);
-        chatBody.appendChild(userMsgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      function handleOptionClick(option) {
-        addMessage("user", option.question);
-        addMessage("fred", option.answer);
-        if(option.followUps && option.followUps.length > 0) {
-          showOptionsAsUserBubble(option.followUps);
-        } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
         }
       }
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
-        showOptionsAsUserBubble(faqTree.initial);
-      }
-      const toggleChat = () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      };
-      document.getElementById('support-btn').addEventListener("click", toggleChat);
-      closeChatBtn.addEventListener("click", () => {
-        supportChat.style.display = "none";
-        resetChat();
-      });
     });
   </script>
 </body>
