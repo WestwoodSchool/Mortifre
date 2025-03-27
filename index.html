@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mortifère - Luxury Fashion House</title>
-
-  <!-- Favicon (Winged Logo) -->
+  
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
-
+  
   <!-- Tailwind CSS, Fonts & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -18,11 +18,7 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: { 
-            primary: '#000000', 
-            secondary: '#1a1a1a',
-            cream: '#f5f5dc'
-          },
+          colors: { primary: '#000000', secondary: '#1a1a1a' },
           borderRadius: {
             'none': '0px',
             'sm': '8px',
@@ -40,7 +36,7 @@
     }
   </script>
   <style>
-    /* Underline effect for nav links */
+    /* Navigation Underline */
     .nav-link {
       position: relative;
     }
@@ -58,21 +54,21 @@
       width: 100%;
     }
     
-    /* Account Modal & Overlay */
+    /* Account Modal Overlay */
     #account-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 300;
       display: none;
+      z-index: 300;
       align-items: center;
       justify-content: center;
     }
-    /* From Uiverse.io by mahiatlinux – Sign In/Up Form */
+    /* Provided sign-up/login form from Uiverse.io by mahiatlinux */
     .form {
       display: flex;
       flex-direction: column;
@@ -115,252 +111,17 @@
       background-color: #2b2b2b;
       color: #f1f1f1;
     }
-    .input:focus {
-      outline: none;
-    }
-    .inputForm:focus-within {
-      border: 1.5px solid #2d79f3;
-    }
-    .flex-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-      justify-content: space-between;
-    }
-    .flex-row > div > label {
-      font-size: 14px;
-      color: #f1f1f1;
-      font-weight: 400;
-    }
-    .span {
-      font-size: 14px;
-      margin-left: 5px;
-      color: #2d79f3;
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .button-submit {
-      margin: 20px 0 10px 0;
-      background-color: #2d79f3;
-      border: none;
-      color: white;
-      font-size: 15px;
-      font-weight: 500;
-      border-radius: 10px;
-      height: 50px;
-      width: 100%;
-      cursor: pointer;
-    }
-    .p {
-      text-align: center;
-      color: #f1f1f1;
-      font-size: 14px;
-      margin: 5px 0;
-    }
-    .btn {
-      margin-top: 10px;
-      width: 100%;
-      height: 50px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 500;
-      gap: 10px;
-      border: 1px solid #333;
-      background-color: #2b2b2b;
-      color: #f1f1f1;
-      cursor: pointer;
-      transition: 0.2s ease-in-out;
-    }
-    .btn:hover {
-      border: 1px solid #2d79f3;
-    }
-    
-    /* Toast Notification (already defined above) */
-    
-    /* Falling Drops Animation */
-    .falling-drops {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .falling-drop {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      background: url('parachute-box.png') no-repeat center center;
-      background-size: contain;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0% { transform: translateY(-100px) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
-    }
-    
-    /* Product Modal & Quick View */
-    #product-modal {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    .size-option.selected {
-      background-color: #000;
-      color: #fff;
-    }
-    .product-card:hover .quick-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .quick-view {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-    }
-    
-    /* Recommendations in Modal */
-    #recommendations {
-      margin-top: 20px;
-    }
-    #recommendations h3 {
-      font-size: 1.25rem;
-      margin-bottom: 10px;
-    }
-    #recommendations .rec-item {
-      display: inline-block;
-      width: 80px;
-      margin-right: 10px;
-      text-align: center;
-      cursor: pointer;
-    }
-    #recommendations .rec-item img {
-      width: 100%;
-      border-radius: 8px;
-    }
-    
-    /* Support Chat (Fred) Styles */
-    #support-chat {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 450px;
-      max-height: 500px;
-      background: #fff;
-      color: #000;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 100;
-    }
-    #support-chat header {
-      background: #f5f5dc; /* cream-white */
-      color: #000;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-    }
-    #support-chat header img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-    #support-chat header .chat-close {
-      margin-left: auto;
-      background: transparent;
-      border: none;
-      color: #000;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    #support-chat .chat-body {
-      flex: 1;
-      padding: 12px;
-      overflow-y: auto;
-      background: #f5f5f5;
-    }
-    #faq-options {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .message {
-      margin-bottom: 8px;
-      display: flex;
-    }
-    .message.fred {
-      justify-content: flex-start;
-    }
-    .message.user {
-      justify-content: flex-end;
-    }
-    .message .bubble {
-      max-width: 70%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-    }
-    .message.fred .bubble {
-      background: #e0e0e0;
-      color: #000;
-    }
-    .message.user .bubble {
-      background: #000;
-      color: #fff;
-    }
-    .message.fred img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-    
-    /* Wishlist Icon */
-    .wishlist-icon {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #fff;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-    .wishlist-icon:hover {
-      opacity: 1;
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 640px) {
-      #support-chat {
-        width: 90%;
-        right: 5%;
-        bottom: 70px;
-      }
-      .nav-link {
-        font-size: 0.875rem;
-      }
-    }
+    .input:focus { outline: none; }
+    .inputForm:focus-within { border: 1.5px solid #2d79f3; }
   </style>
 </head>
-<body class="bg-[#121212] text-white">
+<body class="bg-[#121212]">
   <!-- Toast Notification -->
   <div id="toast">Item added to cart</div>
   
   <!-- HEADER -->
   <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- Left: Logo & Navigation -->
       <div class="flex items-center space-x-12">
         <a href="index.html">
           <img src="winged-logo.png" alt="Logo" class="h-12" />
@@ -370,8 +131,7 @@
           <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
         </div>
       </div>
-      <!-- Right: Search, Cart & Account Icon (Account icon now comes after the cart) -->
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-6">
         <div class="relative">
           <input id="search-latest" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
           <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
@@ -384,48 +144,30 @@
     </div>
   </nav>
   
-  <!-- Account Modal with Blur Overlay (Using provided form code) -->
+  <!-- Account Modal Overlay -->
   <div id="account-overlay">
     <form class="form">
       <div class="flex-column">
         <label>Email </label>
       </div>
       <div class="inputForm">
-        <svg
-          height="20"
-          viewBox="0 0 32 32"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg height="20" viewBox="0 0 32 32" width="20" xmlns="http://www.w3.org/2000/svg">
           <g id="Layer_3" data-name="Layer 3">
-            <path
-              d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"
-            ></path>
+            <path d="m30.853 13.87a15 15 0 0 0 -29.729 4.082 15.1 15.1 0 0 0 12.876 12.918 15.6 15.6 0 0 0 2.016.13 14.85 14.85 0 0 0 7.715-2.145 1 1 0 1 0 -1.031-1.711 13.007 13.007 0 1 1 5.458-6.529 2.149 2.149 0 0 1 -4.158-.759v-10.856a1 1 0 0 0 -2 0v1.726a8 8 0 1 0 .2 10.325 4.135 4.135 0 0 0 7.83.274 15.2 15.2 0 0 0 .823-7.455zm-14.853 8.13a6 6 0 1 1 6-6 6.006 6.006 0 0 1 -6 6z"></path>
           </g>
         </svg>
         <input type="text" class="input" placeholder="Enter your Email" />
       </div>
-
       <div class="flex-column">
         <label>Password </label>
       </div>
       <div class="inputForm">
-        <svg
-          height="20"
-          viewBox="-64 0 512 512"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"
-          ></path>
-          <path
-            d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"
-          ></path>
+        <svg height="20" viewBox="-64 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path>
+          <path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path>
         </svg>
         <input type="password" class="input" placeholder="Enter your Password" />
       </div>
-
       <div class="flex-row">
         <div>
           <input type="radio" />
@@ -436,72 +178,26 @@
       <button type="submit" class="button-submit">Sign In</button>
       <p class="p">Don't have an account? <span class="span">Sign Up</span></p>
       <p class="p line">Or With</p>
-
       <div class="flex-row">
         <button class="btn google">
-          <svg
-            version="1.1"
-            width="20"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 512 512"
-            style="enable-background:new 0 0 512 512;"
-            xml:space="preserve"
-          >
-            <path
-              style="fill:#FBBB00;"
-              d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256
-	c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456
-	C103.821,274.792,107.225,292.797,113.47,309.408z"
-            ></path>
-            <path
-              style="fill:#518EF8;"
-              d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
-	c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
-	c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
-            ></path>
-            <path
-              style="fill:#28B446;"
-              d="M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512
-	c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771
-	c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z"
-            ></path>
-            <path
-              style="fill:#F14336;"
-              d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
-	c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
-	C318.115,0,375.068,22.126,419.404,58.936z"
-            ></path>
+          <svg version="1.1" width="20" id="Layer_1" xmlns="http://www.w3.org/2000/svg" 
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" 
+          style="enable-background:new 0 0 512 512;" xml:space="preserve">
+            <path style="fill:#FBBB00;" d="M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256 c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456 C103.821,274.792,107.225,292.797,113.47,309.408z"></path>
+            <path style="fill:#518EF8;" d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451 c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535 c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"></path>
           </svg>
           Google
         </button>
         <button class="btn apple">
-          <svg
-            version="1.1"
-            height="20"
-            width="20"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 22.773 22.773"
-            style="enable-background:new 0 0 22.773 22.773;"
-            xml:space="preserve"
-          >
+          <svg version="1.1" height="20" width="20" id="Capa_1" 
+          xmlns="http://www.w3.org/2000/svg" 
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
+          viewBox="0 0 22.773 22.773" style="enable-background:new 0 0 22.773 22.773;" 
+          xml:space="preserve">
             <g>
               <g>
-                <path
-                  d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573 c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z"
-                ></path>
-                <path
-                  d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451
-	c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535
-	c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"
-                ></path>
+                <path d="M15.769,0c0.053,0,0.106,0,0.162,0c0.13,1.606-0.483,2.806-1.228,3.675c-0.731,0.863-1.732,1.7-3.351,1.573 c-0.108-1.583,0.506-2.694,1.25-3.561C13.292,0.879,14.557,0.16,15.769,0z"></path>
+                <path d="M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451 c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535 c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z"></path>
               </g>
             </g>
           </svg>
@@ -535,169 +231,9 @@
     </div>
   </section>
   
-  <!-- NEXT DROP SECTION -->
-  <div class="relative h-[400px] mb-16 rounded-lg overflow-hidden">
-    <div class="falling-drops"></div>
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('drop.png')"></div>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="absolute inset-0 flex items-center justify-center">
-      <div class="text-center">
-        <h2 class="text-4xl font-bold mb-8">Next Drop</h2>
-        <div class="flex justify-center space-x-4 mb-8">
-          <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-            <span class="text-3xl font-bold" id="days">05</span>
-            <span class="text-sm">Days</span>
-          </div>
-          <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-            <span class="text-3xl font-bold" id="hours">18</span>
-            <span class="text-sm">Hours</span>
-          </div>
-          <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-            <span class="text-3xl font-bold" id="minutes">45</span>
-            <span class="text-sm">Minutes</span>
-          </div>
-          <div class="countdown-item w-24 h-24 rounded-lg flex flex-col items-center justify-center">
-            <span class="text-3xl font-bold" id="seconds">30</span>
-            <span class="text-sm">Seconds</span>
-          </div>
-        </div>
-        <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">
-          Notify Me
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- PRODUCT GRID -->
-  <div class="max-w-7xl mx-auto px-6 pb-12">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Product Card 1: Mortifère Hoodie -->
-      <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
-        <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
-        <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <i class="ri-heart-line wishlist-icon" data-product="Mortifère Hoodie"></i>
-        <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
-          <div>
-            <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
-            <p class="text-gray-300 mb-4">Limited Edition - 100 pieces</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">S</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">M</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">L</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">XL</button>
-            </div>
-            <p class="text-2xl font-bold">$1,890</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Product Card 2: Mortifère Sweats -->
-      <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Sweats" data-price="890" data-img="sweats.png">
-        <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg" />
-        <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
-          <div>
-            <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
-            <p class="text-gray-300 mb-4">Limited Edition - 150 pieces</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">28</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">30</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">32</button>
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">34</button>
-            </div>
-            <p class="text-2xl font-bold">$890</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Product Card 3: Mortifère Backpack -->
-      <div class="product-card relative group cursor-pointer" data-category="accessories" data-name="Mortifère Backpack" data-price="690" data-img="mortifere-backpack.jpg">
-        <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg" />
-        <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
-          <div>
-            <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
-            <p class="text-gray-300 mb-4">Limited Edition - 80 pieces</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <button class="size-option px-4 py-2 bg-white/10 text-sm rounded hover:bg-white/20">One Size</button>
-            </div>
-            <p class="text-2xl font-bold">$690</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- PRODUCT MODAL -->
-  <div id="product-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
-    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-lg overflow-y-auto max-h-[90vh]">
-      <button id="close-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
-      <img id="modal-img" src="" alt="Product Image" class="w-full rounded" />
-      <h2 id="modal-name" class="text-2xl font-bold mt-4"></h2>
-      <p id="modal-price" class="text-xl mt-2"></p>
-      <p id="modal-description" class="mt-4">Product description goes here.</p>
-      
-      <!-- Size Options -->
-      <div id="modal-sizes" class="mt-4">
-        <p class="font-bold mb-2">Select Size:</p>
-        <div id="size-options" class="flex gap-2"></div>
-      </div>
-      
-      <!-- Quantity Selector -->
-      <div id="modal-quantity" class="mt-4">
-        <p class="font-bold mb-2">Quantity:</p>
-        <div class="flex items-center">
-          <button id="decrease-qty" class="px-3 py-1 bg-gray-200 text-black rounded-l">-</button>
-          <input type="number" id="quantity-input" value="1" min="1" class="w-12 text-center border-t border-b border-gray-200" />
-          <button id="increase-qty" class="px-3 py-1 bg-gray-200 text-black rounded-r">+</button>
-        </div>
-      </div>
-      
-      <!-- Add to Cart Button -->
-      <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
-        Add to Cart
-      </button>
-      
-      <!-- Recommendations (Clickable) -->
-      <div id="recommendations">
-        <h3 class="font-bold">You Might Also Like</h3>
-        <div id="rec-container" class="flex gap-4"></div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- SUPPORT CHAT (FRED) MODAL -->
-  <div id="support-chat">
-    <header>
-      <img src="fred.png" alt="Fred" />
-      <span>Fred Support</span>
-      <button class="chat-close">&times;</button>
-    </header>
-    <div class="chat-body" id="chat-body">
-      <div id="faq-options"></div>
-    </div>
-  </div>
-  
-  <!-- SUPPORT BUTTON (Fixed) -->
-  <div class="fixed bottom-6 right-6 z-50">
-    <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
-      <i class="ri-customer-service-2-line text-2xl"></i>
-    </button>
-  </div>
-  
   <script>
+    // Simple search on index: redirect to latestdrop.html?search=...
     document.addEventListener('DOMContentLoaded', function() {
-      /* ------------------ FALLING DROPS ANIMATION ------------------ */
-      const dropsContainer = document.querySelector('.falling-drops');
-      const dropCount = 20;
-      for (let i = 0; i < dropCount; i++) {
-        const drop = document.createElement('div');
-        drop.classList.add('falling-drop');
-        drop.style.left = Math.random() * 100 + '%';
-        drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        drop.style.animationDelay = (Math.random() * 3) + 's';
-        dropsContainer.appendChild(drop);
-      }
-      
-      /* ------------------ SEARCH FUNCTIONALITY (Original) ------------------ */
       const searchInput = document.getElementById('search-latest');
       searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
@@ -708,282 +244,38 @@
         }
       });
       
-      /* ------------------ PRODUCT MODAL & ADD TO CART ------------------ */
-      const modal = document.getElementById('product-modal');
-      const modalImg = document.getElementById('modal-img');
-      const modalName = document.getElementById('modal-name');
-      const modalPrice = document.getElementById('modal-price');
-      const modalDescription = document.getElementById('modal-description');
-      const closeModalBtn = document.getElementById('close-modal');
-      const sizeOptionsContainer = document.getElementById('size-options');
-      const quantityInput = document.getElementById('quantity-input');
-      const recContainer = document.getElementById('rec-container');
-      let selectedSize = null;
-      
-      const productCards = document.querySelectorAll('.product-card');
-      
-      function openModal(card) {
-        const name = card.getAttribute('data-name');
-        const price = card.getAttribute('data-price');
-        const imgSrc = card.getAttribute('data-img');
-        modalImg.src = imgSrc;
-        modalName.textContent = name;
-        modalPrice.textContent = "$" + price;
-        modalDescription.textContent = "Product description goes here.";
-        sizeOptionsContainer.innerHTML = "";
-        selectedSize = null;
-        const sizeButtons = card.querySelectorAll('.quick-view .size-option');
-        sizeButtons.forEach((btn, index) => {
-          const newBtn = document.createElement('button');
-          newBtn.textContent = btn.textContent;
-          newBtn.className = "size-option px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300";
-          newBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            sizeOptionsContainer.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
-            newBtn.classList.add('selected');
-            selectedSize = newBtn.textContent;
-          });
-          if (index === 0) {
-            newBtn.classList.add('selected');
-            selectedSize = newBtn.textContent;
-          }
-          sizeOptionsContainer.appendChild(newBtn);
-        });
-        quantityInput.value = 1;
-        // Build Recommendations: show all other products as clickable items
-        recContainer.innerHTML = "";
-        productCards.forEach(prod => {
-          if (prod.getAttribute('data-name') !== name) {
-            const recDiv = document.createElement('div');
-            recDiv.className = "rec-item";
-            recDiv.innerHTML = `<img src="${prod.getAttribute('data-img')}" alt="${prod.getAttribute('data-name')}" /><p class="text-xs mt-1">${prod.getAttribute('data-name')}</p>`;
-            recDiv.addEventListener('click', function() {
-              openModal(prod);
-            });
-            recContainer.appendChild(recDiv);
-          }
-        });
-        modal.classList.remove('hidden');
-      }
-      
-      productCards.forEach(card => {
-        card.addEventListener('click', function() {
-          openModal(card);
-        });
+      // Account Modal logic
+      const accountIcon = document.getElementById('account-icon');
+      const accountModal = document.getElementById('account-modal');
+      const accountOverlay = document.getElementById('account-overlay');
+      accountIcon.addEventListener('click', function() {
+        accountOverlay.style.display = 'flex';
       });
-      
-      closeModalBtn.addEventListener('click', function() {
-        modal.classList.add('hidden');
-      });
-      
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) modal.classList.add('hidden');
-      });
-      
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') modal.classList.add('hidden');
-      });
-      
-      document.getElementById('decrease-qty').addEventListener('click', function(e) {
-        e.stopPropagation();
-        let current = parseInt(quantityInput.value, 10);
-        if (current > 1) quantityInput.value = current - 1;
-      });
-      
-      document.getElementById('increase-qty').addEventListener('click', function(e) {
-        e.stopPropagation();
-        let current = parseInt(quantityInput.value, 10);
-        quantityInput.value = current + 1;
-      });
-      
-      document.getElementById('modal-add-to-cart').addEventListener('click', function(e) {
-        e.stopPropagation();
-        const name = modalName.textContent;
-        const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
-        const img = modalImg.src;
-        const quantity = parseInt(quantityInput.value, 10);
-        if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
-          alert("Please select a size.");
-          return;
+      accountOverlay.addEventListener('click', function(e) {
+        if (e.target === accountOverlay) {
+          accountOverlay.style.display = 'none';
         }
-        let cart = localStorage.getItem('cart');
-        cart = cart ? JSON.parse(cart) : [];
-        const existing = cart.find(item => item.name === name && item.size === selectedSize);
-        if (existing) {
-          existing.quantity += quantity;
+      });
+      
+      document.getElementById('login-btn').addEventListener('click', function() {
+        const email = document.getElementById('account-email').value;
+        if (email) {
+          localStorage.setItem('accountEmail', email);
+          alert("Logged in as " + email);
+          accountOverlay.style.display = 'none';
         } else {
-          cart.push({ name, price, img, size: selectedSize, quantity });
+          alert("Please enter your email.");
         }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        showToast("Item added to cart");
-        modal.classList.add('hidden');
       });
-      
-      /* ------------------ WISHLIST FUNCTIONALITY ------------------ */
-      const wishlistIcons = document.querySelectorAll('.wishlist-icon');
-      wishlistIcons.forEach(icon => {
-        icon.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const prodName = this.getAttribute('data-product');
-          let wishlist = localStorage.getItem('wishlist');
-          wishlist = wishlist ? JSON.parse(wishlist) : [];
-          if (wishlist.includes(prodName)) {
-            wishlist = wishlist.filter(item => item !== prodName);
-            this.classList.remove('text-red-500');
-          } else {
-            wishlist.push(prodName);
-            this.classList.add('text-red-500');
-          }
-          localStorage.setItem('wishlist', JSON.stringify(wishlist));
-        });
-      });
-      
-      /* ------------------ TOAST NOTIFICATION ------------------ */
-      function showToast(message) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.classList.add("show");
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
-      }
-      
-      /* ------------------ COUNTDOWN TIMER ------------------ */
-      const countdownDate = new Date('2025-03-30T12:00:00Z').getTime();
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = countdownDate - now;
-        document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-        document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
-      }
-      setInterval(updateCountdown, 1000);
-      
-      /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
-      const supportBtn = document.getElementById('support-btn');
-      const supportChat = document.getElementById('support-chat');
-      const chatBody = document.getElementById('chat-body');
-      const faqOptionsContainer = document.getElementById('faq-options');
-      const closeChatBtn = document.querySelector('#support-chat .chat-close');
-      
-      const faqTree = {
-        initial: [
-          {
-            id: "faq1",
-            question: "How do I track my order?",
-            answer: "You can track your order by entering your order number on our tracking page.",
-            followUps: [
-              { id: "faq1a", question: "I need help with order tracking", answer: "Please check your email for your tracking information. If you need further help, contact support." },
-              { id: "faq1b", question: "I didn't receive a tracking number", answer: "Allow 24 hours after order confirmation. If it's still missing, let me connect you with a real person." },
-              { id: "faq1c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq2",
-            question: "What shipping options are available?",
-            answer: "We offer standard and express shipping worldwide.",
-            followUps: [
-              { id: "faq2a", question: "How long does standard shipping take?", answer: "Standard shipping typically takes 3-5 business days." },
-              { id: "faq2b", question: "How much is express shipping?", answer: "Express shipping costs an extra $20." },
-              { id: "faq2c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq3",
-            question: "What is your return policy?",
-            answer: "We offer a 30-day return policy on all products.",
-            followUps: [
-              { id: "faq3a", question: "How do I initiate a return?", answer: "You can initiate a return via your account or by contacting support." },
-              { id: "faq3b", question: "How long does a refund take?", answer: "Refunds take 5-7 business days after receiving the returned item." },
-              { id: "faq3c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          },
-          {
-            id: "faq4",
-            question: "Do you have a size guide?",
-            answer: "Yes, a detailed size guide is available on each product page.",
-            followUps: [
-              { id: "faq4a", question: "I need help choosing a size", answer: "Please refer to our size guide, or I can connect you with a support rep for personalized advice." },
-              { id: "faq4b", question: "Where is the size guide located?", answer: "The size guide is located below the product images on the product page." },
-              { id: "faq4c", question: "Contact a real person", answer: "Connecting you with a support representative..." }
-            ]
-          }
-        ]
-      };
-      
-      function resetChat() {
-        chatBody.innerHTML = "";
-        faqOptionsContainer.innerHTML = "";
-      }
-      
-      function showOptionsAsUserBubble(options) {
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.classList.add("message", "user");
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        options.forEach(option => {
-          const btn = document.createElement("button");
-          btn.className = "faq-option bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition-colors";
-          btn.textContent = option.question;
-          btn.addEventListener("click", () => handleOptionClick(option));
-          buttonsDiv.appendChild(btn);
-        });
-        bubble.appendChild(buttonsDiv);
-        userMsgDiv.appendChild(bubble);
-        chatBody.appendChild(userMsgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      
-      function addMessage(sender, text) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message", sender);
-        if (sender === "fred") {
-          const avatar = document.createElement("img");
-          avatar.src = "fred.png";
-          avatar.alt = "Fred";
-          msgDiv.appendChild(avatar);
-        }
-        const bubble = document.createElement("div");
-        bubble.classList.add("bubble");
-        bubble.textContent = text;
-        msgDiv.appendChild(bubble);
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-      
-      function handleOptionClick(option) {
-        addMessage("user", option.question);
-        addMessage("fred", option.answer);
-        if(option.followUps && option.followUps.length > 0) {
-          showOptionsAsUserBubble(option.followUps);
+      document.getElementById('signup-btn').addEventListener('click', function() {
+        const email = document.getElementById('account-email').value;
+        if (email) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+          accountOverlay.style.display = 'none';
         } else {
-          const finalOption = { id: "connectReal", question: "Connect with a real person", answer: "Connecting you with a support representative..." };
-          showOptionsAsUserBubble([finalOption]);
+          alert("Please enter your email.");
         }
-      }
-      
-      function openChat() {
-        supportChat.style.display = "flex";
-        resetChat();
-        addMessage("fred", "Hi there! I'm Fred, your support assistant. Here are some common topics:");
-        showOptionsAsUserBubble(faqTree.initial);
-      }
-      
-      supportBtn.addEventListener("click", () => {
-        if (supportChat.style.display === "flex") {
-          supportChat.style.display = "none";
-          resetChat();
-        } else {
-          openChat();
-        }
-      });
-      
-      closeChatBtn.addEventListener("click", () => {
-        supportChat.style.display = "none";
-        resetChat();
       });
     });
   </script>
