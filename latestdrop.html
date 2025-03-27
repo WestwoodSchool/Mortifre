@@ -45,11 +45,6 @@
     }
   </script>
   <style>
-    /* Reset margins */
-    html, body {
-      margin: 0;
-      padding: 0;
-    }
     :where([class^="ri-"])::before { content: "\f3c2"; }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
@@ -60,7 +55,7 @@
       border: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Quick view overlay for product cards */
+    /* Quick view overlay */
     .product-card:hover .quick-view {
       opacity: 1;
       transform: translateY(0);
@@ -89,7 +84,7 @@
       width: 100%;
     }
 
-    /* Modal for product details */
+    /* Modal Styles */
     #product-modal {
       background-color: rgba(0, 0, 0, 0.5);
     }
@@ -139,7 +134,7 @@
       overflow: hidden;
       z-index: 100;
     }
-    /* Fred's header: cream background (#f5f5dc) with black text */
+    /* Fred's header: cream (#f5f5dc) with black text */
     #support-chat header {
       background: #f5f5dc;
       color: #000;
@@ -167,6 +162,7 @@
       overflow-y: auto;
       background: #f5f5f5;
     }
+    /* Align FAQ options to the right */
     #faq-options {
       display: flex;
       flex-direction: column;
@@ -274,23 +270,6 @@
       cursor: pointer;
       font-size: 0.875rem;
     }
-
-    /* Fixed Support Button */
-    .fixed-support {
-      position: fixed;
-      bottom: 6px;
-      right: 6px;
-      z-index: 50;
-    }
-
-    @media (max-width: 640px) {
-      #support-chat {
-        width: 90%;
-        right: 5%;
-        bottom: 70px;
-      }
-      .nav-link { font-size: 0.875rem; }
-    }
   </style>
 </head>
 <body class="bg-[#121212] text-white">
@@ -340,10 +319,26 @@
     <div class="max-w-7xl mx-auto">
       <!-- Filter Buttons -->
       <div class="flex flex-wrap items-center gap-4 mb-8">
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="all" id="filter-all">All</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="clothing" id="filter-clothing">Clothing</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="accessories" id="filter-accessories">Accessories</button>
-        <button class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors" data-filter="footwear" id="filter-footwear">Footwear</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="all"
+          id="filter-all"
+        >All</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="clothing"
+          id="filter-clothing"
+        >Clothing</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="accessories"
+          id="filter-accessories"
+        >Accessories</button>
+        <button
+          class="filter-button px-6 py-2 bg-white/10 text-white inter text-sm rounded-full hover:bg-white/20 transition-colors"
+          data-filter="footwear"
+          id="filter-footwear"
+        >Footwear</button>
       </div>
 
       <!-- Next Drop Section -->
@@ -373,7 +368,9 @@
                 <span class="text-sm">Seconds</span>
               </div>
             </div>
-            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">Notify Me</button>
+            <button class="notify-btn bg-white text-black px-8 py-3 rounded-full hover:bg-white/90 transition-colors">
+              Notify Me
+            </button>
           </div>
         </div>
       </div>
@@ -383,8 +380,16 @@
         <!-- Product Card 1 (Clothing): Mortifère Hoodie -->
         <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Hoodie" data-price="1890" data-img="hoodie-front.png">
           <!-- Front/Back Image Hover Effect -->
-          <img src="hoodie-front.png" alt="Mortifère Hoodie Front" class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300" />
-          <img src="hoodie-back.png" alt="Mortifère Hoodie Back" class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <img
+            src="hoodie-front.png"
+            alt="Mortifère Hoodie Front"
+            class="w-full h-[500px] object-cover rounded-lg group-hover:opacity-0 transition-opacity duration-300"
+          />
+          <img
+            src="hoodie-back.png"
+            alt="Mortifère Hoodie Back"
+            class="w-full h-[500px] object-cover rounded-lg absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Hoodie</h3>
@@ -401,7 +406,11 @@
         </div>
         <!-- Product Card 2 (Clothing): Mortifère Sweats -->
         <div class="product-card relative group cursor-pointer" data-category="clothing" data-name="Mortifère Sweats" data-price="890" data-img="sweats.png">
-          <img src="sweats.png" alt="Mortifère Sweats" class="w-full h-[500px] object-cover rounded-lg" />
+          <img
+            src="sweats.png"
+            alt="Mortifère Sweats"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Sweats</h3>
@@ -418,7 +427,11 @@
         </div>
         <!-- Product Card 3 (Accessories): Mortifère Backpack -->
         <div class="product-card relative group cursor-pointer" data-category="accessories" data-name="Mortifère Backpack" data-price="690" data-img="mortifere-backpack.jpg">
-          <img src="mortifere-backpack.jpg" alt="Mortifère Backpack" class="w-full h-[500px] object-cover rounded-lg" />
+          <img
+            src="mortifere-backpack.jpg"
+            alt="Mortifère Backpack"
+            class="w-full h-[500px] object-cover rounded-lg"
+          />
           <div class="quick-view absolute inset-0 bg-black/80 rounded-lg p-6 flex flex-col justify-center">
             <div>
               <h3 class="text-xl font-bold mb-2">Mortifère Backpack</h3>
@@ -434,7 +447,10 @@
 
       <!-- Fixed Support Button -->
       <div class="fixed bottom-6 right-6 z-50">
-        <button id="support-btn" class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors">
+        <button
+          id="support-btn"
+          class="w-14 h-14 bg-secondary rounded-full flex items-center justify-center text-white shadow-lg hover:bg-secondary/90 transition-colors"
+        >
           <i class="ri-customer-service-2-line text-2xl"></i>
         </button>
       </div>
@@ -477,7 +493,7 @@
         <div>
           <h5 class="text-xl text-white playfair mb-6">Drop Notifications</h5>
           <div class="flex">
-            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary"/>
+            <input type="email" placeholder="Your email" class="bg-white/5 text-white inter px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-secondary" />
             <button class="bg-secondary text-white inter px-6 ml-2 rounded-button hover:bg-secondary/90 transition-colors">
               Subscribe
             </button>
@@ -517,7 +533,7 @@
         </div>
       </div>
 
-      <!-- Modal Add to Cart Button -->
+      <!-- Modal Add to Cart Button (Only here!) -->
       <button id="modal-add-to-cart" class="mt-6 w-full bg-primary text-white py-3 rounded-full hover:bg-gray-800 transition-colors">
         Add to Cart
       </button>
@@ -532,6 +548,7 @@
       <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
+      <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
   </div>
@@ -560,7 +577,11 @@
           filterButtons.forEach(btn => btn.classList.remove('bg-gray-300', 'text-black'));
           this.classList.add('bg-gray-300', 'text-black');
           productCards.forEach(card => {
-            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
           });
         });
       });
@@ -586,7 +607,6 @@
       setInterval(updateCountdown, 1000);
 
       /* ------------------ SEARCH FUNCTIONALITY ------------------ */
-      const searchLatest = document.getElementById('search-latest');
       function searchProducts(term) {
         const lowerTerm = term.toLowerCase();
         productCards.forEach(card => {
@@ -594,6 +614,7 @@
           card.style.display = productName.includes(lowerTerm) ? 'block' : 'none';
         });
       }
+      const searchLatest = document.getElementById('search-latest');
       const params = new URLSearchParams(window.location.search);
       const initSearch = params.get('search');
       if (initSearch) {
@@ -620,9 +641,9 @@
 
       productCards.forEach(card => {
         card.addEventListener('click', function() {
-          const name = card.getAttribute('data-name') || "Product";
-          const price = card.getAttribute('data-price') || "0";
-          const imgSrc = card.getAttribute('data-img') || "";
+          const name = card.querySelector('.quick-view h3').textContent;
+          const price = card.querySelector('.quick-view p.text-2xl')?.textContent?.replace('$', '').trim() || '0';
+          const imgSrc = card.querySelector('img:not(.absolute)')?.src || '';
           modalImg.src = imgSrc;
           modalName.textContent = name;
           modalPrice.textContent = "$" + price;
@@ -681,10 +702,12 @@
         const price = parseInt(modalPrice.textContent.replace('$', ''), 10);
         const img = modalImg.src;
         const quantity = parseInt(quantityInput.value, 10);
+
         if (sizeOptionsContainer.children.length > 0 && !selectedSize) {
           alert("Please select a size.");
           return;
         }
+
         let cart = localStorage.getItem('cart');
         cart = cart ? JSON.parse(cart) : [];
         const existing = cart.find(item => item.name === name && item.size === selectedSize);
@@ -816,6 +839,73 @@
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
+      });
+
+      /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
+      const accountIcon = document.getElementById('account-icon');
+      const accountOverlay = document.createElement('div');
+      accountOverlay.id = "account-overlay";
+      accountOverlay.className = "fixed inset-0 hidden z-300 flex items-center justify-center bg-black/50 backdrop-blur-sm";
+      accountOverlay.innerHTML = `
+        <div class="account-modal">
+          <button class="close-account-overlay">&times;</button>
+          <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
+          <input type="text" id="account-email" placeholder="Email" class="form-field"/>
+          <input type="password" id="account-password" placeholder="Password" class="form-field"/>
+          <button id="login-btn" class="form-button">Sign In</button>
+          <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
+        </div>
+      `;
+      document.body.appendChild(accountOverlay);
+
+      let isSignUp = false;
+      const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
+      const loginBtn = document.getElementById('login-btn');
+      const toggleSignupLink = document.getElementById('toggle-signup');
+      const overlayTitle = document.getElementById('overlay-title');
+
+      accountIcon.addEventListener('click', function() {
+        accountOverlay.classList.remove('hidden');
+      });
+      closeAccountOverlayBtn.addEventListener('click', function() {
+        accountOverlay.classList.add('hidden');
+      });
+      accountOverlay.addEventListener('click', function(e) {
+        if (e.target === accountOverlay) {
+          accountOverlay.classList.add('hidden');
+        }
+      });
+      toggleSignupLink.addEventListener('click', function() {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+          overlayTitle.textContent = "Sign Up";
+          loginBtn.textContent = "Create Account";
+          toggleSignupLink.textContent = "Sign In";
+        } else {
+          overlayTitle.textContent = "Sign In";
+          loginBtn.textContent = "Sign In";
+          toggleSignupLink.textContent = "Sign Up";
+        }
+      });
+      loginBtn.addEventListener('click', function() {
+        const email = document.getElementById('account-email').value.trim();
+        const password = document.getElementById('account-password').value.trim();
+        if (!email || !password) {
+          alert("Please enter your email and password.");
+          return;
+        }
+        if (isSignUp) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+        } else {
+          const existingEmail = localStorage.getItem('accountEmail');
+          if (existingEmail === email) {
+            alert("Welcome back, " + email + "!");
+          } else {
+            alert("No account found for this email. Please sign up first.");
+          }
+        }
+        accountOverlay.classList.add('hidden');
       });
 
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
@@ -1131,58 +1221,6 @@
       closeChatBtn.addEventListener("click", () => {
         supportChat.style.display = "none";
         resetChat();
-      });
-
-      /* ------------------ ACCOUNT OVERLAY LOGIC ------------------ */
-      const accountIcon = document.getElementById('account-icon');
-      const accountOverlay = document.getElementById('account-overlay');
-      const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
-      const loginBtn = document.getElementById('login-btn');
-      const toggleSignupLink = document.getElementById('toggle-signup');
-      const overlayTitle = document.getElementById('overlay-title');
-      let isSignUp = false;
-      accountIcon.addEventListener('click', function() {
-        accountOverlay.classList.remove('hidden');
-      });
-      closeAccountOverlayBtn.addEventListener('click', function() {
-        accountOverlay.classList.add('hidden');
-      });
-      accountOverlay.addEventListener('click', function(e) {
-        if (e.target === accountOverlay) {
-          accountOverlay.classList.add('hidden');
-        }
-      });
-      toggleSignupLink.addEventListener('click', function() {
-        isSignUp = !isSignUp;
-        if (isSignUp) {
-          overlayTitle.textContent = "Sign Up";
-          loginBtn.textContent = "Create Account";
-          toggleSignupLink.textContent = "Sign In";
-        } else {
-          overlayTitle.textContent = "Sign In";
-          loginBtn.textContent = "Sign In";
-          toggleSignupLink.textContent = "Sign Up";
-        }
-      });
-      loginBtn.addEventListener('click', function() {
-        const email = document.getElementById('account-email').value.trim();
-        const password = document.getElementById('account-password').value.trim();
-        if (!email || !password) {
-          alert("Please enter your email and password.");
-          return;
-        }
-        if (isSignUp) {
-          localStorage.setItem('accountEmail', email);
-          alert("Account created for " + email);
-        } else {
-          const existingEmail = localStorage.getItem('accountEmail');
-          if (existingEmail === email) {
-            alert("Welcome back, " + email + "!");
-          } else {
-            alert("No account found for this email. Please sign up first.");
-          }
-        }
-        accountOverlay.classList.add('hidden');
       });
     });
   </script>
