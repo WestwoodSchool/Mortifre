@@ -54,7 +54,7 @@
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
     
-    /* Header Navigation & Search */
+    /* Header Navigation */
     .nav-link {
       position: relative;
     }
@@ -72,36 +72,13 @@
       width: 100%;
     }
     
-    /* Dynamic Search Suggestions */
-    #search-suggestions {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      color: #000;
-      border: 1px solid #ccc;
-      border-top: none;
-      z-index: 10;
-      display: none;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    #search-suggestions div {
-      padding: 8px 12px;
-      cursor: pointer;
-    }
-    #search-suggestions div:hover {
-      background: #f0f0f0;
-    }
-    
     /* Cart Table */
     #cart-container table {
       width: 100%;
     }
     
     /* Modal Styles */
-    #checkout-modal, #account-modal {
+    #checkout-modal, #account-overlay {
       background: rgba(0,0,0,0.5);
       position: fixed;
       top: 50%;
@@ -110,7 +87,7 @@
       z-index: 150;
       display: none;
     }
-    #checkout-modal > div, #account-modal > div {
+    #checkout-modal > div, #account-overlay > div {
       background: #fff;
       color: #000;
       padding: 20px;
@@ -135,7 +112,6 @@
       overflow: hidden;
       z-index: 100;
     }
-    /* Fred's header: cream (#f5f5dc) with black text */
     #support-chat header {
       background: #f5f5dc;
       color: #000;
@@ -164,26 +140,9 @@
       background: #f5f5f5;
     }
     
-    /* Wishlist Icon */
-    .wishlist-icon {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      cursor: pointer;
-      font-size: 24px;
-      color: #fff;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-    .wishlist-icon:hover {
-      opacity: 1;
-    }
-    
-    /* Minimalistic Sign-In/Sign-Up Overlay for Account */
+    /* Account Overlay Styles */
     #account-overlay {
-      position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
       backdrop-filter: blur(10px);
       display: none;
       z-index: 300;
@@ -267,11 +226,11 @@
         </nav>
       </div>
       <div class="flex items-center space-x-6">
-        <!-- Cart icon -->
+        <!-- Cart Icon -->
         <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
           <i class="ri-shopping-bag-line text-xl"></i>
         </a>
-        <!-- Account icon -->
+        <!-- Account Icon -->
         <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
       </div>
     </div>
@@ -316,8 +275,8 @@
   </main>
 
   <!-- CHECKOUT MODAL -->
-  <div id="checkout-modal" class="fixed inset-0 flex items-center justify-center hidden z-50">
-    <div class="bg-white text-black p-6 rounded-lg relative w-11/12 max-w-3xl overflow-y-auto max-h-full">
+  <div id="checkout-modal">
+    <div class="relative">
       <button id="close-checkout-modal" class="absolute top-2 right-2 text-2xl font-bold">&times;</button>
       <h2 class="text-2xl font-bold mb-4">Checkout</h2>
       <!-- Order Summary in Modal -->
@@ -401,7 +360,6 @@
       <button class="chat-close">&times;</button>
     </header>
     <div class="chat-body" id="chat-body">
-      <!-- Initial FAQ options will be rendered here -->
       <div id="faq-options"></div>
     </div>
   </div>
@@ -409,19 +367,6 @@
   <!-- JAVASCRIPT FUNCTIONALITY -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      /* ------------------ SEARCH FUNCTIONALITY ------------------ */
-      const searchCart = document.getElementById('search-cart');
-      if (searchCart) {
-        searchCart.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-            const term = e.target.value.trim();
-            if (term) {
-              window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
-            }
-          }
-        });
-      }
-      
       /* ------------------ CART & CHECKOUT FUNCTIONALITY ------------------ */
       const cartContainer = document.getElementById('cart-container');
       const clearBtn = document.getElementById('clear-cart');
@@ -555,67 +500,69 @@
             return;
           }
           updateCheckoutModal();
-          checkoutModal.classList.remove('hidden');
+          checkoutModal.style.display = "flex";
         });
 
         closeCheckoutModal.addEventListener('click', function() {
-          checkoutModal.classList.add('hidden');
+          checkoutModal.style.display = "none";
         });
 
         checkoutModal.addEventListener('click', function(e) {
-          if (e.target === checkoutModal) { checkoutModal.classList.add('hidden'); }
+          if (e.target === checkoutModal) { checkoutModal.style.display = "none"; }
         });
 
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') { checkoutModal.classList.add('hidden'); }
+          if (e.key === 'Escape') { checkoutModal.style.display = "none"; }
         });
 
-        paypal.HostedFields.render({
-          createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
-          styles: {
-            'input': { 'font-size': '16px', 'color': '#3A3A3A' },
-            ':focus': { 'color': 'black' },
-            '.valid': { 'color': 'green' },
-            '.invalid': { 'color': 'red' }
-          },
-          fields: {
-            number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
-            expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
-            cvv: { selector: '#cvv', placeholder: '123' }
-          }
-        }).then(function(hostedFieldsInstance) {
-          checkoutForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fullName = document.getElementById('full-name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const city = document.getElementById('city').value.trim();
-            const state = document.getElementById('state').value.trim();
-            const zip = document.getElementById('zip').value.trim();
-            const country = document.getElementById('country').value.trim();
-            if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
-              alert('Please fill in all required shipping fields.');
-              return;
+        if(window.paypal) {
+          paypal.HostedFields.render({
+            createOrder: function() { return Promise.resolve('DUMMY_ORDER_ID'); },
+            styles: {
+              'input': { 'font-size': '16px', 'color': '#3A3A3A' },
+              ':focus': { 'color': 'black' },
+              '.valid': { 'color': 'green' },
+              '.invalid': { 'color': 'red' }
+            },
+            fields: {
+              number: { selector: '#card-number', placeholder: '4111 1111 1111 1111' },
+              expirationDate: { selector: '#expiration-date', placeholder: 'MM/YY' },
+              cvv: { selector: '#cvv', placeholder: '123' }
             }
-            hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
-              alert('Payment successful! Card Token: ' + payload.nonce);
-              cart = [];
-              localStorage.removeItem('cart');
-              renderCart();
-              renderSummary();
-              checkoutModal.classList.add('hidden');
-            }).catch(function(err) {
-              console.error('Payment failed:', err);
-              alert('Payment failed, please try again.');
+          }).then(function(hostedFieldsInstance) {
+            checkoutForm.addEventListener('submit', function(event) {
+              event.preventDefault();
+              const fullName = document.getElementById('full-name').value.trim();
+              const email = document.getElementById('email').value.trim();
+              const phone = document.getElementById('phone').value.trim();
+              const address = document.getElementById('address').value.trim();
+              const city = document.getElementById('city').value.trim();
+              const state = document.getElementById('state').value.trim();
+              const zip = document.getElementById('zip').value.trim();
+              const country = document.getElementById('country').value.trim();
+              if (!fullName || !email || !phone || !address || !city || !state || !zip || !country) {
+                alert('Please fill in all required shipping fields.');
+                return;
+              }
+              hostedFieldsInstance.submit({ cardholderName: fullName }).then(function(payload) {
+                alert('Payment successful! Card Token: ' + payload.nonce);
+                cart = [];
+                localStorage.removeItem('cart');
+                renderCart();
+                renderSummary();
+                checkoutModal.style.display = "none";
+              }).catch(function(err) {
+                console.error('Payment failed:', err);
+                alert('Payment failed, please try again.');
+              });
             });
+          }).catch(function(err) {
+            console.error('Hosted Fields failed to load:', err);
+            alert('Payment fields could not be loaded. Please try again later.');
           });
-        }).catch(function(err) {
-          console.error('Hosted Fields failed to load:', err);
-          alert('Payment fields could not be loaded. Please try again later.');
-        });
+        }
       }
-
+      
       /* ------------------ SUPPORT CHAT (FRED) FUNCTIONALITY ------------------ */
       const supportBtn = document.getElementById('support-btn');
       const supportChat = document.getElementById('support-chat');
@@ -695,10 +642,8 @@
         userMsgDiv.classList.add("message", "user");
         const bubble = document.createElement("div");
         bubble.classList.add("bubble");
-        
         const buttonsDiv = document.createElement("div");
         buttonsDiv.classList.add("flex", "flex-col", "gap-2", "items-end");
-        
         options.forEach(option => {
           const btn = document.createElement("button");
           btn.className = "faq-option bg-white text-black px-4 py-2 rounded m-1 hover:bg-gray-200 transition-colors";
@@ -706,7 +651,6 @@
           btn.addEventListener("click", () => handleOptionClick(option));
           buttonsDiv.appendChild(btn);
         });
-        
         bubble.appendChild(buttonsDiv);
         userMsgDiv.appendChild(bubble);
         chatBody.appendChild(userMsgDiv);
