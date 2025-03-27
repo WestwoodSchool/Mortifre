@@ -8,7 +8,6 @@
   <!-- Favicon (Winged Logo) -->
   <link rel="icon" type="image/png" href="winged-logo.png" />
 
-  <!-- Tailwind, Fonts & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -54,7 +53,7 @@
       width: 100%;
     }
     
-    /* Account Modal Styles */
+    /* Account Modal */
     #account-modal {
       position: fixed;
       top: 50%;
@@ -104,11 +103,11 @@
         <div class="hidden md:flex space-x-8">
           <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
           <a href="about.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">About</a>
-          <a href="#" id="account-link" class="nav-link text-black inter hover:text-gray-700 transition-colors">My Account</a>
         </div>
       </div>
-      <!-- Right: Search & Cart -->
-      <div class="flex items-center space-x-6 relative">
+      <!-- Right: Search, Account Icon & Cart -->
+      <div class="flex items-center space-x-6">
+        <!-- Search input (redirects on Enter) -->
         <div class="relative">
           <input
             id="search-index"
@@ -118,7 +117,9 @@
           />
           <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
         </div>
-        <!-- Cart button now links directly -->
+        <!-- Account Icon -->
+        <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
+        <!-- Cart Icon (links to cart.html) -->
         <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
           <i class="ri-shopping-bag-line text-xl"></i>
         </a>
@@ -135,7 +136,7 @@
     <button id="signup-btn" class="mt-2">Sign Up</button>
   </div>
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION / TITLE CARD -->
   <section class="relative h-screen overflow-hidden">
     <!-- Video Background -->
     <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
@@ -160,7 +161,7 @@
   </section>
 
   <script>
-    // Redirect search query on Enter
+    // Simple search on index: redirect to latestdrop.html?search=...
     document.addEventListener('DOMContentLoaded', function() {
       const searchIndex = document.getElementById('search-index');
       searchIndex.addEventListener('keydown', function(e) {
@@ -172,39 +173,33 @@
         }
       });
       
-      // Account Modal Toggle
-      const accountLink = document.getElementById('account-link');
+      // Account Modal logic
+      const accountIcon = document.getElementById('account-icon');
       const accountModal = document.getElementById('account-modal');
-      accountLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        accountModal.style.display = "block";
+      accountIcon.addEventListener('click', function() {
+        accountModal.style.display = 'block';
       });
-      // Simple close when clicking outside modal (or you can add a dedicated close button)
       window.addEventListener('click', function(e) {
         if (e.target === accountModal) {
-          accountModal.style.display = "none";
+          accountModal.style.display = 'none';
         }
       });
-      
-      // (Optional) Login and Signup button handlers:
       document.getElementById('login-btn').addEventListener('click', function() {
-        // Dummy login – store email in localStorage
         const email = document.getElementById('account-email').value;
         if (email) {
           localStorage.setItem('accountEmail', email);
           alert("Logged in as " + email);
-          accountModal.style.display = "none";
+          accountModal.style.display = 'none';
         } else {
           alert("Please enter your email.");
         }
       });
       document.getElementById('signup-btn').addEventListener('click', function() {
-        // Dummy signup – store email in localStorage
         const email = document.getElementById('account-email').value;
         if (email) {
           localStorage.setItem('accountEmail', email);
           alert("Account created for " + email);
-          accountModal.style.display = "none";
+          accountModal.style.display = 'none';
         } else {
           alert("Please enter your email.");
         }
