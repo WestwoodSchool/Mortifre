@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,10 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: { primary: '#000000', secondary: '#ffffff' },
+          colors: { 
+            primary: '#000000', 
+            secondary: '#ffffff' 
+          },
           borderRadius: {
             'none': '0px',
             'sm': '8px',
@@ -50,7 +53,7 @@
       height: 1px;
       bottom: -2px;
       left: 0;
-      background-color: #000;
+      background-color: #ffffff;
       transition: width 0.3s;
     }
     .nav-link:hover::after {
@@ -58,43 +61,68 @@
     }
     .playfair { font-family: 'Playfair Display', serif; }
     .inter { font-family: 'Inter', sans-serif; }
+
+    /* Header icon hover effect */
+    #account-icon:hover,
+    .cart-icon:hover {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+
+    /* Wing Animation in Hero */
+    .wing-animation {
+      position: absolute;
+      top: 20%;
+      right: -80px;
+      width: 150px;
+      opacity: 0.7;
+      animation: flyWing 8s infinite alternate;
+    }
+    @keyframes flyWing {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-30px) rotate(10deg); opacity: 1; }
+    }
   </style>
 </head>
 <body class="bg-[#121212]">
   <!-- HEADER -->
-  <nav class="fixed w-full z-50 bg-[#f5f5f5]/30 backdrop-blur-md transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <!-- Left: Logo & Navigation -->
-        <div class="flex items-center space-x-12">
-          <!-- Logo remains Home -->
-          <a href="index.html">
-            <img src="winged-logo.png" alt="Logo" class="h-12" />
-          </a>
-          <!-- Updated Navigation: Home and Latest Drop -->
-          <div class="hidden md:flex space-x-8">
-            <a href="index.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Home</a>
-            <a href="latestdrop.html" class="nav-link text-black inter hover:text-gray-700 transition-colors">Latest Drop</a>
-          </div>
+  <nav class="fixed w-full z-50 bg-black/70 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Left: Logo & Navigation -->
+      <div class="flex items-center space-x-12">
+        <a href="index.html">
+          <img src="winged-logo.png" alt="Logo" class="h-12" />
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="nav-link text-white inter hover:text-gray-300 transition-colors">Home</a>
+          <a href="latestdrop.html" class="nav-link text-white inter hover:text-gray-300 transition-colors">Latest Drop</a>
         </div>
-        <!-- Right: Search & Cart Icon -->
-        <div class="flex items-center space-x-6">
-          <div class="relative">
-            <input
-              id="search-about"
-              type="text"
-              placeholder="Search"
-              class="bg-white/10 text-black inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-black/30"
-            />
-            <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-black/50"></i>
-          </div>
-          <a href="cart.html" class="w-10 h-10 flex items-center justify-center text-black hover:text-gray-700 transition-colors">
-            <i class="ri-shopping-bag-line text-xl"></i>
-          </a>
+      </div>
+      <!-- Right: Search, Cart & Account Icons -->
+      <div class="flex items-center space-x-6">
+        <div class="relative">
+          <input id="search-about" type="text" placeholder="Search" class="bg-white/10 text-white inter text-sm px-4 py-2 w-48 rounded-button focus:outline-none focus:ring-1 focus:ring-white/30" />
+          <i class="ri-search-line absolute right-3 top-1/2 -translate-y-1/2 text-white/50"></i>
         </div>
+        <a href="cart.html" class="w-10 h-10 flex items-center justify-center cart-icon text-white hover:text-gray-300 transition-colors">
+          <i class="ri-shopping-bag-line text-xl"></i>
+        </a>
+        <img id="account-icon" src="acc.png" alt="My Account" class="w-10 h-10 rounded-full cursor-pointer" />
       </div>
     </div>
   </nav>
+
+  <!-- Account Overlay -->
+  <div id="account-overlay">
+    <div class="account-modal">
+      <button class="close-account-overlay">&times;</button>
+      <h2 id="overlay-title" class="text-center text-xl mb-4">Sign In</h2>
+      <input type="text" id="account-email" placeholder="Email" class="form-field"/>
+      <input type="password" id="account-password" placeholder="Password" class="form-field"/>
+      <button id="login-btn" class="form-button">Sign In</button>
+      <p class="text-center">or <span id="toggle-signup" class="toggle-link">Sign Up</span></p>
+    </div>
+  </div>
 
   <!-- HERO SECTION -->
   <section class="relative h-screen overflow-hidden">
@@ -105,6 +133,10 @@
         <h1 class="text-6xl md:text-7xl text-white inter font-bold mb-4">About Mortifère</h1>
         <p class="text-xl text-white/90 inter">Where Luxury Meets Streetwear</p>
       </div>
+    </div>
+    <!-- Wing Animation Element -->
+    <div class="wing-animation">
+      <img src="wing.png" alt="Wing" class="w-full h-full object-contain" />
     </div>
   </section>
 
@@ -177,14 +209,14 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#1a1a1a] py-8">
+  <footer class="bg-black py-8">
     <div class="max-w-7xl mx-auto px-6 text-center">
       <p class="text-gray-400 inter">&copy; 2025 Mortifère. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Simple search on the About page: redirect to latestdrop.html?search=...
+    // Search functionality for About page
     document.addEventListener('DOMContentLoaded', function() {
       const searchAbout = document.getElementById('search-about');
       searchAbout.addEventListener('keydown', function(e) {
@@ -194,6 +226,61 @@
             window.location.href = 'latestdrop.html?search=' + encodeURIComponent(term);
           }
         }
+      });
+    });
+
+    /* ------------------ ACCOUNT OVERLAY FUNCTIONALITY ------------------ */
+    document.addEventListener('DOMContentLoaded', function() {
+      const accountIcon = document.getElementById('account-icon');
+      const accountOverlay = document.getElementById('account-overlay');
+      let isSignUp = false;
+      const closeAccountOverlayBtn = accountOverlay.querySelector('.close-account-overlay');
+      const loginBtn = document.getElementById('login-btn');
+      const toggleSignupLink = document.getElementById('toggle-signup');
+      const overlayTitle = document.getElementById('overlay-title');
+
+      accountIcon.addEventListener('click', function() {
+        accountOverlay.style.display = "flex";
+      });
+      closeAccountOverlayBtn.addEventListener('click', function() {
+        accountOverlay.style.display = "none";
+      });
+      accountOverlay.addEventListener('click', function(e) {
+        if (e.target === accountOverlay) {
+          accountOverlay.style.display = "none";
+        }
+      });
+      toggleSignupLink.addEventListener('click', function() {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+          overlayTitle.textContent = "Sign Up";
+          loginBtn.textContent = "Create Account";
+          toggleSignupLink.textContent = "Sign In";
+        } else {
+          overlayTitle.textContent = "Sign In";
+          loginBtn.textContent = "Sign In";
+          toggleSignupLink.textContent = "Sign Up";
+        }
+      });
+      loginBtn.addEventListener('click', function() {
+        const email = document.getElementById('account-email').value.trim();
+        const password = document.getElementById('account-password').value.trim();
+        if (!email || !password) {
+          alert("Please enter your email and password.");
+          return;
+        }
+        if (isSignUp) {
+          localStorage.setItem('accountEmail', email);
+          alert("Account created for " + email);
+        } else {
+          const existingEmail = localStorage.getItem('accountEmail');
+          if (existingEmail === email) {
+            alert("Welcome back, " + email + "!");
+          } else {
+            alert("No account found for this email. Please sign up first.");
+          }
+        }
+        accountOverlay.style.display = "none";
       });
     });
   </script>
